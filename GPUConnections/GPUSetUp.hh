@@ -38,7 +38,7 @@ private:
     // Vector de llums de l'escena
     std::vector<shared_ptr<GPULight>> lights;
     // Llum global
-    vec3 globalLight = (1.0f, 0.0, 0.0);
+    vec3 globalLight;
 
     shared_ptr<GPULight> getLightActual();
     void setLightActual(shared_ptr<GPULight> l);
