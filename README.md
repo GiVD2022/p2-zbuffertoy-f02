@@ -50,7 +50,15 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
     - [ ] Transparències via objectes: 
     - [ ] Transparències via environmental mapping
 
+**Preguntes**
+- Pas 1.1: Pas de la llum ambient global a la GPU
+    * **Decideix el moment en el que cal passar la llum ambient global a la GPU (al initializeGL? Al updateGL? En
+crear un objecte? )**
 
+- Pas 1.2: Pas de la llum de tipus puntual a la GPU. Creació de nous tipus de llums
+    * **Ara es crea una llum puntual al initializeGL() de la classe GLWidget, quan l’hauries de passar a la GPU? A l’inici de
+tot? Cada vegada que es visualitza l’escena?**
+    * **Què contindrà el "struct" de la GPU? Com l’estructurareu?**
 **Extensions addicionals**
 
 
