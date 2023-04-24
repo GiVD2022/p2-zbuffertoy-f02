@@ -3,6 +3,7 @@
 GPUSetUp::GPUSetUp()
 {
   camera = make_shared<GPUCamera>(500, 500);
+  this->setGlobalLight(vec3(1.0, 0.0, 0.0));
 }
 
 
@@ -66,6 +67,10 @@ void GPUSetUp::addLight(shared_ptr<GPULight> l) {
  */
 void GPUSetUp::setAmbientGlobalToGPU(shared_ptr<QGLShaderProgram> program){
     // Pràctica 2: TO DO: A implementar a la fase 1
+    GLuint idAmbientGlobal;
+    idAmbientGlobal = program->uniformLocation("ambientGlobal");
+    glUniform3fv(idAmbientGlobal, 1, globalLight);
+    //des d'on crido al toGPU? Comú a tots els objectes ->initializeGL
 
 }
 
