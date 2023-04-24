@@ -1,0 +1,891 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>885</width>
+    <height>885</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="16" column="0">
+     <widget class="QTabWidget" name="mainTabs">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="perspectiveTab">
+       <attribute name="title">
+        <string>Perspective</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="0" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Near Plane :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="persNearSpin">
+            <property name="decimals">
+             <number>2</number>
+            </property>
+            <property name="minimum">
+             <double>0.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="persNearSlider">
+            <property name="maximum">
+             <number>99900</number>
+            </property>
+            <property name="value">
+             <number>10</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Far Plane :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="persFarSpin">
+            <property name="minimum">
+             <double>0.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>100.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="persFarSlider">
+            <property name="maximum">
+             <number>99900</number>
+            </property>
+            <property name="value">
+             <number>10000</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="lookAtTab">
+       <attribute name="title">
+        <string>Look At</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Eye (X,Y,Z) :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lookEyeXSpin">
+            <property name="minimum">
+             <double>-99999.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>99999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>0.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lookEyeYSpin">
+            <property name="minimum">
+             <double>-99999.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>99999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>0.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lookEyeZSpin">
+            <property name="minimum">
+             <double>-99999.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>99999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>1.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Center (X,Y,Z) :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lookCenterXSpin">
+            <property name="minimum">
+             <double>-99999.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>99999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lookCenterYSpin">
+            <property name="minimum">
+             <double>-99999.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>99999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lookCenterZSpin">
+            <property name="minimum">
+             <double>-99999.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>99999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Up (X,Y,Z) :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lookUpXSpin">
+            <property name="minimum">
+             <double>-99999.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>99999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lookUpYSpin">
+            <property name="minimum">
+             <double>-99999.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>99999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>1.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lookUpZSpin">
+            <property name="minimum">
+             <double>-99999.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>99999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="diffuseLightTab">
+       <attribute name="title">
+        <string>Point Light</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="1" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_14">
+          <item>
+           <widget class="QLabel" name="label_12">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Ia :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lightIa1Spin">
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>0.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lightIa2Spin">
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>1.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lightIa3Spin">
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>0.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="3" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_41">
+          <item>
+           <widget class="QLabel" name="label_21">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Is :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lightIs1Spin">
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>0.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lightIs2Spin">
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>1.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lightIs3Spin">
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>0.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="4" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_42">
+          <item>
+           <widget class="QLabel" name="label_421">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Atenuation :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lightCoefA">
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>0.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lightCoefB">
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>0.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lightCoefC">
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>1.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_13">
+          <item>
+           <widget class="QLabel" name="label_11">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Position (X,Y,Z) :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lightPosXSpin">
+            <property name="minimum">
+             <double>-99999.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>99999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>-25.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lightPosYSpin">
+            <property name="minimum">
+             <double>-99999.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>99999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>25.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lightPosZSpin">
+            <property name="minimum">
+             <double>-99999.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>99999.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>25.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_15">
+          <item>
+           <widget class="QLabel" name="label_13">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Id :</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lightId1Spin">
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>1.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lightId2Spin">
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>1.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="lightId3Spin">
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>1.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="15" column="0">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>85000</width>
+        <height>85000</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Scene Viewer</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <property name="spacing">
+        <number>0</number>
+       </property>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>885</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuModels">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="action_obre_fitxer"/>
+    <addaction name="action_obre_escena"/>
+    <addaction name="action_obre_dades"/>
+    <addaction name="separator"/>
+    <addaction name="actionLoadSetUp"/>
+    <addaction name="separator"/>
+    <addaction name="action_save_frame_as_image"/>
+    <addaction name="action_start_and_save_animation"/>
+    <addaction name="separator"/>
+    <addaction name="action_exit"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuShaders">
+    <property name="title">
+     <string>Shaders</string>
+    </property>
+    <addaction name="actionColor_Shader"/>
+    <addaction name="actionNormal_Shader"/>
+    <addaction name="action_depth"/>
+    <addaction name="separator"/>
+    <addaction name="action_gouraud"/>
+    <addaction name="action_phong"/>
+    <addaction name="separator"/>
+    <addaction name="actionGouraud_Blinn_Phong_Shader"/>
+    <addaction name="actionBlinn_Phong_Shader"/>
+    <addaction name="separator"/>
+    <addaction name="action_toon"/>
+   </widget>
+   <widget class="QMenu" name="menuAdvanced">
+    <property name="title">
+     <string>Advanced</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="action_environmental_mapping"/>
+    <addaction name="separator"/>
+    <addaction name="action_reflections"/>
+    <addaction name="action_transparencies"/>
+    <addaction name="separator"/>
+    <addaction name="actionCentered_Target"/>
+    <addaction name="actionHighlight_Region"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuModels"/>
+   <addaction name="menuShaders"/>
+   <addaction name="menuAdvanced"/>
+   <addaction name="menuAbout"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="action_phong">
+   <property name="text">
+    <string>Phong Shader</string>
+   </property>
+   <property name="toolTip">
+    <string>Activar Phong Shader</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+4</string>
+   </property>
+  </action>
+  <action name="action_gouraud">
+   <property name="text">
+    <string>Gouraud-Phong Shader</string>
+   </property>
+   <property name="toolTip">
+    <string>Activar Gouraud Shader</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+3</string>
+   </property>
+  </action>
+  <action name="action_toon">
+   <property name="text">
+    <string>Cell Shader</string>
+   </property>
+   <property name="toolTip">
+    <string>Activar Toon Shader</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+7</string>
+   </property>
+  </action>
+  <action name="action_obre_fitxer">
+   <property name="text">
+    <string>Open .obj</string>
+   </property>
+   <property name="toolTip">
+    <string>Obre Fitxer .obj</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="action_environmental_mapping">
+   <property name="text">
+    <string>Environmental-mapping</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+4</string>
+   </property>
+  </action>
+  <action name="action_transparencies">
+   <property name="text">
+    <string>Transparencies</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+5</string>
+   </property>
+  </action>
+  <action name="action_afegeix_llum_puntual">
+   <property name="text">
+    <string>Afegeix Llum</string>
+   </property>
+  </action>
+  <action name="action_save_frame_as_image">
+   <property name="text">
+    <string>Save Frame as Image</string>
+   </property>
+  </action>
+  <action name="action_obre_escena">
+   <property name="text">
+    <string>Open Virtual Scene</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="action_start_and_save_animation">
+   <property name="text">
+    <string>Start and Save Animation</string>
+   </property>
+  </action>
+  <action name="action_exit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionLoadSetUp">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Load SetUp</string>
+   </property>
+  </action>
+  <action name="action_obre_dades">
+   <property name="text">
+    <string>Open Data File</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="action_depth">
+   <property name="text">
+    <string>Depth Shader</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+2</string>
+   </property>
+  </action>
+  <action name="actionColor_Shader">
+   <property name="text">
+    <string>Color Shader</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+0</string>
+   </property>
+  </action>
+  <action name="actionNormal_Shader">
+   <property name="text">
+    <string>Normal Shader</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+1</string>
+   </property>
+  </action>
+  <action name="actionBlinn_Phong_Shader">
+   <property name="text">
+    <string>Blinn-Phong Shader</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+6</string>
+   </property>
+  </action>
+  <action name="actionGouraud_Blinn_Phong_Shader">
+   <property name="text">
+    <string>Gouraud-Blinn-Phong Shader</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+5</string>
+   </property>
+  </action>
+  <action name="action_reflections">
+   <property name="text">
+    <string>Reflections</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionCentered_Target">
+   <property name="text">
+    <string>Night vision</string>
+   </property>
+  </action>
+  <action name="actionHighlight_Region">
+   <property name="text">
+    <string>Fornite Storm</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>mainTabs</tabstop>
+  <tabstop>persNearSpin</tabstop>
+  <tabstop>persNearSlider</tabstop>
+  <tabstop>persFarSpin</tabstop>
+  <tabstop>persFarSlider</tabstop>
+  <tabstop>lookEyeXSpin</tabstop>
+  <tabstop>lookEyeYSpin</tabstop>
+  <tabstop>lookEyeZSpin</tabstop>
+  <tabstop>lookCenterXSpin</tabstop>
+  <tabstop>lookCenterYSpin</tabstop>
+  <tabstop>lookCenterZSpin</tabstop>
+  <tabstop>lookUpXSpin</tabstop>
+  <tabstop>lookUpYSpin</tabstop>
+  <tabstop>lookUpZSpin</tabstop>
+  <tabstop>lightPosXSpin</tabstop>
+  <tabstop>lightPosYSpin</tabstop>
+  <tabstop>lightPosZSpin</tabstop>
+  <tabstop>lightIa1Spin</tabstop>
+  <tabstop>lightIa2Spin</tabstop>
+  <tabstop>lightIa3Spin</tabstop>
+  <tabstop>lightId1Spin</tabstop>
+  <tabstop>lightId2Spin</tabstop>
+  <tabstop>lightId3Spin</tabstop>
+  <tabstop>lightIs2Spin</tabstop>
+  <tabstop>lightIs3Spin</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

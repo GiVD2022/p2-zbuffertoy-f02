@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/GPUshaders/fshader1.glsl</file>
+        <file>resources/GPUshaders/vshader1.glsl</file>
+        <file>resources/assetsGUI/RTXOFF.png</file>
+        <file>resources/assetsGUI/RTXON.png</file>
+        <file>resources/models/cube.obj</file>
+        <file>resources/assetsGUI/Background.png</file>
+        <file>resources/assetsGUI/Ia.png</file>
+        <file>resources/assetsGUI/3412784.png</file>
+    </qresource>
+</RCC>

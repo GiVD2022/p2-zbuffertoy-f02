@@ -1,0 +1,20 @@
+{
+"scene": "Mesh",
+"typeScene": "VIRTUAL",
+"objects": [
+  {
+  "name": "Br Objecte",
+  "type":  "MESH",
+    "objFileName": "://resources/models/cube.obj",
+    "material": {
+      "type": "lambertian",
+      "ka": [0.2, 0.2, 0.2],
+      "kd": [0.7,0.6,0.5],
+      "ks": [0.7, 0.7, 0.7],
+      "shininess": 10.0,
+      "kt": [0.0, 0.0, 0.0],
+      "nut": 1
+      }
+    }
+]
+}
