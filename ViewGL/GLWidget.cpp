@@ -44,6 +44,9 @@ void GLWidget::initializeGL() {
     ligths.push_back(l);
     Controller::getInstance()->getSetUp()->setLights(ligths);
 
+    // set up lights on GPU
+    Controller::getInstance()->getSetUp()->lightsToGPU(program);
+
     shared_ptr<GPUCamera> camera = Controller::getInstance()->getSetUp()->getCamera();
     auto scene = Controller::getInstance()->getScene();
 

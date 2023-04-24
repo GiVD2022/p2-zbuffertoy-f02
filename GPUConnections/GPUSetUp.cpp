@@ -80,6 +80,9 @@ void GPUSetUp::setAmbientGlobalToGPU(shared_ptr<QGLShaderProgram> program){
  */
 void GPUSetUp::lightsToGPU(shared_ptr<QGLShaderProgram> program){
     // Practica 2: TO DO: A implementar a la fase 1
+    for (int i = 0; i < lights.size(); i++) {
+            lights[i]->toGPU(program);
+        }
 
 }
 

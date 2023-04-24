@@ -26,5 +26,11 @@ public:
 
     virtual void toGPU(shared_ptr<QGLShaderProgram> p) override;
 
+    struct idLights {
+        GLuint idIA;
+        GLuint idId;
+        GLuint idIs;
+    };
+
 };
 

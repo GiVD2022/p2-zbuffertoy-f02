@@ -6,6 +6,13 @@ layout (location = 1) in vec4 vColor;
 uniform mat4 model_view;
 uniform mat4 projection;
 uniform vec3 ambientGlobal; //vull veure esfera obtinguda amb aquest color
+struct Light
+{
+vec3 Ia;
+vec3 Id;
+float Is;
+};
+uniform Light conjunt[5];
 out vec4 color;
 
 void main()
