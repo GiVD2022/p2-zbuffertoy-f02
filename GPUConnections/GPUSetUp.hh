@@ -27,7 +27,10 @@ public:
     virtual void print (int indentation) const override;
 
     virtual ~GPUSetUp() {};
+
+    // TODO Pràctica 2: FASE 1: Enviar les llums a la GPU
     void setAmbientGlobalToGPU(shared_ptr<QGLShaderProgram> program);
+    void lightsToGPU(shared_ptr<QGLShaderProgram> program);
 
 private:
 
@@ -44,10 +47,4 @@ private:
     void setLightActual(shared_ptr<GPULight> l);
     void addLight(shared_ptr<GPULight> l);
 
-    // TODO Pràctica 2: FASE 1: Enviar les llums a la GPU
-
-    void lightsToGPU(shared_ptr<QGLShaderProgram> program);
-
-
 };
-

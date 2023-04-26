@@ -27,15 +27,8 @@ vec3 Light::getIs() {
  */
 void Light::setId(vec3 i) {
     // TO DO: Pràctica 2: A canviar a la fase 1
+    this->Id = i;
 
-}
-
-/**
- * @brief Light::setLightPosition
- * @param v
- */
-void Light::setLightPosition(vec4 v) {
-    // TO DO: Pràctica 2: A canviar a la fase 1
 }
 
 /**
@@ -45,6 +38,7 @@ void Light::setLightPosition(vec4 v) {
 void Light::setIa(const vec3 &value)
 {
    // TO DO: Pràctica 2: A canviar a la fase 1
+    this->Ia = value;
 
 }
 
@@ -55,28 +49,8 @@ void Light::setIa(const vec3 &value)
 void Light::setIs(const vec3 &value)
 {
     // TO DO: Pràctica 2: A canviar a la fase 1
+    this->Is = value;
 }
-
-/**
- * @brief Light::getCoeficients
- * @return
- */
-vec3 Light::getCoeficients() const
-{
-    // TO DO: Pràctica 2: A canviar a la fase 1
-       return(vec3(1.0, 1.0, 1.0));
-}
-
-/**
- * @brief Light::setCoeficients
- * @param value
- */
-void Light::setCoeficients(const vec3 &value)
-{
-   // TO DO: Pràctica 2: A canviar a la fase 1
-}
-
-
 
 
 void Light::read (const QJsonObject &json)

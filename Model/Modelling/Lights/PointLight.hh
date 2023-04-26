@@ -19,7 +19,10 @@ public:
      * */
     PointLight(vec3 posicio, vec3 Ia, vec3 Id, vec3 Is, float a, float b, float c);
     virtual ~PointLight() {}
-    vec3 getPos();
+    vec3 getPosition();
+    void setPosition(vec3 v);
+    vec3 getCoeficients() const;
+    void setCoeficients(const vec3 &value);
     virtual vec3 vectorL(vec3 point) override;
     virtual float attenuation(vec3 point) override;
     virtual float distanceToLight(vec3 point) override;
