@@ -4,6 +4,7 @@
 #include "GPUConnections/GPULightFactory.hh"
 #include "GPUConnections/GPUCamera.hh"
 #include "Model/Rendering/SetUp.hh"
+#include "library/Common.h"
 
 using namespace std;
 
@@ -26,6 +27,7 @@ public:
     virtual void print (int indentation) const override;
 
     virtual ~GPUSetUp() {};
+    void setAmbientGlobalToGPU(shared_ptr<QGLShaderProgram> program);
 
 private:
 
@@ -45,7 +47,7 @@ private:
     // TODO Pràctica 2: FASE 1: Enviar les llums a la GPU
 
     void lightsToGPU(shared_ptr<QGLShaderProgram> program);
-    void setAmbientGlobalToGPU(shared_ptr<QGLShaderProgram> program);
+
 
 };
 
