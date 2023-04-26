@@ -192,4 +192,3 @@ void GPUSetUp::print(int indentation) const
     QTextStream(stdout) << indent << "globalLight:\t" << globalLight[0] << ", "<< globalLight[1] << ", "<< globalLight[2] << "\n";
 }
 
-

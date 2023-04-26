@@ -46,9 +46,5 @@ public:
     void setIa(const vec3 &value);
     void setId(vec3 i);
     void setIs(const vec3 &value);
-
-
-
-
 };
 

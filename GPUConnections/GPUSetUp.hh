@@ -48,4 +48,3 @@ private:
     void addLight(shared_ptr<GPULight> l);
 
 };
-

@@ -90,4 +90,3 @@ void PointLight::print(int indentation) const
     QTextStream(stdout) << indent + 2 << "c:\t" << c << "\n";
 
 }
-
