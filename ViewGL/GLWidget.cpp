@@ -40,11 +40,42 @@ void GLWidget::initializeGL() {
     // Creacio d'una Light per a poder modificar el seus valors amb la interficie
     // TO DO: Pràctica 2: Fase 1:  Canviar per a que siguin GPULigths i usar la factory GPULightFactory que facis nova
     std::vector<shared_ptr<GPULight>> ligths;
-    auto l  = GPULightFactory::getInstance().createLight(LightFactory::POINTLIGHT);
-    ligths.push_back(l);
-    Controller::getInstance()->getSetUp()->setLights(ligths);
 
-    // set up lights on GPU
+    //creacio de tres llums puntuals
+    // Point light 1
+    vec3 position1 = vec3(1.0, 1.0, 1.0);
+    vec3 Ia1 = vec3(0.2, 0.2, 0.2);
+    vec3 Id1 = vec3(1.0, 1.0, 1.0);
+    vec3 Is1 = vec3(1.0, 1.0, 1.0);
+    float a1 = 0.0;
+    float b1 = 0.0;
+    float c1 = 1.0;
+    auto light1 = GPULightFactory::getInstance().createLight(position1, Ia1, Id1, Is1, a1, b1, c1, LightFactory::POINTLIGHT);
+    ligths.push_back(light1);
+
+    // Point light 2
+    vec3 position2 = vec3(-2.0, 3.0, 1.0);
+    vec3 Ia2 = vec3(0.1, 0.1, 0.1);
+    vec3 Id2 = vec3(0.7, 0.3, 0.0);
+    vec3 Is2 = vec3(0.7, 0.3, 0.0);
+    float a2 = 0.0;
+    float b2 = 0.0;
+    float c2 = 1.0;
+    auto light2 = GPULightFactory::getInstance().createLight(position2, Ia2, Id2, Is2, a2, b2, c2, LightFactory::POINTLIGHT);
+    ligths.push_back(light2);
+
+    // Point light 3
+    vec3 position3 = vec3(-1.0, 2.0, -3.0);
+    vec3 Ia3 = vec3(0.1, 0.1, 0.1);
+    vec3 Id3 = vec3(0.0, 0.5, 1.0);
+    vec3 Is3 = vec3(0.0, 0.5, 1.0);
+    float a3 = 0.0;
+    float b3 = 0.0;
+    float c3 = 1.0;
+    auto light3 = GPULightFactory::getInstance().createLight(position3, Ia3, Id3, Is3, a3, b3, c3, LightFactory::POINTLIGHT);
+    ligths.push_back(light3);
+
+    Controller::getInstance()->getSetUp()->setLights(ligths);
     Controller::getInstance()->getSetUp()->lightsToGPU(program);
 
     shared_ptr<GPUCamera> camera = Controller::getInstance()->getSetUp()->getCamera();
@@ -268,7 +299,10 @@ void GLWidget::setLighting(const QVector3D &lightPos, const QVector3D &Ia, const
     lights[0]->setIa(intensityA);
     lights[0]->setId(intensityD);
     lights[0]->setIs(intensityS);
-    lights[0]->setLightPosition(lightPosition);
+    if (auto point_light = dynamic_cast<PointLight*>(lights[0].get())) {
+        point_light->setPosition(vec3(lightPosition.x, lightPosition.y, lightPosition.z));
+    }
+
     updateGL();
 }
 

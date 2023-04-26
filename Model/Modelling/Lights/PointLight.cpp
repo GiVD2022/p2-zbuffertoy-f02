@@ -7,8 +7,26 @@ PointLight::PointLight(vec3 posicio, vec3 Ia, vec3 Id, vec3 Is, float a, float b
     this->c = c;
 }
 
-vec3 PointLight::getPos() {
+vec3 PointLight::getPosition() {
     return this->pos;
+}
+
+void PointLight::setPosition(vec3 v) {
+    this->pos = v;
+}
+
+vec3 PointLight::getCoeficients() const
+{
+    // TO DO: Pràctica 2: A canviar a la fase 1
+       return(vec3(a, b, c));
+}
+
+void PointLight::setCoeficients(const vec3 &value)
+{
+   // TO DO: Pràctica 2: A canviar a la fase 1
+    this->a = value.x;
+    this->b = value.y;
+    this->c = value.z;
 }
 
 vec3 PointLight::vectorL(vec3 point) {

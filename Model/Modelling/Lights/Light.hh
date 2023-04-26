@@ -43,15 +43,11 @@ public:
 
     virtual ~Light() {};
 
-    vec4 getLightPosition();
-    void setLightPosition(vec4 v);
-
     void setIa(const vec3 &value);
     void setId(vec3 i);
     void setIs(const vec3 &value);
 
-    vec3 getCoeficients() const;
-    void setCoeficients(const vec3 &value);
+
 
 
 };

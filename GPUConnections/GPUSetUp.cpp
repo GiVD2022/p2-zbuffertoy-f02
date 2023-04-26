@@ -80,9 +80,42 @@ void GPUSetUp::setAmbientGlobalToGPU(shared_ptr<QGLShaderProgram> program){
  */
 void GPUSetUp::lightsToGPU(shared_ptr<QGLShaderProgram> program){
     // Practica 2: TO DO: A implementar a la fase 1
-    for (int i = 0; i < lights.size(); i++) {
-            lights[i]->toGPU(program);
+    // Declare a vector of gl_IdLight structures
+    qDebug() << "reading lights, num:.....";
+    int numLights = static_cast<int>(lights.size());
+    qDebug() << numLights;
+    struct gl_IdLight {
+        GLuint Ia;
+        GLuint Id;
+        GLuint Is;
+        GLuint position;
+        GLuint coeficients;
+    };
+    gl_IdLight gl_IdLights[5];
+
+    // Get the uniform locations for each of the properties for all 5 lights
+    for (int i = 0; i < numLights; i++) {
+        gl_IdLights[i].Ia = program->uniformLocation(QString("light_info[%1].Ia").arg(i));
+        gl_IdLights[i].Id = program->uniformLocation(QString("light_info[%1].Id").arg(i));
+        gl_IdLights[i].Is = program->uniformLocation(QString("light_info[%1].Is").arg(i));
+        gl_IdLights[i].position = program->uniformLocation(QString("light_info[%1].position").arg(i));
+        gl_IdLights[i].coeficients = program->uniformLocation(QString("light_info[%1].coeficients").arg(i));
+    }
+
+    // Bind the values of each property for all 5 lights
+    for (int i = 0; i < numLights; i++) {
+        if (auto point_light = dynamic_cast<PointLight*>(lights[i].get())) {
+                glUniform3fv(gl_IdLights[i].Ia, 1, point_light->getIa());
+                glUniform3fv(gl_IdLights[i].Id, 1, point_light->getId());
+                glUniform3fv(gl_IdLights[i].Is, 1, point_light->getIs());
+                glUniform4fv(gl_IdLights[i].position, 1, point_light->getPosition());
+                glUniform3fv(gl_IdLights[i].coeficients, 1, point_light->getCoeficients());
+                qDebug() << "point lights.....";
+        }else {
+            // Handle other types of lights, e.g. directional light, here
         }
+    }
+
 
 }
 

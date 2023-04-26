@@ -2,6 +2,8 @@
 
 #include "GPUConnections/GPUConnectable.hh"
 #include "Model/Modelling/Lights/Light.hh"
+#define MAX 5
+
 using namespace std;
 
 class GPULight: public Light, public GPUConnectable {
@@ -25,12 +27,6 @@ public:
     virtual float distanceToLight(vec3 point) override = 0;
 
     virtual void toGPU(shared_ptr<QGLShaderProgram> p) override;
-
-    struct idLights {
-        GLuint idIA;
-        GLuint idId;
-        GLuint idIs;
-    };
 
 };
 
