@@ -3,6 +3,7 @@
 #include "library/Singleton.hh"
 #include "Light.hh"
 #include "PointLight.hh"
+#include "DirectionalLight.hh"
 
 class LightFactory : public Singleton<LightFactory>
 {
@@ -26,6 +27,7 @@ public:
 
     shared_ptr<Light> createLight( LIGHT_TYPES t);
     shared_ptr<Light> createLight(vec3 posicio, vec3 Ia, vec3 Id, vec3 Is, float a, float b, float c,  LIGHT_TYPES t);
+    shared_ptr<Light> createLight(vec3 direction, vec3 Ia, vec3 Id, vec3 Is, float intensity, LIGHT_TYPES t);
     LIGHT_TYPES getIndexType (shared_ptr<Light> l);
     LIGHT_TYPES getLightType( QString name);
     QString getNameType(LIGHT_TYPES  t);

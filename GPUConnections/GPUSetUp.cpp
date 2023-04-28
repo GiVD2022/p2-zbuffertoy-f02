@@ -90,6 +90,10 @@ void GPUSetUp::lightsToGPU(shared_ptr<QGLShaderProgram> program){
         GLuint Is;
         GLuint position;
         GLuint coeficients;
+
+        // Directional lights
+        GLuint direction;
+        GLuint intensity;
     };
     gl_IdLight gl_IdLights[5];
 
@@ -100,17 +104,28 @@ void GPUSetUp::lightsToGPU(shared_ptr<QGLShaderProgram> program){
         gl_IdLights[i].Is = program->uniformLocation(QString("light_info[%1].Is").arg(i));
         gl_IdLights[i].position = program->uniformLocation(QString("light_info[%1].position").arg(i));
         gl_IdLights[i].coeficients = program->uniformLocation(QString("light_info[%1].coeficients").arg(i));
+
+        // Directional lights
+        gl_IdLights[i].direction = program->uniformLocation(QString("light_info[%1].direction").arg(i));
+        gl_IdLights[i].intensity = program->uniformLocation(QString("light_info[%1].intensity").arg(i));
     }
 
     // Bind the values of each property for all 5 lights
     for (int i = 0; i < numLights; i++) {
         if (auto point_light = dynamic_cast<PointLight*>(lights[i].get())) {
-                glUniform3fv(gl_IdLights[i].Ia, 1, point_light->getIa());
-                glUniform3fv(gl_IdLights[i].Id, 1, point_light->getId());
-                glUniform3fv(gl_IdLights[i].Is, 1, point_light->getIs());
-                glUniform4fv(gl_IdLights[i].position, 1, point_light->getPosition());
-                glUniform3fv(gl_IdLights[i].coeficients, 1, point_light->getCoeficients());
-                qDebug() << "point lights.....";
+            glUniform3fv(gl_IdLights[i].Ia, 1, point_light->getIa());
+            glUniform3fv(gl_IdLights[i].Id, 1, point_light->getId());
+            glUniform3fv(gl_IdLights[i].Is, 1, point_light->getIs());
+            glUniform4fv(gl_IdLights[i].position, 1, point_light->getPosition());
+            glUniform3fv(gl_IdLights[i].coeficients, 1, point_light->getCoeficients());
+            qDebug() << "point lights.....";
+        } else if (auto directional_light = dynamic_cast<DirectionalLight*>(lights[i].get())) {
+            glUniform3fv(gl_IdLights[i].Ia, 1, directional_light->getIa());
+            glUniform3fv(gl_IdLights[i].Id, 1, directional_light->getId());
+            glUniform3fv(gl_IdLights[i].Is, 1, directional_light->getIs());
+            glUniform4fv(gl_IdLights[i].direction, 1, directional_light->getDirection());
+            glUniform1f(gl_IdLights[i].intensity, directional_light->getIntensity());
+            qDebug() << "directional lights.....";
         }else {
             // Handle other types of lights, e.g. directional light, here
         }
