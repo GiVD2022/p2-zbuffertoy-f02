@@ -128,6 +128,7 @@ void GPUSetUp::lightsToGPU(shared_ptr<QGLShaderProgram> program){
             qDebug() << "directional lights.....";
         }else {
             // Handle other types of lights, e.g. directional light, here
+            qDebug() << "unrecognized light ...";
         }
     }
 

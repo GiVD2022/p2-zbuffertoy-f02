@@ -41,6 +41,7 @@ void GLWidget::initializeGL() {
     // TO DO: Pràctica 2: Fase 1:  Canviar per a que siguin GPULigths i usar la factory GPULightFactory que facis nova
     std::vector<shared_ptr<GPULight>> ligths;
 
+    /*
     //creacio de tres llums puntuals
     // Point light 1
     vec3 position1 = vec3(1.0, 1.0, 1.0);
@@ -74,6 +75,17 @@ void GLWidget::initializeGL() {
     float c3 = 1.0;
     auto light3 = GPULightFactory::getInstance().createLight(position3, Ia3, Id3, Is3, a3, b3, c3, LightFactory::POINTLIGHT);
     ligths.push_back(light3);
+    */
+
+    // Directional light 1
+    vec3 direction = vec3(1.0, 0.0, 0.0);
+    vec3 Ia4 = vec3(0.1, 0.1, 0.1);
+    vec3 Id4 = vec3(1.0, 0.5, 0.0);
+    vec3 Is4 = vec3(1.0, 0.5, 0.0);
+    float intensity = 1.0;
+    auto light4 = GPULightFactory::getInstance().createLight(direction, Ia4, Id4, Is4, intensity, LightFactory::DIRECTIONALLIGHT);
+    ligths.push_back(light4);
+
 
     Controller::getInstance()->getSetUp()->setLights(ligths);
     Controller::getInstance()->getSetUp()->lightsToGPU(program);
