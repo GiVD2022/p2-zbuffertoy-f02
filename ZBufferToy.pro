@@ -106,6 +106,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    .gitignore \
     libWin32/glut.dll \
     libWin32/glut.lib \
     libWin32/glut32.dll \
