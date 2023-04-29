@@ -1,4 +1,4 @@
-QT       += core gui opengl
+cvxQT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -23,11 +23,14 @@ SOURCES += \
     GPUConnections/GPUSceneFactoryData.cpp \
     GPUConnections/GPUSceneFactoryVirtual.cpp \
     GPUConnections/GPUSetUp.cpp \
+    GPUConnections/GPUSpotLight.cpp \
+    GPUConnections/GPUDirectionalLight.cpp \
     Main.cpp \
     Model/Modelling/Animation.cpp \
     Model/Modelling/Lights/Light.cpp \
     Model/Modelling/Lights/LightFactory.cpp \
     Model/Modelling/Lights/PointLight.cpp \
+    Model/Modelling/Lights/DirectionalLight.cpp \
     Model/Modelling/Materials/ColorMapStatic.cpp \
     Model/Modelling/Materials/Lambertian.cpp \
     Model/Modelling/Materials/Material.cpp \
@@ -38,6 +41,7 @@ SOURCES += \
     Model/Modelling/Objects/Object.cpp \
     Model/Modelling/Objects/ObjectFactory.cpp \
     Model/Modelling/Scene.cpp \
+    Model/Modelling/Lights/SpotLight.cpp \
     Model/Modelling/TG/TG.cpp \
     Model/Modelling/TG/TranslateTG.cpp \
     Model/Rendering/ColorShading.cpp \
@@ -67,10 +71,15 @@ HEADERS += \
     GPUConnections/GPUSceneFactoryData.hh \
     GPUConnections/GPUSceneFactoryVirtual.hh \
     GPUConnections/GPUSetUp.hh \
+    GPUConnections/GPUConnectable.hh \
+    GPUConnections/GPUSpotLight.hh \
+    GPUConnections/GPUDirectionalLight.hh \
     Model/Modelling/Animation.hh \
     Model/Modelling/Hitable.hh \
     Model/Modelling/Lights/Light.hh \
     Model/Modelling/Lights/LightFactory.hh \
+    Model/Modelling/Lights/DirectionalLight.hh \
+    Model/Modelling/Lights/SpotLight.hh \
     Model/Modelling/Lights/PointLight.hh \
     Model/Modelling/Materials/ColorMap.hh \
     Model/Modelling/Materials/ColorMapStatic.hh \
