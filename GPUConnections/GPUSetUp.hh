@@ -1,10 +1,10 @@
 #pragma once
 
-
+#include "library/Common.h"
 #include "GPUConnections/GPULightFactory.hh"
 #include "GPUConnections/GPUCamera.hh"
 #include "Model/Rendering/SetUp.hh"
-#include "library/Common.h"
+
 
 using namespace std;
 

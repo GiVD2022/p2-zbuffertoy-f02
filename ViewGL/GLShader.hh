@@ -3,6 +3,7 @@
 #define PROGRAM_VERTEX_ATTRIBUTE 0
 #define PROGRAM_COLOR_ATTRIBUTE 1
 
+#include <memory>
 #include <QGLShaderProgram>
 #include <QGLShader>
 

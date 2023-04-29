@@ -90,6 +90,16 @@ void GPUSetUp::lightsToGPU(shared_ptr<QGLShaderProgram> program){
         GLuint Is;
         GLuint position;
         GLuint coeficients;
+
+        // Directional lights
+        GLuint direction;
+        GLuint intensity;
+
+        // Spot lights
+        GLuint spotDirection;
+        GLuint spotCosineCutoff;
+        GLuint spotExponent;
+
     };
     gl_IdLight gl_IdLights[5];
 
@@ -100,19 +110,45 @@ void GPUSetUp::lightsToGPU(shared_ptr<QGLShaderProgram> program){
         gl_IdLights[i].Is = program->uniformLocation(QString("light_info[%1].Is").arg(i));
         gl_IdLights[i].position = program->uniformLocation(QString("light_info[%1].position").arg(i));
         gl_IdLights[i].coeficients = program->uniformLocation(QString("light_info[%1].coeficients").arg(i));
+
+        // Directional lights
+        gl_IdLights[i].direction = program->uniformLocation(QString("light_info[%1].direction").arg(i));
+        gl_IdLights[i].intensity = program->uniformLocation(QString("light_info[%1].intensity").arg(i));
+
+        // Spot lights
+        gl_IdLights[i].spotDirection = program->uniformLocation(QString("light_info[%1].spotDirection").arg(i));
+        gl_IdLights[i].spotCosineCutoff = program->uniformLocation(QString("light_info[%1].spotCosineCutoff").arg(i));
+        gl_IdLights[i].spotExponent = program->uniformLocation(QString("light_info[%1].spotExponent").arg(i));
     }
 
     // Bind the values of each property for all 5 lights
     for (int i = 0; i < numLights; i++) {
         if (auto point_light = dynamic_cast<PointLight*>(lights[i].get())) {
-                glUniform3fv(gl_IdLights[i].Ia, 1, point_light->getIa());
-                glUniform3fv(gl_IdLights[i].Id, 1, point_light->getId());
-                glUniform3fv(gl_IdLights[i].Is, 1, point_light->getIs());
-                glUniform4fv(gl_IdLights[i].position, 1, point_light->getPosition());
-                glUniform3fv(gl_IdLights[i].coeficients, 1, point_light->getCoeficients());
-                qDebug() << "point lights.....";
-        }else {
+            glUniform3fv(gl_IdLights[i].Ia, 1, point_light->getIa());
+            glUniform3fv(gl_IdLights[i].Id, 1, point_light->getId());
+            glUniform3fv(gl_IdLights[i].Is, 1, point_light->getIs());
+            glUniform4fv(gl_IdLights[i].position, 1, point_light->getPosition());
+            glUniform3fv(gl_IdLights[i].coeficients, 1, point_light->getCoeficients());
+            qDebug() << "point lights.....";
+        } else if (auto directional_light = dynamic_cast<DirectionalLight*>(lights[i].get())) {
+            glUniform3fv(gl_IdLights[i].Ia, 1, directional_light->getIa());
+            glUniform3fv(gl_IdLights[i].Id, 1, directional_light->getId());
+            glUniform3fv(gl_IdLights[i].Is, 1, directional_light->getIs());
+            glUniform4fv(gl_IdLights[i].direction, 1, directional_light->getDirection());
+            glUniform1f(gl_IdLights[i].intensity, directional_light->getIntensity());
+            qDebug() << "directional lights.....";
+        } else if (auto spot_light = dynamic_cast<SpotLight*>(lights[i].get())) {
+            glUniform4fv(gl_IdLights[i].position, 1, spot_light->getPos());
+            glUniform3fv(gl_IdLights[i].Ia, 1, spot_light->getIa());
+            glUniform3fv(gl_IdLights[i].Id, 1, spot_light->getId());
+            glUniform3fv(gl_IdLights[i].Is, 1, spot_light->getIs());
+            glUniform4fv(gl_IdLights[i].spotDirection, 1, spot_light->getSpotDirection());
+            glUniform1f(gl_IdLights[i].spotCosineCutoff, spot_light->getSpotCosineCutoff());
+            glUniform1f(gl_IdLights[i].spotExponent, spot_light->getSpotExponent());
+            qDebug() << "spot lights.....";
+        } else {
             // Handle other types of lights, e.g. directional light, here
+            qDebug() << "unrecognized light ...";
         }
     }
 
