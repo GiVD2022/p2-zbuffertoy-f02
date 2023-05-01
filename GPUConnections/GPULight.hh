@@ -2,6 +2,7 @@
 
 #include "GPUConnections/GPUConnectable.hh"
 #include "Model/Modelling/Lights/Light.hh"
+#include "library/Common.h"
 #define MAX 5
 
 using namespace std;
@@ -27,6 +28,18 @@ public:
     virtual float distanceToLight(vec3 point) override = 0;
 
     virtual void toGPU(shared_ptr<QGLShaderProgram> p) override;
+
+    int getIndex();
+    void setIndex(int indx);
+
+private:
+    struct gl_IdLight {
+        GLuint Ia;
+        GLuint Id;
+        GLuint Is;
+    };
+    gl_IdLight gl_IdLightVec;
+    int index;
 
 };
 

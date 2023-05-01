@@ -92,7 +92,7 @@ void GLWidget::initializeGL() {
     vec3 Ia5 = vec3(0.1, 0.1, 0.1);
     vec3 Id5 = vec3(0.0, 0.5, 1.0);
     vec3 Is5 = vec3(1.0, 0.0, 0.5);
-    vec3 spotDirection = vec3(0,-1,0);
+    vec3 spotDirection = vec3(0,1,0);
     float spotCosineCutoff = 1.2;
     float spotExponent = 1;
     auto light5 = GPULightFactory::getInstance().createLight(position5, Ia5, Id5, Is5, spotDirection, spotCosineCutoff, spotExponent, LightFactory::SPOTLIGHT);
