@@ -5,7 +5,8 @@ GPUMesh::GPUMesh()
 	numPoints = NUMPOINTS;
 	points = new vec4[numPoints];
 	normals= new vec4[numPoints];
-	colors = new vec4[numPoints];
+    //colors = new vec4[numPoints];
+    material = GPUMaterial();
 	make();
 }
 
@@ -14,7 +15,8 @@ GPUMesh::GPUMesh(const QString &fileName): Mesh(fileName)
     numPoints = NUMPOINTS;
     points = new vec4[numPoints];
     normals= new vec4[numPoints];
-    colors = new vec4[numPoints];
+    material = GPUMaterial();
+    //colors = new vec4[numPoints];
     make();
 }
 
@@ -23,7 +25,8 @@ GPUMesh::GPUMesh(const int npoints, const QString &fileName): Mesh(fileName)
     numPoints = npoints;
     points = new vec4[numPoints];
     normals= new vec4[numPoints];
-    colors = new vec4[numPoints];
+    material = GPUMaterial();
+    //colors = new vec4[numPoints];
     make();
 }
 
@@ -31,7 +34,8 @@ void GPUMesh::read(const QJsonObject &json) {
     numPoints = NUMPOINTS;
     points = new vec4[numPoints];
     normals= new vec4[numPoints];
-    colors = new vec4[numPoints];
+    material = GPUMaterial();
+    //colors = new vec4[numPoints];
     Mesh::read(json);
     make();
 }
@@ -43,7 +47,7 @@ GPUMesh::~GPUMesh() {
 
     if (points!= nullptr) delete points;
     if (normals!= nullptr) delete normals;
-    if (colors!= nullptr) delete colors;
+    //if (material!= nullptr) delete material;
 }
 
 /**
@@ -55,7 +59,8 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
 
     qDebug() << "Obj to GPU.....";
 
-    program = pr;
+    material.toGPU(pr);
+
     // Creació d'un vertex array object
 
     glGenVertexArrays( 1, &vao );
@@ -73,7 +78,7 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
 
     glBufferData( GL_ARRAY_BUFFER, sizeof(vec4)*Index + sizeof(vec4)*Index, NULL, GL_STATIC_DRAW );
     glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(vec4)*Index, points );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*Index, sizeof(vec4)*Index, colors );
+    //glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*Index, sizeof(vec4)*Index, colors );
 
     // set up vertex arrays
     glBindVertexArray( vao );
@@ -106,6 +111,8 @@ void GPUMesh::draw(){
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
 
+
+
 }
 
 /**
@@ -127,7 +134,7 @@ void GPUMesh::make(){
     for(unsigned int i=0; i<cares.size(); i++){
         for(unsigned int j=0; j<cares[i].idxVertices.size(); j++){
             points[Index] = vertexs[cares[i].idxVertices[j]];
-            colors[Index] = vec4(base_colors[j%4], 1.0);
+            //colors[Index] = vec4(base_colors[j%4], 1.0);
             Index++;
         }
 	}

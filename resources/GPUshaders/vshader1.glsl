@@ -15,6 +15,19 @@ struct Light
     vec3 direction;
     float intensity;
 };
+
+struct Material
+{
+    vec3 Ka;
+    vec3 Kd;
+    vec3 Ks;
+    vec3 Kt;
+    float shininess;
+    float opacity;
+};
+
+uniform Material mat_info;  // a la memòria central de la GPU
+
 uniform Light light_info[5];    //array de 5 elements. Aquest valor sempre ha de ser un numero
 
 uniform mat4 model_view;
@@ -29,5 +42,5 @@ void main()
     //color = vec4(light_info[2].Is, 1.0f); //agafa tres components de l'ambient global, la quarta es la opacitat
 
     //Testeig de direccionals
-    color = vec4(light_info[0].Is, 1.0f);
+    color = vec4(mat_info.Kt, 1.0f);
 }

@@ -7,6 +7,7 @@ Mesh::Mesh(const QString &fileName): Object()
 {
     nom = fileName;
     load(fileName);
+    //material = new GPUMaterial
 }
 
 

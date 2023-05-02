@@ -7,6 +7,7 @@ using namespace Common;
 
 #include "GPUConnections/GPUConnectable.hh"
 #include "Model/Modelling/Objects/Mesh.hh"
+#include "GPUConnections/GPUMaterial.hh"
 
 static int NUMPOINTS = 10000;
 
@@ -34,8 +35,8 @@ private:
     vec4 *points;
     vec4 *normals;
 
-    // Els colors s'usen en la primera execució però després són prescindibles
-    vec4 *colors;
+    // Material de la mesh
+    GPUMaterial material;
 
     int Index; // index de control del numero de vèrtexs a passar a la GPU
 

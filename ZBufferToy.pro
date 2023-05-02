@@ -3,6 +3,7 @@ cvxQT       += core gui opengl
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
+QT+=opengl
 QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wpedantic -Wno-warn
 # You can make yousr code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -15,6 +16,7 @@ SOURCES += \
     GPUConnections/GPUCamera.cpp \
     GPUConnections/GPULight.cpp \
     GPUConnections/GPULightFactory.cpp \
+    GPUConnections/GPUMaterial.cpp \
     GPUConnections/GPUMesh.cpp \
     GPUConnections/GPUObjectFactory.cpp \
     GPUConnections/GPUPointLight.cpp \
@@ -63,6 +65,7 @@ HEADERS += \
     GPUConnections/GPUConnectable.hh \
     GPUConnections/GPULight.hh \
     GPUConnections/GPULightFactory.hh \
+    GPUConnections/GPUMaterial.hh \
     GPUConnections/GPUMesh.hh \
     GPUConnections/GPUObjectFactory.hh \
     GPUConnections/GPUPointLight.hh \
