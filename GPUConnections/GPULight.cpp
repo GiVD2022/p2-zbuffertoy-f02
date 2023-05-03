@@ -8,6 +8,7 @@ GPULight::GPULight() {
 
 void GPULight::setIndex(int indx) {
     this->index = indx;
+    qDebug() << indx;
 }
 
 int GPULight::getIndex() {
@@ -16,23 +17,14 @@ int GPULight::getIndex() {
 
 void GPULight::toGPU(shared_ptr<QGLShaderProgram> p) {
     // TO DO Pràctica 2: Fase 1: enviar les propietats de Ia, Id i Is a la GPU
-    struct gl_IdLight {
-        GLuint Ia;
-        GLuint Id;
-        GLuint Is;
-    };
-    gl_IdLight gl_IdLightVec;
-    int i = this->getIndex();
-    gl_IdLightVec.Ia = p->uniformLocation(QString("light_info[%1].Ia").arg(i));
-    gl_IdLightVec.Id = p->uniformLocation(QString("light_info[%1].Id").arg(i));
-    gl_IdLightVec.Is = p->uniformLocation(QString("light_info[%1].Is").arg(i));
-    // Bind the values of each property
-    glUniform3fv(gl_IdLightVec.Ia, 1, this->getIa());
-    glUniform3fv(gl_IdLightVec.Id, 1, this->getId());
-    glUniform3fv(gl_IdLightVec.Is, 1, this->getIs());
-    qDebug() << "Vector: (" << this->getIa().x << ", " << this->getIa().y << ", " << this->getIa().z << ")";
+    qDebug() <<"ia of the parent" <<this->getIa().x;
+    glUniform3fv(gl_IdLights.Ia, 1, this->getIa());
+    glUniform3fv(gl_IdLights.Id, 1, this->getId());
+    glUniform3fv(gl_IdLights.Is, 1, this->getIs());
+}
 
-
-    qDebug() << "Parent light.....";
-
+void GPULight::setValues(vec3 Ia, vec3 Id, vec3 Is){
+    Light::setIa(Ia);
+    Light::setId(Id);
+    Light::setIs(Is);
 }

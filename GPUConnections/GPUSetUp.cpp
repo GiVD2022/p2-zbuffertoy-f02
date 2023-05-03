@@ -88,9 +88,11 @@ void GPUSetUp::lightsToGPU(shared_ptr<QGLShaderProgram> program){
     // Get the uniform locations for each of the properties for all 5 lights
     for (int i = 0; i < numLights; i++) {
         lights[i]->setIndex(i);
+        qDebug() << "index saved";
         lights[i]->toGPU(program);
-        qDebug() << "finished togpu";
+
     }
+
 }
 
 // TODO (opcional) si es llegeix el setUp de fitxer cal alctualitzar aquest codi per

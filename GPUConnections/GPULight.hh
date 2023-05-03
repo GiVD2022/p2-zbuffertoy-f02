@@ -32,13 +32,28 @@ public:
     int getIndex();
     void setIndex(int indx);
 
-private:
+    void setValues(vec3 Ia, vec3 Id, vec3 Is);
+
     struct gl_IdLight {
         GLuint Ia;
         GLuint Id;
         GLuint Is;
+        GLuint position;
+        GLuint coeficients;
+
+        // Directional lights
+        GLuint direction;
+        GLuint intensity;
+
+        // Spot lights
+        GLuint spotDirection;
+        GLuint spotCosineCutoff;
+        GLuint spotExponent;
+
     };
-    gl_IdLight gl_IdLightVec;
+    gl_IdLight gl_IdLights;
+
+private:
     int index;
 
 };
