@@ -41,6 +41,7 @@ vec3 Material::getDiffuse(vec2 point) const {
 
 void Material::read (const QJsonObject &json)
 {
+    qDebug() << "READING..";
     if (json.contains("ka") && json["ka"].isArray()) {
         QJsonArray auxVec = json["ka"].toArray();
         Ka[0] = auxVec[0].toDouble();

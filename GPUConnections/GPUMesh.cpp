@@ -6,7 +6,6 @@ GPUMesh::GPUMesh()
 	points = new vec4[numPoints];
 	normals= new vec4[numPoints];
     //colors = new vec4[numPoints];
-    material = GPUMaterial();
 	make();
 }
 
@@ -15,7 +14,6 @@ GPUMesh::GPUMesh(const QString &fileName): Mesh(fileName)
     numPoints = NUMPOINTS;
     points = new vec4[numPoints];
     normals= new vec4[numPoints];
-    material = GPUMaterial();
     //colors = new vec4[numPoints];
     make();
 }
@@ -25,7 +23,6 @@ GPUMesh::GPUMesh(const int npoints, const QString &fileName): Mesh(fileName)
     numPoints = npoints;
     points = new vec4[numPoints];
     normals= new vec4[numPoints];
-    material = GPUMaterial();
     //colors = new vec4[numPoints];
     make();
 }
@@ -34,7 +31,16 @@ void GPUMesh::read(const QJsonObject &json) {
     numPoints = NUMPOINTS;
     points = new vec4[numPoints];
     normals= new vec4[numPoints];
-    material = GPUMaterial();
+    if(json.contains("material") && json["material"].isObject() ){
+        QJsonObject auxMat = json["material"].toObject();
+            if (auxMat.contains("type") && auxMat["type"].isString()) {
+                QString tipus = auxMat["type"].toString().toUpper();
+                gpumaterial->read(auxMat);
+                qDebug() << gpumaterial->Ka.x <<" "<< gpumaterial->Ka.y <<" "<< gpumaterial->Ka.z  ;
+
+            }
+    }
+
     //colors = new vec4[numPoints];
     Mesh::read(json);
     make();
@@ -59,8 +65,8 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
 
     qDebug() << "Obj to GPU.....";
 
-    material.toGPU(pr);
 
+    program = pr;
     // Creació d'un vertex array object
 
     glGenVertexArrays( 1, &vao );
@@ -100,7 +106,7 @@ void GPUMesh::draw(){
     // Activació a GL del Vertex Buffer Object.
     // TO  DO: A modificar a la fase 1 de la practica 2
     // Cal activar també les normals  a la GPU
-
+    gpumaterial->toGPU(program);
     glBindVertexArray( vao );
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
@@ -186,4 +192,12 @@ Capsa3D GPUMesh::calculCapsa3D()
     capsa.h = pmax[1]-pmin[1];
     capsa.p = pmax[2]-pmin[2];
     return capsa;
+}
+
+bool GPUMesh::hit(Ray& r, float tmin, float tmax, HitInfo& info)const {
+    return false;
+}
+
+void GPUMesh::aplicaTG(shared_ptr<TG>){
+
 }

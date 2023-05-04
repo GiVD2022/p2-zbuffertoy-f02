@@ -43,3 +43,4 @@ bool GPUMaterial::scatter(const Ray& r_in, const HitInfo& rec, vec3& color, Ray 
 }
 
 
+

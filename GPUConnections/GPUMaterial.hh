@@ -15,6 +15,8 @@ public:
 
     void toGPU(shared_ptr<QGLShaderProgram> p) override;
 
+
+
 private:
     struct Mat{
        GLuint Ka;

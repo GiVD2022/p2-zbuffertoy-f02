@@ -14,10 +14,13 @@ SOURCES += \
     DataInOut/AttributeMapping.cpp \
     DataInOut/VisualMapping.cpp \
     GPUConnections/GPUCamera.cpp \
+    GPUConnections/GPULambertian.cpp \
     GPUConnections/GPULight.cpp \
     GPUConnections/GPULightFactory.cpp \
     GPUConnections/GPUMaterial.cpp \
+    GPUConnections/GPUMaterialFactory.cpp \
     GPUConnections/GPUMesh.cpp \
+    GPUConnections/GPUObject.cpp \
     GPUConnections/GPUObjectFactory.cpp \
     GPUConnections/GPUPointLight.cpp \
     GPUConnections/GPUScene.cpp \
@@ -63,10 +66,13 @@ HEADERS += \
     DataInOut/VisualMapping.hh \
     GPUConnections/GPUCamera.hh \
     GPUConnections/GPUConnectable.hh \
+    GPUConnections/GPULambertian.hh \
     GPUConnections/GPULight.hh \
     GPUConnections/GPULightFactory.hh \
     GPUConnections/GPUMaterial.hh \
+    GPUConnections/GPUMaterialFactory.hh \
     GPUConnections/GPUMesh.hh \
+    GPUConnections/GPUObject.hh \
     GPUConnections/GPUObjectFactory.hh \
     GPUConnections/GPUPointLight.hh \
     GPUConnections/GPUScene.hh \

@@ -1,15 +1,16 @@
 #ifndef GPULAMBERTIAN_HH
 #define GPULAMBERTIAN_HH
-
-#include "GPUMaterial.hh"
 #include "Model/Modelling/Materials/Lambertian.hh"
+#include "GPUMaterial.hh"
 
-class GPULambertian: public GPUMaterial, Lambertian
+
+class GPULambertian: public Lambertian, public GPUMaterial
 {
 public:
     GPULambertian();
-    bool scatter(const Ray& r_in, const HitInfo& rec, vec3& color, Ray & r_out) const override = 0;
-
+    GPULambertian(const vec3& color);
+    GPULambertian(const vec3& a, const vec3& d, const vec3& s, const float k);
+    GPULambertian(const vec3& a, const vec3& d, const vec3& s, const float k, const float o);
 };
 
 #endif // GPULAMBERTIAN_HH

@@ -41,11 +41,11 @@ bool Controller::createScene(int nFrames) {
     // pel que creguis convenient
 
     auto mesh = make_shared<GPUMesh>("://cub.obj");
-    mesh->setMaterial(make_shared<Lambertian>(vec3(0.5, 0.2, 0.7)));
+   mesh->Mesh::setMaterial(make_shared<Lambertian>(vec3(0.5, 0.2, 0.7)));
 
     shared_ptr<Animation> anim = make_shared<Animation>();
     // anim->transf =  make_shared<TranslateTG>(vec3(0.2));
-    mesh->addAnimation(anim);
+    mesh->Mesh::addAnimation(anim);
 
     return true;
 }

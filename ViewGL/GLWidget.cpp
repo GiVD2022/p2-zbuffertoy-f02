@@ -127,6 +127,7 @@ void GLWidget::paintGL() {
 
     camera->toGPU(program);
     scene->draw();
+
 }
 
 /**
