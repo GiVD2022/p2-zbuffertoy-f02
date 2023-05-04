@@ -280,25 +280,6 @@ void GLWidget::setLighting(const QVector3D &lightPos, const QVector3D &Ia, const
         Controller::getInstance()->getSetUp()->lightsToGPU(program);
     }
     updateGL();
-
-    /*
-    vec4 lightPosition(lightPos[0],lightPos[1], lightPos[2], 1.0) ;
-    vec3 intensityA( Ia[0], Ia[1], Ia[2]);
-    vec3 intensityD( Id[0], Id[1], Id[2]);
-    vec3 intensityS( Is[0], Is[1], Is[2]);
-    auto light = Controller::getInstance()->getSetUp()->getLightActual();
-    light->setIa(intensityA);
-    light->setId(intensityD);
-    light->setIs(intensityS);
-    if (auto point_light = dynamic_cast<PointLight*>(light.get())) {
-        point_light->setPosition(vec3(lightPosition.x, lightPosition.y, lightPosition.z));
-    }
-    Controller::getInstance()->getSetUp()->setLightActual(light);
-    Controller::getInstance()->getSetUp()->lightsToGPU(program);
-    qDebug()<<"Lights read from UI to GPU";
-    qDebug()<<"position value put" << light->getPosition().x;
-    updateGL();
-    */
 }
 
 
