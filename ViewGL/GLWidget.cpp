@@ -269,9 +269,6 @@ void GLWidget::setLighting(const QVector3D &lightPos, const QVector3D &Ia, const
     vec3 intensityD = vec3(Id[0], Id[1], Id[2]);
     vec3 intensityS = vec3(Is[0], Is[1], Is[2]);
     vec3 coeficients = vec3(coefs[0], coefs[1], coefs[2]);
-    float a = coeficients.x;
-    float b = coeficients.y;
-    float c = coeficients.z;
     auto light = Controller::getInstance()->getSetUp()->getLightActual();
     if (auto point_light = dynamic_cast<PointLight*>(light.get())) {
         point_light->setIa(intensityA);
