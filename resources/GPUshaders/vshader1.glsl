@@ -8,12 +8,19 @@ struct Light
     vec3 Ia;
     vec3 Id;
     vec3 Is;
-    vec3 position;
-    vec3 coeficients;
 
     // Directional lights
     vec3 direction;
     float intensity;
+
+    // spot lights
+    vec3 spotDirection;
+    float spotCosineCutoff;
+    float spotExponent;
+
+    // point lights
+    vec3 position;
+    vec3 coeficients;
 };
 uniform Light light_info[5];    //array de 5 elements. Aquest valor sempre ha de ser un numero
 
@@ -29,5 +36,5 @@ void main()
     //color = vec4(light_info[2].Is, 1.0f); //agafa tres components de l'ambient global, la quarta es la opacitat
 
     //Testeig de direccionals
-    color = vec4(light_info[0].Is, 1.0f);
+    color = vec4(light_info[4].Ia, 1.0f);
 }

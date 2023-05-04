@@ -41,11 +41,11 @@ void GLWidget::initializeGL() {
     // TO DO: Pràctica 2: Fase 1:  Canviar per a que siguin GPULigths i usar la factory GPULightFactory que facis nova
     std::vector<shared_ptr<GPULight>> ligths;
 
-    /*
+
     //creacio de tres llums puntuals
     // Point light 1
     vec3 position1 = vec3(1.0, 1.0, 1.0);
-    vec3 Ia1 = vec3(0.2, 0.2, 0.2);
+    vec3 Ia1 = vec3(1.0, 0.0, 0.0);
     vec3 Id1 = vec3(1.0, 1.0, 1.0);
     vec3 Is1 = vec3(1.0, 1.0, 1.0);
     float a1 = 0.0;
@@ -85,19 +85,18 @@ void GLWidget::initializeGL() {
     float intensity = 1.0;
     auto light4 = GPULightFactory::getInstance().createLight(direction, Ia4, Id4, Is4, intensity, LightFactory::DIRECTIONALLIGHT);
     ligths.push_back(light4);
-    */
+
 
     // Sport light 5
     vec3 position5 = vec3(0.0, 2.0, 0.0);
-    vec3 Ia5 = vec3(0.1, 0.1, 0.1);
+    vec3 Ia5 = vec3(0.1, 0.1, 1.0);
     vec3 Id5 = vec3(0.0, 0.5, 1.0);
     vec3 Is5 = vec3(1.0, 0.0, 0.5);
-    vec3 spotDirection = vec3(0,-1,0);
+    vec3 spotDirection = vec3(0,1,0);
     float spotCosineCutoff = 1.2;
     float spotExponent = 1;
     auto light5 = GPULightFactory::getInstance().createLight(position5, Ia5, Id5, Is5, spotDirection, spotCosineCutoff, spotExponent, LightFactory::SPOTLIGHT);
     ligths.push_back(light5);
-
 
     Controller::getInstance()->getSetUp()->setLights(ligths);
     Controller::getInstance()->getSetUp()->lightsToGPU(program);
