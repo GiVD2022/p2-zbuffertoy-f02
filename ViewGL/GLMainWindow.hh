@@ -94,6 +94,13 @@ private slots:
 
     void on_lightIs3Spin_valueChanged(double arg1);
 
+    void on_lightCoefA_valueChanged(double arg1);
+
+    void on_lightCoefB_valueChanged(double arg1);
+
+    void on_lightCoefC_valueChanged(double arg1);
+
+
     void setObsCamera(shared_ptr<GPUCamera> cam);
     void setFrustumCamera(shared_ptr<GPUCamera> cam);
 
