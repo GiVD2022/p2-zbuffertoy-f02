@@ -8,7 +8,6 @@ void GPUPointLight::toGPU(shared_ptr<QGLShaderProgram> p) {
     GPULight::setValues(PointLight::getIa(), PointLight::getId(), PointLight::getIs());
     // TO DO Pràctica 2: Fase 1: enviar les llums a la GPU
     int i = this->getIndex();
-    qDebug() << "index retreived";
     gl_IdLights.Ia = p->uniformLocation(QString("light_info[%1].Ia").arg(i));
     gl_IdLights.Id = p->uniformLocation(QString("light_info[%1].Id").arg(i));
     gl_IdLights.Is = p->uniformLocation(QString("light_info[%1].Is").arg(i));
@@ -24,11 +23,10 @@ void GPUPointLight::toGPU(shared_ptr<QGLShaderProgram> p) {
     gl_IdLights.spotCosineCutoff = p->uniformLocation(QString("light_info[%1].spotCosineCutoff").arg(i));
     gl_IdLights.spotExponent = p->uniformLocation(QString("light_info[%1].spotExponent").arg(i));
 
-    qDebug() << "info linked";
     GPULight::toGPU(p);
     glUniform4fv(gl_IdLights.position, 1, this->getPosition());
     glUniform3fv(gl_IdLights.coeficients, 1, this->getCoeficients());
-    qDebug() << "point lights.....";
+
 }
 
 vec3 GPUPointLight::vectorL(vec3 point) {

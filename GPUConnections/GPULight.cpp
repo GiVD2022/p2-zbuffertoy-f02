@@ -8,7 +8,6 @@ GPULight::GPULight() {
 
 void GPULight::setIndex(int indx) {
     this->index = indx;
-    qDebug() << indx;
 }
 
 int GPULight::getIndex() {
@@ -17,7 +16,6 @@ int GPULight::getIndex() {
 
 void GPULight::toGPU(shared_ptr<QGLShaderProgram> p) {
     // TO DO Pràctica 2: Fase 1: enviar les propietats de Ia, Id i Is a la GPU
-    qDebug() <<"ia of the parent" <<this->getIa().x;
     glUniform3fv(gl_IdLights.Ia, 1, this->getIa());
     glUniform3fv(gl_IdLights.Id, 1, this->getId());
     glUniform3fv(gl_IdLights.Is, 1, this->getIs());
