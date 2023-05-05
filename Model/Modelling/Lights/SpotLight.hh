@@ -19,7 +19,6 @@ public:
      * */
     SpotLight(vec3 posicio, vec3 Ia, vec3 Id, vec3 Is, vec3 spotDirection, float spotCosineCutoff, float spotExponent);
     virtual ~SpotLight() {}
-    vec3 getPos();
     virtual vec3 vectorL(vec3 point) override;
     virtual float attenuation(vec3 point) override;
     virtual float distanceToLight(vec3 point) override;
@@ -28,9 +27,14 @@ public:
     virtual void write(QJsonObject &json) const override;
     virtual void print(int indentation) const override;
 
+    vec3 getPosition();
+    void setPosition(vec3 v);
     vec3 getSpotDirection();
+    void setSpotDirection(vec3 s);
     float getSpotCosineCutoff();
+    void setSpotCosineCutoff(float s);
     float getSpotExponent();
+    void setSpotExponent(float s);
 private:
     vec3 position;
     vec3 spotDirection;

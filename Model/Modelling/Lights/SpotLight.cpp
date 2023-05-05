@@ -9,18 +9,36 @@ SpotLight::SpotLight(vec3 posicio, vec3 Ia, vec3 Id, vec3 Is, vec3 spotDirection
     this->spotExponent = spotExponent;
 }
 
-vec3 SpotLight::getPos() {
+vec3 SpotLight::getPosition() {
     return this->position;
+}
+
+void SpotLight::setPosition(vec3 v) {
+    this->position = v;
 }
 
 vec3 SpotLight::getSpotDirection(){
     return this->spotDirection;
 }
+
+void SpotLight::setSpotDirection(vec3 spotdir) {
+    this->spotDirection = spotdir;
+}
+
 float SpotLight::getSpotCosineCutoff(){
     return this->spotCosineCutoff;
 }
+
+void SpotLight::setSpotCosineCutoff(float spotcoscutoff) {
+    this->spotCosineCutoff = spotcoscutoff;
+}
+
 float SpotLight::getSpotExponent(){
     return this->spotExponent;
+}
+
+void SpotLight::setSpotExponent(float spotexp) {
+    this->spotExponent = spotexp;
 }
 
 vec3 SpotLight::vectorL(vec3 point) {
