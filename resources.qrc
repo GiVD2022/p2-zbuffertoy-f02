@@ -8,5 +8,7 @@
         <file>resources/assetsGUI/Background.png</file>
         <file>resources/assetsGUI/Ia.png</file>
         <file>resources/assetsGUI/3412784.png</file>
+        <file>resources/GPUshaders/fshaderDepth.glsl</file>
+        <file>resources/GPUshaders/vshaderDepth.glsl</file>
     </qresource>
 </RCC>
