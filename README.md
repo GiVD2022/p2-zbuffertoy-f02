@@ -14,10 +14,14 @@ Petit resum de fins on heu arribat a fer
 A continuació s'indica quines parts s'han fet i qui les ha implementat
 - Fase 1
     - Lights
-        - [ ] Ambient Global 
-        - [ ] Puntual
-        - [ ] Direccional 
-        - [ ] Spotlight 
+        - [X] Ambient Global 
+            - Núria Torquet
+        - [X] Puntual
+            - Núria Torquet
+        - [X] Direccional 
+            - Esther Ruano
+        - [X] Spotlight
+            - Esther Ruano
     - Materials: 
        - [ ] Pas a la GPU
        - [ ] Lectura de fitxers .json
@@ -53,7 +57,7 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
 **Preguntes**
 - Pas 1.1: Pas de la llum ambient global a la GPU
     * **Decideix el moment en el que cal passar la llum ambient global a la GPU (al initializeGL? Al updateGL? En
-crear un objecte? )**
+crear un objecte?**
 
 - Pas 1.2: Pas de la llum de tipus puntual a la GPU. Creació de nous tipus de llums
     * **Ara es crea una llum puntual al initializeGL() de la classe GLWidget, quan l’hauries de passar a la GPU? A l’inici de
