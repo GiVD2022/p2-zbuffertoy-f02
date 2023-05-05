@@ -26,6 +26,7 @@ void GPUPointLight::toGPU(shared_ptr<QGLShaderProgram> p) {
     GPULight::toGPU(p);
     glUniform4fv(gl_IdLights.position, 1, this->getPosition());
     glUniform3fv(gl_IdLights.coeficients, 1, this->getCoeficients());
+    qDebug() << "point lights.....";
 
 }
 

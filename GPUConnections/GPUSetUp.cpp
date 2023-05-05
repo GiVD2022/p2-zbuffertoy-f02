@@ -51,6 +51,11 @@ void GPUSetUp::setLightActual(shared_ptr<GPULight> l){
     lights[lights.size()-1]=l;
 }
 
+
+void GPUSetUp::setLightIndex(shared_ptr<GPULight> l, int idx){
+    lights[idx]=l;
+}
+
 /**
  * @brief GPUSetUp::addLight
  * @param shared_ptr<Light> l
