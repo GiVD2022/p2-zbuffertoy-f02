@@ -14,9 +14,10 @@ GLShader::GLShader(const char* vShaderFile, const char* fShaderFile, shared_ptr<
 
 //Metode per activar un shader
 void GLShader::activateShader(){
-
-
-;}
+    // Link and bind the shader program to the graphics pipeline
+    program->link();
+    program->bind();
+}
 
 //Metode per activar shaders de textures
 void GLShader::activateShaderTexture(){
