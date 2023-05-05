@@ -18,6 +18,8 @@ public:
     virtual ~DirectionalLight() {}
     vec3 getDirection();
     float getIntensity();
+    void setDirection(vec3 dir);
+    void setIntensity(float intensity);
     virtual vec3 vectorL(vec3 point) override;
     virtual float attenuation(vec3 point) override;
     virtual float distanceToLight(vec3 point) override;

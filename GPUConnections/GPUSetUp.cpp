@@ -81,14 +81,11 @@ void GPUSetUp::setAmbientGlobalToGPU(shared_ptr<QGLShaderProgram> program){
 void GPUSetUp::lightsToGPU(shared_ptr<QGLShaderProgram> program){
     // Practica 2: TO DO: A implementar a la fase 1
     // Declare a vector of gl_IdLight structures
-    qDebug() << "reading lights, num:.....";
     int numLights = static_cast<int>(lights.size());
-    qDebug() << numLights;
 
     // Get the uniform locations for each of the properties for all 5 lights
     for (int i = 0; i < numLights; i++) {
         lights[i]->setIndex(i);
-        qDebug() << "index saved";
         lights[i]->toGPU(program);
 
     }
