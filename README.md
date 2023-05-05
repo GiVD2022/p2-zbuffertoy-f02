@@ -66,11 +66,10 @@ crear un objecte?**
     * **Ara es crea una llum puntual al initializeGL() de la classe GLWidget, quan l’hauries de passar a la GPU? A l’inici de
 tot? Cada vegada que es visualitza l’escena?** 
 
-        En aquest cas la llum puntual s'hauria de passar a la GPU cada vegada que es visualitza l'escena. Això és degut a que la llum puntual pot ser afectada per la posició de la càmera i dels objectes en l'escena, i per tant, la seva representació a la GPU ha de ser actualitzada en cada iteració del bucle de renderitzat.
-    
+        En aquest cas la llum puntual s'hauria de passar a la GPU cada vegada que es visualitza l'escena. Això és degut a que la llum puntual pot ser afectada per la posició de la càmera i dels objectes en l'escena, i per tant, la seva representació a la GPU ha de ser actualitzada en cada iteració del bucle de renderitzat. 
+        
     * **Què contindrà el "struct" de la GPU? Com l’estructurareu?**
-**Extensions addicionals**
-    L'struct de la GPU s'ha definit de la següent manera:
+        L'struct de la GPU s'ha definit de la següent manera:
     ```
     struct Light
 {
@@ -93,5 +92,9 @@ tot? Cada vegada que es visualitza l’escena?**
 };
 ```
     S'utilitza un "struct" per a cada llum, on es guarden les seves propietats, com ara la posició, la direcció, l'atenuació... Aquestes estructures s'agrupen en un vector, que es passarà a la GPU per a ser utilitzat en la shader de il·luminació.
+    
+
+**Extensions addicionals**
+
 
 **Memòria**
