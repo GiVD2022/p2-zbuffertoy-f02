@@ -5,7 +5,7 @@ GPUMesh::GPUMesh()
 	numPoints = NUMPOINTS;
 	points = new vec4[numPoints];
 	normals= new vec4[numPoints];
-	colors = new vec4[numPoints];
+    //colors = new vec4[numPoints];
 	make();
 }
 
@@ -14,7 +14,7 @@ GPUMesh::GPUMesh(const QString &fileName): Mesh(fileName)
     numPoints = NUMPOINTS;
     points = new vec4[numPoints];
     normals= new vec4[numPoints];
-    colors = new vec4[numPoints];
+    //colors = new vec4[numPoints];
     make();
 }
 
@@ -23,7 +23,7 @@ GPUMesh::GPUMesh(const int npoints, const QString &fileName): Mesh(fileName)
     numPoints = npoints;
     points = new vec4[numPoints];
     normals= new vec4[numPoints];
-    colors = new vec4[numPoints];
+    //colors = new vec4[numPoints];
     make();
 }
 
@@ -31,7 +31,17 @@ void GPUMesh::read(const QJsonObject &json) {
     numPoints = NUMPOINTS;
     points = new vec4[numPoints];
     normals= new vec4[numPoints];
-    colors = new vec4[numPoints];
+    if(json.contains("material") && json["material"].isObject() ){
+        QJsonObject auxMat = json["material"].toObject();
+            if (auxMat.contains("type") && auxMat["type"].isString()) {
+                QString tipus = auxMat["type"].toString().toUpper();
+                gpumaterial->read(auxMat);
+                qDebug() << gpumaterial->Ka.x <<" "<< gpumaterial->Ka.y <<" "<< gpumaterial->Ka.z  ;
+
+            }
+    }
+
+    //colors = new vec4[numPoints];
     Mesh::read(json);
     make();
 }
@@ -43,7 +53,7 @@ GPUMesh::~GPUMesh() {
 
     if (points!= nullptr) delete points;
     if (normals!= nullptr) delete normals;
-    if (colors!= nullptr) delete colors;
+    //if (material!= nullptr) delete material;
 }
 
 /**
@@ -54,6 +64,7 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
     // TO  DO: A modificar a la fase 1 de la practica 2
 
     qDebug() << "Obj to GPU.....";
+
 
     program = pr;
     // Creació d'un vertex array object
@@ -73,7 +84,7 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
 
     glBufferData( GL_ARRAY_BUFFER, sizeof(vec4)*Index + sizeof(vec4)*Index, NULL, GL_STATIC_DRAW );
     glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(vec4)*Index, points );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*Index, sizeof(vec4)*Index, colors );
+    //glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*Index, sizeof(vec4)*Index, colors );
 
     // set up vertex arrays
     glBindVertexArray( vao );
@@ -95,7 +106,7 @@ void GPUMesh::draw(){
     // Activació a GL del Vertex Buffer Object.
     // TO  DO: A modificar a la fase 1 de la practica 2
     // Cal activar també les normals  a la GPU
-
+    gpumaterial->toGPU(program);
     glBindVertexArray( vao );
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
@@ -105,6 +116,8 @@ void GPUMesh::draw(){
 
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
+
+
 
 }
 
@@ -127,7 +140,7 @@ void GPUMesh::make(){
     for(unsigned int i=0; i<cares.size(); i++){
         for(unsigned int j=0; j<cares[i].idxVertices.size(); j++){
             points[Index] = vertexs[cares[i].idxVertices[j]];
-            colors[Index] = vec4(base_colors[j%4], 1.0);
+            //colors[Index] = vec4(base_colors[j%4], 1.0);
             Index++;
         }
 	}
@@ -179,4 +192,12 @@ Capsa3D GPUMesh::calculCapsa3D()
     capsa.h = pmax[1]-pmin[1];
     capsa.p = pmax[2]-pmin[2];
     return capsa;
+}
+
+bool GPUMesh::hit(Ray& r, float tmin, float tmax, HitInfo& info)const {
+    return false;
+}
+
+void GPUMesh::aplicaTG(shared_ptr<TG>){
+
 }

@@ -100,6 +100,7 @@ void GLWidget::paintGL() {
 
     camera->toGPU(program);
     scene->draw();
+
 }
 
 /**
@@ -204,6 +205,14 @@ void GLWidget::saveAnimation() {
 
 void GLWidget::activaColorShader() {
     //TO DO: Pràctica 2: A implementar a la fase 1
+    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_color.glsl", "://resources/GPUshaders/fshader_color.glsl", program);
+    if (glshader != nullptr) {
+        program->link();
+        program->bind();
+    }
+    auto sc = Controller::getInstance()->getScene();
+    sc->toGPU(program);
+    updateGL();
     qDebug()<<"Estic a Color Shader";
 }
 

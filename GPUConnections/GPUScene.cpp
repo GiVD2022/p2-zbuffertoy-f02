@@ -26,7 +26,7 @@ void GPUScene::setDimensions(vec3 p1, vec3 p2) {
  * @brief GPUScene::addObject
  * @param obj
  */
-void GPUScene::addObject(shared_ptr<GPUMesh> obj) {
+void GPUScene::addObject(shared_ptr<GPUObject> obj) {
     objects.push_back(obj);
     calculCapsaMinCont3DEscena();
 }
@@ -36,9 +36,9 @@ void GPUScene::addObject(shared_ptr<GPUMesh> obj) {
  */
 void GPUScene::toGPU(shared_ptr<QGLShaderProgram> p) {
     for(unsigned int i=0; i < objects.size(); i++){
-        if (dynamic_pointer_cast<GPUMesh>(objects.at(i))) {
-                auto mesh = objects.at(i);
-                mesh->toGPU(p);
+        if (dynamic_pointer_cast<GPUObject>(objects.at(i))) {
+                auto obj = objects.at(i);
+                obj->toGPU(p);
         }
     }
 }
@@ -48,9 +48,9 @@ void GPUScene::toGPU(shared_ptr<QGLShaderProgram> p) {
  */
 void GPUScene::draw() {
     for(unsigned int i=0; i < objects.size(); i++){
-        if (dynamic_pointer_cast<GPUMesh>(objects.at(i))) {
-                auto mesh = objects.at(i);
-                mesh->draw();
+        if (dynamic_pointer_cast<GPUObject>(objects.at(i))) {
+                auto obj = objects.at(i);
+                obj->draw();
         }
     }
 }
@@ -65,7 +65,7 @@ void GPUScene::calculCapsaMinCont3DEscena()
     vec3 pmax;
 
     if (objects.size()==1) {
-        capsaMinima = objects[0]->calculCapsa3D();
+        capsaMinima = dynamic_pointer_cast<GPUObject>(objects[0])->calculCapsa3D();
         pmax[0] = capsaMinima.pmin[0]+capsaMinima.a;
         pmax[1] = capsaMinima.pmin[1]+capsaMinima.h;
         pmax[2] = capsaMinima.pmin[2]+capsaMinima.p;
@@ -79,7 +79,7 @@ void GPUScene::calculCapsaMinCont3DEscena()
     }
 
     for (unsigned int i=0; i<objects.size(); i++) {
-       c = objects[i]->calculCapsa3D();
+       c = dynamic_pointer_cast<GPUObject>(objects[i])->calculCapsa3D();
 
        if (capsaMinima.pmin[0]>c.pmin[0]) capsaMinima.pmin[0] = c.pmin[0];
        if (capsaMinima.pmin[1]>c.pmin[1]) capsaMinima.pmin[1] = c.pmin[1];

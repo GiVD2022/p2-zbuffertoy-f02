@@ -25,7 +25,7 @@ public:
     Capsa3D capsaMinima;
 
     // Vector d'objectes continguts a l'escena
-    std::vector<shared_ptr<GPUMesh>> objects;
+    std::vector<shared_ptr<GPUObject>> objects;
 
     GPUScene();
 
@@ -49,7 +49,7 @@ public:
     // Pràctica 2 opcional: Posible objecte que no sigui un fitted plane: una esfera
     // void setBaseSphere(shared_ptr<Sphere> sphere);
 
-    void   addObject(shared_ptr<GPUMesh> obj);
+    void   addObject(shared_ptr<GPUObject> obj);
 
     void toGPU(shared_ptr<QGLShaderProgram> p) override;
     void draw() override;
