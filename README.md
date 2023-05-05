@@ -57,7 +57,8 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
 **Preguntes**
 - Pas 1.1: Pas de la llum ambient global a la GPU
     * **Decideix el moment en el que cal passar la llum ambient global a la GPU (al initializeGL? Al updateGL? En
-crear un objecte?**
+crear un objecte?** 
+
     S'ha passat la llum ambient global a la GPU durant la fase d'inicialització (initializeGL) de l'aplicació, ja que la llum ambient global no canvia durant l'execució de l'aplicació.
     Així es garanteix que la GPU tingui les dades necessàries per renderitzar l'escena amb precisió des del principi. A més, si actualitzes la llum ambient global durant l'execució de l'aplicació, es pot cridar el mètode setAmbientGlobalToGPU de nou per actualitzar els valors a la GPU.
 
