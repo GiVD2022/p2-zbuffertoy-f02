@@ -11,9 +11,19 @@ vec3 DirectionalLight::getDirection()
     return this->direction;
 }
 
+void DirectionalLight::setDirection(vec3 dir)
+{
+    this->direction = dir;
+}
+
 float DirectionalLight::getIntensity()
 {
     return this->intensity;
+}
+
+void DirectionalLight::setIntensity(float intensity)
+{
+    this->intensity = intensity;
 }
 
 vec3 DirectionalLight::vectorL(vec3 point) {

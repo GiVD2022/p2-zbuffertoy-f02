@@ -39,67 +39,40 @@ void GLWidget::initializeGL() {
 
     // Creacio d'una Light per a poder modificar el seus valors amb la interficie
     // TO DO: Pràctica 2: Fase 1:  Canviar per a que siguin GPULigths i usar la factory GPULightFactory que facis nova
-    std::vector<shared_ptr<GPULight>> ligths;
 
-    /*
-    //creacio de tres llums puntuals
-    // Point light 1
+    //Creacio de tres llums per defecte per a poder interactuar des de la ui
+    // Default point light
     vec3 position1 = vec3(1.0, 1.0, 1.0);
-    vec3 Ia1 = vec3(0.2, 0.2, 0.2);
+    vec3 Ia1 = vec3(1.0, 0.0, 0.0);
     vec3 Id1 = vec3(1.0, 1.0, 1.0);
     vec3 Is1 = vec3(1.0, 1.0, 1.0);
     float a1 = 0.0;
     float b1 = 0.0;
     float c1 = 1.0;
     auto light1 = GPULightFactory::getInstance().createLight(position1, Ia1, Id1, Is1, a1, b1, c1, LightFactory::POINTLIGHT);
-    ligths.push_back(light1);
+    Controller::getInstance()->getSetUp()->addLight(light1);
 
-    // Point light 2
-    vec3 position2 = vec3(-2.0, 3.0, 1.0);
+    // Default directional light
+    vec3 direction2 = vec3(1.0, 0.0, 0.0);
     vec3 Ia2 = vec3(0.1, 0.1, 0.1);
-    vec3 Id2 = vec3(0.7, 0.3, 0.0);
-    vec3 Is2 = vec3(0.7, 0.3, 0.0);
-    float a2 = 0.0;
-    float b2 = 0.0;
-    float c2 = 1.0;
-    auto light2 = GPULightFactory::getInstance().createLight(position2, Ia2, Id2, Is2, a2, b2, c2, LightFactory::POINTLIGHT);
-    ligths.push_back(light2);
+    vec3 Id2 = vec3(1.0, 0.5, 0.0);
+    vec3 Is2 = vec3(1.0, 0.5, 0.0);
+    float intensity2 = 1.0;
+    auto light2 = GPULightFactory::getInstance().createLight(direction2, Ia2, Id2, Is2, intensity2, LightFactory::DIRECTIONALLIGHT);
+    Controller::getInstance()->getSetUp()->addLight(light2);
 
-    // Point light 3
-    vec3 position3 = vec3(-1.0, 2.0, -3.0);
+    // Default spot light
+    vec3 position3 = vec3(0.0, 2.0, 0.0);
     vec3 Ia3 = vec3(0.1, 0.1, 0.1);
     vec3 Id3 = vec3(0.0, 0.5, 1.0);
-    vec3 Is3 = vec3(0.0, 0.5, 1.0);
-    float a3 = 0.0;
-    float b3 = 0.0;
-    float c3 = 1.0;
-    auto light3 = GPULightFactory::getInstance().createLight(position3, Ia3, Id3, Is3, a3, b3, c3, LightFactory::POINTLIGHT);
-    ligths.push_back(light3);
+    vec3 Is3 = vec3(1.0, 0.0, 0.5);
+    vec3 spotDirection3 = vec3(0,-1,0);
+    float spotCosineCutoff3 = 1.2;
+    float spotExponent3 = 1;
+    auto light3 = GPULightFactory::getInstance().createLight(position3, Ia3, Id3, Is3, spotDirection3, spotCosineCutoff3, spotExponent3, LightFactory::SPOTLIGHT);
+    Controller::getInstance()->getSetUp()->addLight(light3);
 
-
-    // Directional light 1
-    vec3 direction = vec3(1.0, 0.0, 0.0);
-    vec3 Ia4 = vec3(0.1, 0.1, 0.1);
-    vec3 Id4 = vec3(1.0, 0.5, 0.0);
-    vec3 Is4 = vec3(1.0, 0.5, 0.0);
-    float intensity = 1.0;
-    auto light4 = GPULightFactory::getInstance().createLight(direction, Ia4, Id4, Is4, intensity, LightFactory::DIRECTIONALLIGHT);
-    ligths.push_back(light4);
-    */
-
-    // Sport light 5
-    vec3 position5 = vec3(0.0, 2.0, 0.0);
-    vec3 Ia5 = vec3(0.1, 0.1, 0.1);
-    vec3 Id5 = vec3(0.0, 0.5, 1.0);
-    vec3 Is5 = vec3(1.0, 0.0, 0.5);
-    vec3 spotDirection = vec3(0,-1,0);
-    float spotCosineCutoff = 1.2;
-    float spotExponent = 1;
-    auto light5 = GPULightFactory::getInstance().createLight(position5, Ia5, Id5, Is5, spotDirection, spotCosineCutoff, spotExponent, LightFactory::SPOTLIGHT);
-    ligths.push_back(light5);
-
-
-    Controller::getInstance()->getSetUp()->setLights(ligths);
+    //send them to the gpu
     Controller::getInstance()->getSetUp()->lightsToGPU(program);
 
     shared_ptr<GPUCamera> camera = Controller::getInstance()->getSetUp()->getCamera();
@@ -320,24 +293,80 @@ void GLWidget::setLookAt(const QVector3D &eye, const QVector3D &center, const QV
     updateGL();
 }
 
-void GLWidget::setLighting(const QVector3D &lightPos, const QVector3D &Ia, const QVector3D &Id,
+void GLWidget::setPointLighting(const QVector3D &lightPos, const QVector3D &Ia, const QVector3D &Id,
                            const QVector3D &Is, const QVector3D &coefs)
 {
-    vec4 lightPosition(lightPos[0],lightPos[1], lightPos[2], 1.0) ;
-    vec3 intensityA( Ia[0], Ia[1], Ia[2]);
-    vec3 intensityD( Id[0], Id[1], Id[2]);
-    vec3 intensityS( Is[0], Is[1], Is[2]);
-
+    vec3 position = vec3(lightPos[0],lightPos[1], lightPos[2]);
+    vec3 intensityA = vec3(Ia[0], Ia[1], Ia[2]);
+    vec3 intensityD = vec3(Id[0], Id[1], Id[2]);
+    vec3 intensityS = vec3(Is[0], Is[1], Is[2]);
+    vec3 coeficients = vec3(coefs[0], coefs[1], coefs[2]);
     auto lights = Controller::getInstance()->getSetUp()->getLights();
-    lights[0]->setIa(intensityA);
-    lights[0]->setId(intensityD);
-    lights[0]->setIs(intensityS);
     if (auto point_light = dynamic_cast<PointLight*>(lights[0].get())) {
-        point_light->setPosition(vec3(lightPosition.x, lightPosition.y, lightPosition.z));
+        point_light->setIa(intensityA);
+        point_light->setId(intensityD);
+        point_light->setIs(intensityS);
+        point_light->setPosition(position);
+        point_light->setCoeficients(coeficients);
+        Controller::getInstance()->getSetUp()->setLightIndex(lights[0], 0);
+        Controller::getInstance()->getSetUp()->lightsToGPU(program);
+    } else{
+        qDebug()<<"First light is not a PointLight!";
+        qDebug()<<"Couldn't load the point light from the ui";
     }
-
     updateGL();
 }
+
+void GLWidget::setDirLighting(const QVector3D &lightDir, const QVector3D &Ia, const QVector3D &Id,
+                           const QVector3D &Is, const float dirInt)
+{
+    vec3 lightDirection = vec3(lightDir[0],lightDir[1], lightDir[2]);
+    vec3 intensityA = vec3(Ia[0], Ia[1], Ia[2]);
+    vec3 intensityD = vec3(Id[0], Id[1], Id[2]);
+    vec3 intensityS = vec3(Is[0], Is[1], Is[2]);
+    auto lights = Controller::getInstance()->getSetUp()->getLights();
+    if (auto dir_light = dynamic_cast<DirectionalLight*>(lights[1].get())) {
+        dir_light->setIa(intensityA);
+        dir_light->setId(intensityD);
+        dir_light->setIs(intensityS);
+        dir_light->setDirection(lightDirection);
+        dir_light->setIntensity(dirInt);
+        Controller::getInstance()->getSetUp()->setLightIndex(lights[1], 1);
+        Controller::getInstance()->getSetUp()->lightsToGPU(program);
+    } else{
+        qDebug()<<"First light is not a DirectionalLight!";
+        qDebug()<<"Couldn't load the directional light from the ui";
+    }
+    updateGL();
+}
+
+void GLWidget::setSpotLighting(const QVector3D &lightPos, const QVector3D &Ia, const QVector3D &Id,
+                           const QVector3D &Is, const QVector3D &spotDir, const float spotCosCutoff, const float spotExp)
+{
+    vec3 position = vec3(lightPos[0],lightPos[1], lightPos[2]);
+    vec3 intensityA = vec3(Ia[0], Ia[1], Ia[2]);
+    vec3 intensityD = vec3(Id[0], Id[1], Id[2]);
+    vec3 intensityS = vec3(Is[0], Is[1], Is[2]);
+    vec3 spotDirection = vec3(spotDir[0], spotDir[1], spotDir[2]);
+    auto lights = Controller::getInstance()->getSetUp()->getLights();
+    if (auto spot_light = dynamic_cast<SpotLight*>(lights[2].get())) {
+        spot_light->setIa(intensityA);
+        spot_light->setId(intensityD);
+        spot_light->setIs(intensityS);
+        spot_light->setPosition(position);
+        spot_light->setSpotDirection(spotDirection);
+        spot_light->setSpotCosineCutoff(spotCosCutoff);
+        spot_light->setSpotExponent(spotExp);
+        Controller::getInstance()->getSetUp()->setLightIndex(lights[2], 2);
+        Controller::getInstance()->getSetUp()->lightsToGPU(program);
+    } else{
+        qDebug()<<"First light is not a SpotLight!";
+        qDebug()<<"Couldn't load the spot light from the ui";
+    }
+    updateGL();
+}
+
+
 
 
 /**  Mètodes d'interacció amb el ratolí */

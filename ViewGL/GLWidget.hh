@@ -63,8 +63,12 @@ public slots:
 
     void setPerspective(float nearPlane, float farPlane);
     void setLookAt(const QVector3D &eye, const QVector3D &center, const QVector3D& up);
-    void setLighting(const QVector3D &lightPos, const QVector3D &Ia, const QVector3D &Id,
+    void setPointLighting(const QVector3D &lightPos, const QVector3D &Ia, const QVector3D &Id,
                     const QVector3D &Is, const QVector3D &coefs);
+    void setSpotLighting(const QVector3D &lightPos, const QVector3D &Ia, const QVector3D &Id,
+                    const QVector3D &Is, const QVector3D &coefs, const float spotCosCutoff, const float spotExp);
+    void setDirLighting(const QVector3D &lightDir, const QVector3D &Ia, const QVector3D &Id,
+                               const QVector3D &Is, const float dirInt);
 
     // Acció per activar a cada update del timer
     void setCurrentFrame();

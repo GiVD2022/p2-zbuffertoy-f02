@@ -30,7 +30,11 @@ public:
 
     // TODO Pràctica 2: FASE 1: Enviar les llums a la GPU
     void setAmbientGlobalToGPU(shared_ptr<QGLShaderProgram> program);
+    void addLight(shared_ptr<GPULight> l);
     void lightsToGPU(shared_ptr<QGLShaderProgram> program);
+    shared_ptr<GPULight> getLightActual();
+    void setLightActual(shared_ptr<GPULight> l);
+    void setLightIndex(shared_ptr<GPULight> l, int idx);
 
 private:
 
@@ -43,8 +47,5 @@ private:
     // Llum global
     vec3 globalLight;
 
-    shared_ptr<GPULight> getLightActual();
-    void setLightActual(shared_ptr<GPULight> l);
-    void addLight(shared_ptr<GPULight> l);
 
 };

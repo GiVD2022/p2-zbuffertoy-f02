@@ -8,12 +8,19 @@ struct Light
     vec3 Ia;
     vec3 Id;
     vec3 Is;
-    vec3 position;
-    vec3 coeficients;
 
     // Directional lights
     vec3 direction;
     float intensity;
+
+    // spot lights
+    vec3 spotDirection;
+    float spotCosineCutoff;
+    float spotExponent;
+
+    // point lights
+    vec3 position;
+    vec3 coeficients;
 };
 
 struct Material
@@ -41,5 +48,6 @@ void main()
     gl_Position = gl_Position/gl_Position.w;
     color = vec4(light_info[0].Is, 1.0f); //agafa tres components de l'ambient global, la quarta es la opacitat
 
-    //color = vec4(mat_info.Kd, 1.0f);
+    //Testeig de direccionals
+    color = vec4(light_info[0].coeficients, 1.0f);
 }
