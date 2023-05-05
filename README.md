@@ -68,7 +68,8 @@ tot? Cada vegada que es visualitza l’escena?**
 
         En aquest cas la llum puntual s'hauria de passar a la GPU cada vegada que es visualitza l'escena. Això és degut a que la llum puntual pot ser afectada per la posició de la càmera i dels objectes en l'escena, i per tant, la seva representació a la GPU ha de ser actualitzada en cada iteració del bucle de renderitzat. 
         
-    * **Què contindrà el "struct" de la GPU? Com l’estructurareu?**
+   * **Què contindrà el "struct" de la GPU? Com l’estructurareu?** 
+   
         L'struct de la GPU s'ha definit de la següent manera:
     ```
     struct Light
