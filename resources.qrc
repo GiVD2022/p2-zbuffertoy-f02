@@ -9,5 +9,7 @@
         <file>resources/assetsGUI/Ia.png</file>
         <file>resources/assetsGUI/3412784.png</file>
         <file>resources/models/sphere0.obj</file>
+        <file>resources/GPUshaders/vshader_color.glsl</file>
+        <file>resources/GPUshaders/fshader_color.glsl</file>
     </qresource>
 </RCC>

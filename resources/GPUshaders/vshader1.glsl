@@ -39,8 +39,7 @@ void main()
 {
     gl_Position = projection*model_view*vPosition;
     gl_Position = gl_Position/gl_Position.w;
-    //color = vec4(light_info[2].Is, 1.0f); //agafa tres components de l'ambient global, la quarta es la opacitat
+    color = vec4(light_info[0].Is, 1.0f); //agafa tres components de l'ambient global, la quarta es la opacitat
 
-    //Testeig de direccionals
-    color = vec4(mat_info.Kd, 1.0f);
+    //color = vec4(mat_info.Kd, 1.0f);
 }
