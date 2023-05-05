@@ -71,28 +71,28 @@ tot? Cada vegada que es visualitza l’escena?**
    * **Què contindrà el "struct" de la GPU? Com l’estructurareu?** 
    
         L'struct de la GPU s'ha definit de la següent manera:
-    ```
-    struct Light {
-    vec3 Ia;
-    vec3 Id;
-    vec3 Is;
+        ```
+        struct Light {
+        vec3 Ia;
+        vec3 Id;
+        vec3 Is;
 
-    // Directional lights
-    vec3 direction;
-    float intensity;
+        // Directional lights
+        vec3 direction;
+        float intensity;
 
-    // spot lights
-    vec3 spotDirection;
-    float spotCosineCutoff;
-    float spotExponent;
+        // spot lights
+        vec3 spotDirection;
+        float spotCosineCutoff;
+        float spotExponent;
 
-    // point lights
-    vec3 position;
-    vec3 coeficients;
-    };
-    ``` 
+        // point lights
+        vec3 position;
+        vec3 coeficients;
+        };
+        ``` 
     
-    S'utilitza un "struct" per a cada llum, on es guarden les seves propietats, com ara la posició, la direcció, l'atenuació... Aquestes estructures s'agrupen en un vector, que es passarà a la GPU per a ser utilitzat en la shader de il·luminació.
+        S'utilitza un "struct" per a cada llum, on es guarden les seves propietats, com ara la posició, la direcció, l'atenuació... Aquestes estructures s'agrupen en un vector, que es passarà a la GPU per a ser utilitzat en la shader de il·luminació.
     
 
 **Extensions addicionals**
