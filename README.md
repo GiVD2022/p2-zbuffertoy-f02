@@ -64,8 +64,10 @@ crear un objecte?**
 
 - Pas 1.2: Pas de la llum de tipus puntual a la GPU. Creació de nous tipus de llums
     * **Ara es crea una llum puntual al initializeGL() de la classe GLWidget, quan l’hauries de passar a la GPU? A l’inici de
-tot? Cada vegada que es visualitza l’escena?**
+tot? Cada vegada que es visualitza l’escena?** 
+
     En aquest cas la llum puntual s'hauria de passar a la GPU cada vegada que es visualitza l'escena. Això és degut a que la llum puntual pot ser afectada per la posició de la càmera i dels objectes en l'escena, i per tant, la seva representació a la GPU ha de ser actualitzada en cada iteració del bucle de renderitzat.
+    
     * **Què contindrà el "struct" de la GPU? Com l’estructurareu?**
 **Extensions addicionals**
     L'struct de la GPU s'ha definit de la següent manera:
