@@ -11,5 +11,7 @@
         <file>resources/models/sphere0.obj</file>
         <file>resources/GPUshaders/vshader_color.glsl</file>
         <file>resources/GPUshaders/fshader_color.glsl</file>
+        <file>resources/GPUshaders/fshader_depth.glsl</file>
+        <file>resources/GPUshaders/vshader_depth.glsl</file>
     </qresource>
 </RCC>

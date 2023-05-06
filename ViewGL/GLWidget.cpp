@@ -218,6 +218,14 @@ void GLWidget::activaColorShader() {
 
 void GLWidget::activaDepthShader() {
     //TO DO: Pràctica 2: A implementar a la fase 1
+    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_depth.glsl", "://resources/GPUshaders/fshader_depth.glsl", program);
+    if (glshader != nullptr) {
+        program->link();
+        program->bind();
+    }
+    auto sc = Controller::getInstance()->getScene();
+    sc->toGPU(program);
+    updateGL();
     qDebug()<<"Estic a Depth Shader";
 }
 
