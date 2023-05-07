@@ -1,7 +1,7 @@
 #version 330
 
 layout (location = 0) in vec4 vPosition;
-layout (location = 1) in vec4 vColor;
+layout (location = 1) in vec4 vNormal;
 
 struct Light
 {
@@ -49,5 +49,6 @@ void main()
     color = vec4(light_info[0].Is, 1.0f); //agafa tres components de l'ambient global, la quarta es la opacitat
 
     //Testeig de direccionals
-    color = vec4(light_info[0].coeficients, 1.0f);
+    //color = vec4(light_info[0].coeficients, 1.0f);
+    color = vNormal;
 }

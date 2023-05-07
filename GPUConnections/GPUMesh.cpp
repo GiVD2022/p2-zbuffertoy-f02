@@ -84,6 +84,7 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
 
     glBufferData( GL_ARRAY_BUFFER, sizeof(vec4)*Index + sizeof(vec4)*Index, NULL, GL_STATIC_DRAW );
     glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(vec4)*Index, points );
+    glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*Index, sizeof(vec4)*Index_n, normals );
     //glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*Index, sizeof(vec4)*Index, colors );
 
     // set up vertex arrays
@@ -137,13 +138,20 @@ void GPUMesh::make(){
     };
 
     Index = 0;
+    Index_n = 0;
     for(unsigned int i=0; i<cares.size(); i++){
         for(unsigned int j=0; j<cares[i].idxVertices.size(); j++){
             points[Index] = vertexs[cares[i].idxVertices[j]];
             //colors[Index] = vec4(base_colors[j%4], 1.0);
             Index++;
         }
+
+        for(unsigned int j=0; j<cares[i].idxNormals.size(); j++){
+            normals[Index_n] = normalsVertexs[cares[i].idxNormals[j]];
+            Index_n++;
+        }
 	}
+    qDebug() << "he enviat "<< Index_n <<"normals";
 }
 
 

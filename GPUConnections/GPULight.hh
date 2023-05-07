@@ -1,8 +1,9 @@
 #pragma once
 
+#include "library/Common.h"
 #include "GPUConnections/GPUConnectable.hh"
 #include "Model/Modelling/Lights/Light.hh"
-#include "library/Common.h"
+
 #define MAX 5
 
 using namespace std;
