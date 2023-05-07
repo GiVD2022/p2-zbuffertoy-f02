@@ -49,6 +49,6 @@ void main()
     color = vec4(light_info[0].Is, 1.0f); //agafa tres components de l'ambient global, la quarta es la opacitat
 
     //Testeig de direccionals
-    color = vec4(light_info[0].coeficients, 1.0f);
+    color = vec4(light_info[0].Ia, 1.0f);
 
 }

@@ -15,5 +15,7 @@
         <file>resources/GPUshaders/vshader_depth.glsl</file>
         <file>resources/GPUshaders/fshader_normal.glsl</file>
         <file>resources/GPUshaders/vshader_normal.glsl</file>
+        <file>resources/GPUshaders/fshader_phong_phong.glsl</file>
+        <file>resources/GPUshaders/vshader_phong_phong.glsl</file>
     </qresource>
 </RCC>

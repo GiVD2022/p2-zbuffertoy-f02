@@ -19,6 +19,7 @@ void GPULight::toGPU(shared_ptr<QGLShaderProgram> p) {
     glUniform3fv(gl_IdLights.Ia, 1, this->getIa());
     glUniform3fv(gl_IdLights.Id, 1, this->getId());
     glUniform3fv(gl_IdLights.Is, 1, this->getIs());
+    qDebug()<<"Updated lights";
 }
 
 void GPULight::setValues(vec3 Ia, vec3 Id, vec3 Is){
