@@ -14,5 +14,9 @@
         <file>resources/GPUshaders/fshader_gouraud.glsl</file>
         <file>resources/GPUshaders/vshader_gouraud_blinn_phong.glsl</file>
         <file>resources/GPUshaders/vshader_gouraud_phong.glsl</file>
+        <file>resources/GPUshaders/fshader_depth.glsl</file>
+        <file>resources/GPUshaders/vshader_depth.glsl</file>
+        <file>resources/GPUshaders/fshader_normal.glsl</file>
+        <file>resources/GPUshaders/vshader_normal.glsl</file>
     </qresource>
 </RCC>
