@@ -42,16 +42,17 @@ void GLWidget::initializeGL() {
 
     //Creacio de tres llums per defecte per a poder interactuar des de la ui
     // Default point light
-    vec3 position1 = vec3(1.0, 1.0, 1.0);
-    vec3 Ia1 = vec3(1.0, 0.0, 0.0);
-    vec3 Id1 = vec3(1.0, 1.0, 1.0);
-    vec3 Is1 = vec3(1.0, 1.0, 1.0);
+    vec3 position1 = vec3(-25,25,25);
+    vec3 Ia1 = vec3(0.3,0.3,0.3);
+    vec3 Id1 = vec3(1,1,1);
+    vec3 Is1 = vec3(0.5,0.5,0.5);
     float a1 = 0.0;
     float b1 = 0.0;
     float c1 = 1.0;
     auto light1 = GPULightFactory::getInstance().createLight(position1, Ia1, Id1, Is1, a1, b1, c1, LightFactory::POINTLIGHT);
     Controller::getInstance()->getSetUp()->addLight(light1);
 
+    /*
     // Default directional light
     vec3 direction2 = vec3(1.0, 0.0, 0.0);
     vec3 Ia2 = vec3(0.1, 0.1, 0.1);
@@ -71,7 +72,7 @@ void GLWidget::initializeGL() {
     float spotExponent3 = 1;
     auto light3 = GPULightFactory::getInstance().createLight(position3, Ia3, Id3, Is3, spotDirection3, spotCosineCutoff3, spotExponent3, LightFactory::SPOTLIGHT);
     Controller::getInstance()->getSetUp()->addLight(light3);
-
+    */
     //send them to the gpu
     Controller::getInstance()->getSetUp()->lightsToGPU(program);
 
@@ -98,6 +99,7 @@ void GLWidget::paintGL() {
     shared_ptr<GPUCamera> camera = Controller::getInstance()->getSetUp()->getCamera();
     auto scene = Controller::getInstance()->getScene();
 
+    Controller::getInstance()->getSetUp()->lightsToGPU(program);
     camera->toGPU(program);
     scene->draw();
 
@@ -250,6 +252,14 @@ void GLWidget::activaGouraudShader() {
 }
 void GLWidget::activaPhongShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
+    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_phong_phong.glsl", "://resources/GPUshaders/fshader_phong_phong.glsl", program);
+    if (glshader != nullptr) {
+        program->link();
+        program->bind();
+    }
+    auto sc = Controller::getInstance()->getScene();
+    sc->toGPU(program);
+    updateGL();
     qDebug()<<"Estic a Phong - Phong Shader";
 
 }
@@ -261,6 +271,14 @@ void GLWidget::activaGouraudBlinnShader() {
 }
 void GLWidget::activaBlinnPhongShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
+    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_phong_blinnphong.glsl", "://resources/GPUshaders/fshader_phong_blinnphong.glsl", program);
+    if (glshader != nullptr) {
+        program->link();
+        program->bind();
+    }
+    auto sc = Controller::getInstance()->getScene();
+    sc->toGPU(program);
+    updateGL();
     qDebug()<<"Estic a Phong - Blinn-Phong Shader";
 
 }

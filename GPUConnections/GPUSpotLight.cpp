@@ -6,7 +6,9 @@ GPUSpotLight::GPUSpotLight(vec3 posicio, vec3 Ia, vec3 Id, vec3 Is, vec3 spotDir
 void GPUSpotLight::toGPU(shared_ptr<QGLShaderProgram> p) {
     // TO DO Pràctica 2: Fase 1: enviar les llums a la GPU
     GPULight::setValues(SpotLight::getIa(), SpotLight::getId(), SpotLight::getIs());
+    GPULight::setType(1);
     int i = this->getIndex();
+     gl_IdLights.type = p->uniformLocation(QString("light_info[%1].type").arg(i));
     gl_IdLights.Ia = p->uniformLocation(QString("light_info[%1].Ia").arg(i));
     gl_IdLights.Id = p->uniformLocation(QString("light_info[%1].Id").arg(i));
     gl_IdLights.Is = p->uniformLocation(QString("light_info[%1].Is").arg(i));
