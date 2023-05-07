@@ -271,6 +271,14 @@ void GLWidget::activaGouraudBlinnShader() {
 }
 void GLWidget::activaBlinnPhongShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
+    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_phong_blinnphong.glsl", "://resources/GPUshaders/fshader_phong_blinnphong.glsl", program);
+    if (glshader != nullptr) {
+        program->link();
+        program->bind();
+    }
+    auto sc = Controller::getInstance()->getScene();
+    sc->toGPU(program);
+    updateGL();
     qDebug()<<"Estic a Phong - Blinn-Phong Shader";
 
 }

@@ -17,5 +17,7 @@
         <file>resources/GPUshaders/vshader_normal.glsl</file>
         <file>resources/GPUshaders/fshader_phong_phong.glsl</file>
         <file>resources/GPUshaders/vshader_phong_phong.glsl</file>
+        <file>resources/GPUshaders/vshader_phong_blinnphong.glsl</file>
+        <file>resources/GPUshaders/fshader_phong_blinnphong.glsl</file>
     </qresource>
 </RCC>
