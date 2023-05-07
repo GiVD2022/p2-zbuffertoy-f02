@@ -16,6 +16,7 @@ struct Material
 
 struct Light
 {
+    int type;
     vec3 Ia;
     vec3 Id;
     vec3 Is;
