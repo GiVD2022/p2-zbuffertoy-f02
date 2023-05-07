@@ -64,8 +64,6 @@ void GPUSetUp::addLight(shared_ptr<GPULight> l) {
     lights.push_back(l);
 }
 
-
-
 /**
  * @brief Scene::setAmbientToGPU
  * @param program

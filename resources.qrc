@@ -11,5 +11,8 @@
         <file>resources/models/sphere0.obj</file>
         <file>resources/GPUshaders/vshader_color.glsl</file>
         <file>resources/GPUshaders/fshader_color.glsl</file>
+        <file>resources/GPUshaders/fshader_gouraud.glsl</file>
+        <file>resources/GPUshaders/vshader_gouraud_blinn_phong.glsl</file>
+        <file>resources/GPUshaders/vshader_gouraud_phong.glsl</file>
     </qresource>
 </RCC>

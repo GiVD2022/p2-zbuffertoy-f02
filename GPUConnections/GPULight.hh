@@ -40,6 +40,7 @@ public:
         GLuint Is;
         GLuint position;
         GLuint coeficients;
+        GLuint type;
 
         // Directional lights
         GLuint direction;

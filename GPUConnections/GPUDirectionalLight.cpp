@@ -10,6 +10,7 @@ void GPUDirectionalLight::toGPU(shared_ptr<QGLShaderProgram> p) {
     gl_IdLights.Ia = p->uniformLocation(QString("light_info[%1].Ia").arg(i));
     gl_IdLights.Id = p->uniformLocation(QString("light_info[%1].Id").arg(i));
     gl_IdLights.Is = p->uniformLocation(QString("light_info[%1].Is").arg(i));
+    gl_IdLights.type = p->uniformLocation(QString("light_info[%1].type").arg(i));
     gl_IdLights.position = p->uniformLocation(QString("light_info[%1].position").arg(i));
     gl_IdLights.coeficients = p->uniformLocation(QString("light_info[%1].coeficients").arg(i));
 
@@ -23,6 +24,7 @@ void GPUDirectionalLight::toGPU(shared_ptr<QGLShaderProgram> p) {
     gl_IdLights.spotExponent = p->uniformLocation(QString("light_info[%1].spotExponent").arg(i));
 
     GPULight::toGPU(p);
+    glUniform1f(gl_IdLights.type, 1);
     glUniform4fv(gl_IdLights.direction, 1, this->getDirection());
     glUniform1f(gl_IdLights.intensity, this->getIntensity());
     qDebug() << "directional lights.....";
