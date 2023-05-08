@@ -129,7 +129,7 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
 - Pas 3.1: Creació de diferents tipus de shadings 
 
     S'ha definit una GPULight de tipus PointLight per a fer les proves de visualització. Els paràmetres per a inicialitzar-la són els següents:
-    ```
+    ```c++
     // Default point light
     vec3 position1 = vec3(-25,25,25);
     vec3 Ia1 = vec3(0.3,0.3,0.3);
