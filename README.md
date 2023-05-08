@@ -101,6 +101,12 @@ tot? Cada vegada que es visualitza l’escena?**
         ``` 
     
         S'utilitza un "struct" per a cada llum, on es guarden les seves propietats, com ara la posició, la direcció, l'atenuació... Aquestes estructures s'agrupen en un vector, que es passarà a la GPU per a ser utilitzat en la shader de il·luminació.
+   
+- Pas 2.1: Modificació de la classe Material
+    * **Utilitzarem també “structs” per a estructurar la informació tant a la CPU com a la GPU, tal i com fèiem a les llums.
+Des d’on es cridarà aquest mètode?**
+    * **Si vols utilitzar diferents shaders en temps d'execució raona on s'inicialitzaran els shaders i com controlar quin
+shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
         
 - Pas 3.1: Creació de diferents tipus de shadings
     * **Gouraud: Fixa't que quan es llegeix un objecte, cada vèrtex ja té la seva normal. Com serà aquest valor de la normal? Uniform o no uniform?**
