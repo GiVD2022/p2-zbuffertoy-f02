@@ -117,7 +117,28 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
     
 
 **Screenshots de cada part**    
+- Pas 3.1: Creació de diferents tipus de shadings
+    * Color shading 
+        <img width="857" alt="color" src="https://user-images.githubusercontent.com/44063174/236870834-321ca1ff-c1bb-4ba5-8625-51d3b4392138.png">
 
+    * Depth shading 
+        <img width="855" alt="normal" src="https://user-images.githubusercontent.com/44063174/236870881-8eef213c-bb02-41ef-b757-70b9efcecd5f.png">
+
+    * Normal shading 
+        <img width="855" alt="depth" src="https://user-images.githubusercontent.com/44063174/236870934-0c6cecaa-6344-4004-b1a8-427b1a62aeac.png">
+
+    * Gouraud-phong shading 
+        <img width="855" alt="gouraud-phong" src="https://user-images.githubusercontent.com/44063174/236870968-88a65405-f4d7-44af-a31e-97922c1914a1.png">
+
+    * Phong-phong shading 
+        <img width="856" alt="phong-phong" src="https://user-images.githubusercontent.com/44063174/236870998-35a56b09-cc38-4e62-838d-9595048a5b14.png">
+       
+    * Gouraud-blinn-phong shading 
+        <img width="855" alt="gouraud-bp" src="https://user-images.githubusercontent.com/44063174/236871108-15f16a69-bb6a-4b6a-a218-f4b411493240.png">
+
+    * Phong-blinn-phong shading 
+        <img width="855" alt="phong-bp" src="https://user-images.githubusercontent.com/44063174/236871173-8614869c-567a-4b12-b7f9-b2c6849e2931.png">
+        
 
 **Extensions addicionals**
 
