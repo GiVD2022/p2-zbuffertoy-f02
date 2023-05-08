@@ -14,7 +14,8 @@ public:
         NORMAL,
         DEPTH,
         PHONG,
-        BLINNPHONG
+        BLINNPHONG,
+        GOURAUD
     } SHADING_TYPES;
 
     static ShadingFactory& getInstance() {

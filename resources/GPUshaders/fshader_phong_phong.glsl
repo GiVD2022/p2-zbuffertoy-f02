@@ -61,9 +61,10 @@ void main()
 
         if(light_info[i].type == 0){ //point light
             //Calculate the diffuse component
-            L = normalize(vec4(light_info[i].position, 1.0) - position); //normalized
+            L = vec4(light_info[i].position, 1.0) - position;
             N = normalize(normal);
             distance = length(vec3(L));
+            L = normalize(L); //normalized
             attenuation = max(min(1./(light_info[i].coeficients.z + light_info[i].coeficients.y * distance + light_info[i].coeficients.x * distance * distance),1.),0.);
             lightDiffuse += attenuation * light_info[i].Id * mat_info.Kd * max(dot(L, N), 0.0);
 
@@ -74,9 +75,10 @@ void main()
 
         } else if(light_info[i].type == 1){ //spot light
             //Calculate the diffuse component
-            L = normalize(vec4(light_info[i].position, 1.0) - position); //normalized
+            L = vec4(light_info[i].position, 1.0) - position;
             N = normalize(normal);
             distance = length(vec3(L));
+            L = normalize(L); //normalized
             attenuation = max(min(1./(light_info[i].coeficients.z + light_info[i].coeficients.y * distance + light_info[i].coeficients.x * distance * distance),1.),0.);
             spotEffect = dot(-L, normalize(vec4(light_info[i].spotDirection, 0.0)));
             if (spotEffect > light_info[i].spotCosineCutoff) { //surface point is inside the cone of the spot light
