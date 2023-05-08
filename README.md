@@ -57,7 +57,8 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
     - [ ] Entorn amb textures
     - [ ] Reflexions
     - [ ] Transparències via objectes: 
-    - [ ] Transparències via environmental mapping
+    - [ ] Transparències via environmental mapping 
+
 
 **Decisions a destacar**
 
@@ -106,9 +107,11 @@ tot? Cada vegada que es visualitza l’escena?**
     * **En la classe Camera utilitza el mètode toGPU per a passar l'observador als shaders per a que es passi la posició de l'observador cada vegada que s'actualitza la posició de la càmera amb el ratolí. Com serà aquesta variable al shader? Uniform? O IN?**
     * **Si vols utilitzar diferents shaders en temps d'execució raona on s'inicialitzaran els shaders i com controlar quin shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader? I també la càmera?**
     * **Quina diferència hi ha entre el Phong-shading i el Gouraud-shading? On l'has de codificar? Necessites uns nous vertex-shader i fragment-shader? Raona on es calcula la il·luminació i modifica convenientment els fitxers de la pràctica.**
-    * **Cel-shading: On s'implementarà el càlcul del color per a tenir més trencament entre las games de colors? Necessites uns nous vertex-shader i fragment-shader? Raona on es calcula la il·luminació**
+    * **Cel-shading: On s'implementarà el càlcul del color per a tenir més trencament entre las games de colors? Necessites uns nous vertex-shader i fragment-shader? Raona on es calcula la il·luminació** 
     
+
 **Screenshots de cada part**    
+
 
 **Extensions addicionals**
 
