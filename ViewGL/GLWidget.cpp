@@ -245,7 +245,7 @@ void GLWidget::activaNormalShader() {
 
 void GLWidget::activaGouraudShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
-    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_gouraud_blinn_phong.glsl", "://resources/GPUshaders/fshader_gouraud.glsl", program);
+    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_gouraud_phong.glsl", "://resources/GPUshaders/fshader_gouraud.glsl", program);
     if (glshader != nullptr) {
         program->link();
         program->bind();
@@ -264,6 +264,14 @@ void GLWidget::activaPhongShader() {
 
 void GLWidget::activaGouraudBlinnShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
+    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_gouraud_blinn_phong.glsl", "://resources/GPUshaders/fshader_gouraud.glsl", program);
+    if (glshader != nullptr) {
+        program->link();
+        program->bind();
+    }
+    auto sc = Controller::getInstance()->getScene();
+    sc->toGPU(program);
+    updateGL();
     qDebug()<<"Estic a Gouraud - Blinn-Phong shader";
 
 }

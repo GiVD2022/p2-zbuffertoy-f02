@@ -1,8 +1,7 @@
 #version 330
 
 layout (location = 0) in vec4 vPosition;
-layout (location = 1) in vec4 vColor;
-layout (location = 2) in vec4 vNormal;
+layout (location = 1) in vec4 vNormal;
 
 struct Material
 {
@@ -48,6 +47,9 @@ out vec4 color;
 // The entry point for our vertex shader.
 void main()
 {
+    gl_Position = projection*model_view*vPosition;
+    gl_Position = gl_Position/gl_Position.w;
+
     // Different types of light:
     vec3 lightAmbient = vec3(0.0);
     vec3 lightDiffuse = vec3(0.0);
