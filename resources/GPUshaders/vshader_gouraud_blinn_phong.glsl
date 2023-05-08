@@ -18,7 +18,7 @@ struct Light
     vec3 Ia;
     vec3 Id;
     vec3 Is;
-    int type; // 0 for point, 1 for directional and 2 for spot
+    int type; // 0 for point, 1 for spot and 2 for direction
 
     // Directional lights
     vec3 direction;
@@ -54,39 +54,60 @@ void main()
     vec3 lightAmbient = vec3(0.0);
     vec3 lightDiffuse = vec3(0.0);
     vec3 lightSpecular = vec3(0.0);
-    vec3 globalAmbient = vec3(0.0);
+    vec3 globalAmbient = ambientGlobal * mat_info.Ka;
 
-    for (int i=0; i < 5; i++){ //array de lights de length 5
+    int numLights = light_info.length();
+
+    vec4 L, N, H;
+    float spotEffect, attenuation, distance;
+
+    for (int i=0; i < numLights; i++){ //array de lights de length 5
         Light light = light_info[i];
-        // TODO attenuation
-        float depthAttenuation = 1.0;
-
-        //Calculate the ambient component
         lightAmbient += light.Ia * mat_info.Ka;
+        if (light.type == 0) // point light
+        {
+            // Diffuse component
+            L = normalize(vec4(light.position, 1.0) - vPosition);
+            N = normalize(vNormal);
+            distance = length(vec3(L));
+            attenuation = max(min(1.0 / (light.coeficients.z + light.coeficients.y * distance + light.coeficients.x * distance * distance), 1.0), 0.0);
+            lightDiffuse += attenuation * light.Id * mat_info.Kd * max(dot(L, N), 0.0);
 
-        //Calculate diffuse component
-        vec3 L = vec3(0.0);
-        if (light.type == 1){ // if directional...
-            L = normalize(-light.direction);
-        } else{
-            vec3 lightPos = light.position;
-            vec3 vertexPos = vec3(projection * model_view * vPosition);
-            L = normalize(lightPos - vertexPos);
+            // Specular
+            H = normalize(L + normalize(obs - vPosition));
+            lightSpecular += attenuation * mat_info.Ks * light.Is * pow(max(dot(N, H), 0.0f), mat_info.shininess);
+
         }
+        else if (light.type == 1) // spot light
+        {
+            //Calculate the diffuse component
+            L = normalize(vec4(light.position, 1.0) - vPosition);
+            N = normalize(vNormal);
+            distance = length(vec3(L));
+            attenuation = max(min(1.0 / (light.coeficients.z + light.coeficients.y * distance + light.coeficients.x * distance * distance), 1.0), 0.0);
+            spotEffect = dot(-L, normalize(vec4(light.spotDirection, 0.0)));
+            if (spotEffect > light.spotCosineCutoff) { //surface point is inside the cone of the spot light
+                spotEffect = pow(spotEffect, light.spotExponent);
+                lightDiffuse += attenuation * light.Id * mat_info.Kd * spotEffect * max(dot(L, N), 0.0);
 
-        vec3 N = normalize(vNormal);
-        float dotLN = dot(L, N);
+                //Calculate the specular component
+                H = normalize(L + normalize(obs - vPosition));
+                lightSpecular += attenuation * mat_info.Ks * light.Is * spotEffect * pow(max(dot(N, H), 0.0f), mat_info.shininess);
+            }
 
-        lightDiffuse += mat_info.Kd * light.Id * max(dotLN, 0.0f) * depthAttenuation;
+        }
+        else if (light.type == 2) //directional light
+        {
+            //diffuse
+            L = -normalize(vec4(light.direction, 0.0));
+            lightDiffuse += light.Id * mat_info.Kd * max(dot(L, N), 0.0);
 
-        // Calculate the specular component
-        vec3 fpos = vec3(projection * model_view * vPosition);
-        vec3 V = normalize(obs - fpos);
-        vec3 H = normalize(L + V);
-        float dotNH = dot(N, H);
-        lightSpecular += (mat_info.Ks * light.Is * pow(max(dotNH, 0.0f), mat_info.shininess)) * depthAttenuation;
+            //specular
+            H = normalize(L + normalize(obs - vPosition));
+            lightSpecular += mat_info.Ks * light.Is * pow(max(dot(N, H), 0.0f), mat_info.shininess);
+        }
     }
 
     // out color of the vertex
-    color = vec4(lightAmbient + lightDiffuse + lightSpecular + globalAmbient, 1.0);
+    color = vec4(lightAmbient + lightDiffuse + lightSpecular + globalAmbient, mat_info.opacity);
 }
