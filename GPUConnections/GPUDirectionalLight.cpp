@@ -6,6 +6,7 @@ GPUDirectionalLight::GPUDirectionalLight(vec3 direction, vec3 Ia, vec3 Id, vec3 
 void GPUDirectionalLight::toGPU(shared_ptr<QGLShaderProgram> p) {
     // TO DO Pràctica 2: Fase 1: enviar les llums a la GPU
     GPULight::setValues(DirectionalLight::getIa(), DirectionalLight::getId(), DirectionalLight::getIs());
+    GPULight::setType(2);
     int i = this->getIndex();
     gl_IdLights.Ia = p->uniformLocation(QString("light_info[%1].Ia").arg(i));
     gl_IdLights.Id = p->uniformLocation(QString("light_info[%1].Id").arg(i));

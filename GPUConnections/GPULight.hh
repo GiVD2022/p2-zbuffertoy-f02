@@ -33,9 +33,13 @@ public:
     int getIndex();
     void setIndex(int indx);
 
+    int getType();
+    void setType(int type);
+
     void setValues(vec3 Ia, vec3 Id, vec3 Is);
 
     struct gl_IdLight {
+        GLuint type;
         GLuint Ia;
         GLuint Id;
         GLuint Is;
@@ -57,6 +61,12 @@ public:
 
 private:
     int index;
+    /*
+     * 0 -> point light
+     * 1 -> spot light
+     * 2 -> directional light
+     * */
+    int type;
 
 };
 
