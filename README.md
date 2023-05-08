@@ -23,15 +23,20 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
         - [X] Spotlight
             - Esther Ruano
     - Materials: 
-       - [ ] Pas a la GPU
-       - [ ] Lectura de fitxers .json
+       - [X] Pas a la GPU
+            - Pau B. i Pau H.
+       - [X] Lectura de fitxers .json
+            - Pau B. i Pau H.
     - Shading
-        - [ ] Color
+        - [X] Color
+            - Pau B.
         - [ ] Normal
         - [ ] Depth 
-        - [ ] Phong-Gouraud 
+        - [X] Phong-Gouraud 
+            - Pau B.
         - [ ] Phong-Phong
-        - [ ] BlinnPhong-Gouraud 
+        - [X] BlinnPhong-Gouraud 
+            - Pau B.
         - [ ] BlinnPhong-Phong
         - [ ] Cel-shading
     - Textures
