@@ -104,15 +104,28 @@ tot? Cada vegada que es visualitza l’escena?**
    
 - Pas 2.1: Modificació de la classe Material
     * **Utilitzarem també “structs” per a estructurar la informació tant a la CPU com a la GPU, tal i com fèiem a les llums.
-Des d’on es cridarà aquest mètode?**
+Des d’on es cridarà aquest mètode? (fent referència al toGPU)**
+        En aquest cas, l'struct del Material és:
+        ```glsl
+        struct Material
+        {
+            vec3 Ka;
+            vec3 Kd;
+            vec3 Ks;
+            vec3 Kt;
+            float shininess;
+            float opacity;
+        };
+        ```
+        El ```toGPU()``` de ```GPUMaterial``` s'haurà de cridar a la funció draw() dels objectes. Això es deu a que volem que per cada objecte es tingui la informació del seu material. Si ho fessim tots seguits i desprès els dibuixéssim, aleshores només es tindria a la memòria de la GPU el material de l'últim objecte. Posant-ho al draw aconseguim que abans de pintar cada objecte, es passa el seu material.
     * **Si vols utilitzar diferents shaders en temps d'execució raona on s'inicialitzaran els shaders i com controlar quin
 shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
+        La variable ```program``` guarda el shader que usem. Quan canviem de shader cal tornar a passar l'escena per tal que la GPU tingui la informació necessària. Podem tenir un array de programs compilats i linkejats i quan es crida des del menú, canviar quin d'ells s'utilitza. Això és més eficient que fer link i bind cada cop que canviem de shader.
         
 - Pas 3.1: Creació de diferents tipus de shadings
     * **Gouraud: Fixa't que quan es llegeix un objecte, cada vèrtex ja té la seva normal. Com serà aquest valor de la normal? Uniform o no uniform?**
-        La normal no pot ser de tipus uniforma, ja que cada punt de la superfície en té una de diferent. Per això la definim com 
+        La normal no pot ser de tipus uniform, ja que cada punt de la superfície en té una de diferent. Per això la definim com 
         ```glsl
-            layout (location = 0) in vec4 vPosition;
             layout (location = 1) in vec4 vNormal;
         ```
     * **En la classe Camera utilitza el mètode toGPU per a passar l'observador als shaders per a que es passi la posició de l'observador cada vegada que s'actualitza la posició de la càmera amb el ratolí. Com serà aquesta variable al shader? Uniform? O IN?**
