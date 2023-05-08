@@ -59,6 +59,8 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
     - [ ] Transparències via objectes: 
     - [ ] Transparències via environmental mapping
 
+**Decisions a destacar**
+
 **Preguntes**
 - Pas 1.1: Pas de la llum ambient global a la GPU
     * **Decideix el moment en el que cal passar la llum ambient global a la GPU (al initializeGL? Al updateGL? En
@@ -106,7 +108,7 @@ tot? Cada vegada que es visualitza l’escena?**
     * **Quina diferència hi ha entre el Phong-shading i el Gouraud-shading? On l'has de codificar? Necessites uns nous vertex-shader i fragment-shader? Raona on es calcula la il·luminació i modifica convenientment els fitxers de la pràctica.**
     * **Cel-shading: On s'implementarà el càlcul del color per a tenir més trencament entre las games de colors? Necessites uns nous vertex-shader i fragment-shader? Raona on es calcula la il·luminació**
     
-    
+**Screenshots de cada part**    
 
 **Extensions addicionals**
 
