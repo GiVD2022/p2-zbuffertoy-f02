@@ -121,7 +121,8 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
     
 
 **Screenshots de cada part**    
-- Pas 3.1: Creació de diferents tipus de shadings
+- Pas 3.1: Creació de diferents tipus de shadings 
+
     S'ha definit una GPULight de tipus PointLight per a fer les proves de visualització. Els paràmetres per a inicialitzar-la són els següents:
     ```
     // Default point light
