@@ -79,7 +79,7 @@ tot? Cada vegada que es visualitza l’escena?**
    * **Què contindrà el "struct" de la GPU? Com l’estructurareu?** 
    
         L'struct de la GPU s'ha definit de la següent manera:
-        ```
+        ```glsl
         struct Light {
         vec3 Ia;
         vec3 Id;
@@ -110,8 +110,13 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
         
 - Pas 3.1: Creació de diferents tipus de shadings
     * **Gouraud: Fixa't que quan es llegeix un objecte, cada vèrtex ja té la seva normal. Com serà aquest valor de la normal? Uniform o no uniform?**
-    * **En la classe Camera utilitza el mètode toGPU per a passar l'observador als shaders per a que es passi la posició de l'observador cada vegada que s'actualitza la posició de la càmera amb el ratolí. Com serà aquesta variable al shader? Uniform? O IN?**
+        La normal no pot ser de tipus uniforma, ja que cada punt de la superfície en té una de diferent. Per això la definim com 
+        ```glsl
+            layout (location = 0) in vec4 vPosition;
+            layout (location = 1) in vec4 vNormal;
         ```
+    * **En la classe Camera utilitza el mètode toGPU per a passar l'observador als shaders per a que es passi la posició de l'observador cada vegada que s'actualitza la posició de la càmera amb el ratolí. Com serà aquesta variable al shader? Uniform? O IN?**
+        ```glsl
         uniform vec4 obs;
         ```
         S'ha definit de tipus uniform, perquè no varia el seu valor d'un shader a un altre en la mateixa crida de rendering. El seu valor és uniforme en totes les invocacions.
