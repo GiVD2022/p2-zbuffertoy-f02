@@ -5,7 +5,9 @@ GPUMesh::GPUMesh()
 	numPoints = NUMPOINTS;
 	points = new vec4[numPoints];
 	normals= new vec4[numPoints];
+    textures = new vec2[numPoints];
     //colors = new vec4[numPoints];
+    initTexture();
 	make();
 }
 
@@ -13,8 +15,10 @@ GPUMesh::GPUMesh(const QString &fileName): Mesh(fileName)
 {
     numPoints = NUMPOINTS;
     points = new vec4[numPoints];
-    normals= new vec4[numPoints];
+    normals = new vec4[numPoints];
+    textures = new vec2[numPoints];
     //colors = new vec4[numPoints];
+    initTexture();
     make();
 }
 
@@ -22,8 +26,10 @@ GPUMesh::GPUMesh(const int npoints, const QString &fileName): Mesh(fileName)
 {
     numPoints = npoints;
     points = new vec4[numPoints];
-    normals= new vec4[numPoints];
+    normals = new vec4[numPoints];
+    textures = new vec2[numPoints];
     //colors = new vec4[numPoints];
+    initTexture();
     make();
 }
 
@@ -31,6 +37,8 @@ void GPUMesh::read(const QJsonObject &json) {
     numPoints = NUMPOINTS;
     points = new vec4[numPoints];
     normals= new vec4[numPoints];
+    textures = new vec2[numPoints];
+
     if(json.contains("material") && json["material"].isObject() ){
         QJsonObject auxMat = json["material"].toObject();
             if (auxMat.contains("type") && auxMat["type"].isString()) {
@@ -53,6 +61,7 @@ GPUMesh::~GPUMesh() {
 
     if (points!= nullptr) delete points;
     if (normals!= nullptr) delete normals;
+    if (textures!= nullptr) delete textures;
     //if (material!= nullptr) delete material;
 }
 
@@ -64,7 +73,6 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
     // TO  DO: A modificar a la fase 1 de la practica 2
 
     qDebug() << "Obj to GPU.....";
-
 
     program = pr;
     // Creació d'un vertex array object
@@ -82,9 +90,10 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
     // TO  DO: A modificar a la fase 1 de la practica 2
     // Cal passar les normals a la GPU
 
-    glBufferData( GL_ARRAY_BUFFER, sizeof(vec4)*Index + sizeof(vec4)*Index, NULL, GL_STATIC_DRAW );
+    glBufferData( GL_ARRAY_BUFFER, sizeof(vec4)*Index + sizeof(vec4)*Index + sizeof(vec2)*Index, NULL, GL_STATIC_DRAW );
     glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(vec4)*Index, points );
     glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*Index, sizeof(vec4)*Index_n, normals );
+    glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*(Index + Index_n), sizeof(vec2)*Index_t, textures );
     //glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*Index, sizeof(vec4)*Index, colors );
 
     // set up vertex arrays
@@ -94,6 +103,10 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
 
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0,  (void*)(sizeof(vec4)*Index));
     glEnableVertexAttribArray(1);
+
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0,  (void*)(sizeof(vec4)*(Index + Index_t)));
+    glEnableVertexAttribArray(2);
+
 }
 
 
@@ -103,6 +116,9 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
  */
 void GPUMesh::draw(){
 
+    glEnable( GL_DEPTH_TEST );
+    glEnable(GL_TEXTURE_2D);
+
     // Aqui s'ha de fer el pas de dades a la GPU per si hi ha més d'un objecte
     // Activació a GL del Vertex Buffer Object.
     // TO  DO: A modificar a la fase 1 de la practica 2
@@ -111,14 +127,20 @@ void GPUMesh::draw(){
     glBindVertexArray( vao );
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
+
+
+    texture->bind(0);
+    program->setUniformValue("texMap", 0);
+
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glDrawArrays( GL_TRIANGLES, 0, Index );
 
+
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
-
-
+    glDisableVertexAttribArray(2);
 
 }
 
@@ -139,6 +161,7 @@ void GPUMesh::make(){
 
     Index = 0;
     Index_n = 0;
+    Index_t = 0;
     for(unsigned int i=0; i<cares.size(); i++){
         for(unsigned int j=0; j<cares[i].idxVertices.size(); j++){
             points[Index] = vertexs[cares[i].idxVertices[j]];
@@ -150,8 +173,15 @@ void GPUMesh::make(){
             normals[Index_n] = normalsVertexs[cares[i].idxNormals[j]];
             Index_n++;
         }
+
+        for(unsigned int j=0; j<cares[i].idxTextures.size(); j++){
+            textures[Index_t] = textVertexs[cares[i].idxTextures[j]];
+            Index_t++;
+        }
 	}
+    qDebug() << "he enviat "<< Index <<"vertex";
     qDebug() << "he enviat "<< Index_n <<"normals";
+    qDebug() << "he enviat "<< Index_t <<"textures";
 }
 
 
@@ -163,6 +193,16 @@ void GPUMesh::initTexture()
     // TO DO: A implementar a la fase 1 de la practica 2
     // Cal inicialitzar la textura de l'objecte: veure l'exemple del CubGPUTextura
     qDebug() << "Initializing textures...";
+
+    // Carregar la textura
+    glActiveTexture(GL_TEXTURE0);
+
+
+    texture = make_shared<QOpenGLTexture>(QImage("://resources/textures/capsule0.jpg").mirrored());
+    texture->setWrapMode(QOpenGLTexture::Repeat);
+    texture->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
+    texture->setMagnificationFilter(QOpenGLTexture::Linear);
+    texture->bind(0);
 
  }
 

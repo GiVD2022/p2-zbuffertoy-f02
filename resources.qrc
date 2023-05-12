@@ -22,5 +22,8 @@
         <file>resources/GPUshaders/vshader_phong_phong.glsl</file>
         <file>resources/GPUshaders/vshader_phong_blinnphong.glsl</file>
         <file>resources/GPUshaders/fshader_phong_blinnphong.glsl</file>
+        <file>resources/textures/2k_jupiter.jpg</file>
+        <file>resources/textures/bricks.png</file>
+        <file>resources/textures/capsule0.jpg</file>
     </qresource>
 </RCC>

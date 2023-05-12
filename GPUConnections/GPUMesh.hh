@@ -1,6 +1,6 @@
 #pragma once
 
-#include <library/Common.h>
+#include "library/Common.h"
 using namespace Common;
 
 #include <QOpenGLTexture>
@@ -37,10 +37,12 @@ private:
     int   numPoints;
     vec4 *points;
     vec4 *normals;
+    vec2 *textures;
 
 
     int Index; // index de control del numero de vèrtexs a passar a la GPU
     int Index_n;
+    int Index_t;
 
     shared_ptr<QOpenGLTexture> texture;
 
