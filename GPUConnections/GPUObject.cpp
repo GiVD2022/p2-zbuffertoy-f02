@@ -6,6 +6,7 @@ GPUObject::GPUObject()
 }
 
 void GPUObject::read (const QJsonObject &json){
+    Object::read(json);
     gpumaterial->read(json);
 }
 

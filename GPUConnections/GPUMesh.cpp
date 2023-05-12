@@ -5,7 +5,7 @@ GPUMesh::GPUMesh()
 	numPoints = NUMPOINTS;
 	points = new vec4[numPoints];
 	normals= new vec4[numPoints];
-    //colors = new vec4[numPoints];
+    load(fileName);
 	make();
 }
 
@@ -14,7 +14,7 @@ GPUMesh::GPUMesh(const QString &fileName): Mesh(fileName)
     numPoints = NUMPOINTS;
     points = new vec4[numPoints];
     normals= new vec4[numPoints];
-    //colors = new vec4[numPoints];
+    load(fileName);
     make();
 }
 
@@ -23,7 +23,7 @@ GPUMesh::GPUMesh(const int npoints, const QString &fileName): Mesh(fileName)
     numPoints = npoints;
     points = new vec4[numPoints];
     normals= new vec4[numPoints];
-    //colors = new vec4[numPoints];
+    load(fileName);
     make();
 }
 
@@ -164,7 +164,40 @@ void GPUMesh::initTexture()
     // Cal inicialitzar la textura de l'objecte: veure l'exemple del CubGPUTextura
     qDebug() << "Initializing textures...";
 
- }
+}
+
+void GPUMesh::load(QString filename)
+{
+    Mesh::load(filename);
+    // Construir el GPUMaterial
+    QFile file(fileName);
+    if(file.exists()) {
+        if(file.open(QFile::ReadOnly | QFile::Text)) {
+            while(!file.atEnd()) {
+                QString line = file.readLine().trimmed();
+                QStringList lineParts = line.split(QRegularExpression("\\s+"));
+                if(lineParts.count() > 0) {
+                    // if it’s a comment
+                    if(lineParts.at(0).compare("#", Qt::CaseInsensitive) == 0)
+                    {
+                        // qDebug() << line.remove(0, 1).trimmed();
+                    }
+                    // mtlib no se si cal o esta repetit??
+                    else if (lineParts.at(0).compare("mtllib", Qt::CaseInsensitive) == 0)
+                    {
+                        // read material file
+                        QString matFile = lineParts.at(1); // material file name
+                        gpumaterial->load(matFile);
+                    }
+                }
+            }
+            file.close();
+        } else {
+            qWarning("Boundary object file can not be opened.");
+        }
+    } else  qWarning("Boundary object file not found.");
+
+}
 
 void GPUMesh::setTexture(shared_ptr<QOpenGLTexture> t){
    texture = t;

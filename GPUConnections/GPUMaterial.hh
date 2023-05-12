@@ -15,7 +15,7 @@ public:
 
     void toGPU(shared_ptr<QGLShaderProgram> p) override;
 
-
+    void load(const QString matFile) override;
 
 private:
     struct Mat{

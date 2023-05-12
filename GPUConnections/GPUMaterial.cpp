@@ -38,6 +38,12 @@ void GPUMaterial::toGPU(shared_ptr<QGLShaderProgram> p) {
 
 }
 
+void GPUMaterial::load(const QString matFile)
+{
+    Material::load(matFile);
+    // llegir mtl i guardar struct a atribut
+}
+
 bool GPUMaterial::scatter(const Ray& r_in, const HitInfo& rec, vec3& color, Ray & r_out) const{
     return false;
 }

@@ -31,6 +31,8 @@ public:
     virtual void write(QJsonObject &json) const;
     virtual void print(int indentation) const;
 
+    void load(const QString matFile);
+
 };
 
 

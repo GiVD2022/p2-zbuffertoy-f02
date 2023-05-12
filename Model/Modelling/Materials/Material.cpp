@@ -68,6 +68,12 @@ void Material::read (const QJsonObject &json)
 }
 
 
+void Material::load(const QString matFile)
+{
+
+}
+
+
 //! [1]
 void Material::write(QJsonObject &json) const
 {

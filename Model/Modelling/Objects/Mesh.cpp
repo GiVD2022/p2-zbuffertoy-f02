@@ -7,7 +7,6 @@ Mesh::Mesh(const QString &fileName): Object()
 {
     nom = fileName;
     load(fileName);
-    //material = new GPUMaterial
 }
 
 
@@ -98,6 +97,13 @@ void Mesh::load (QString fileName) {
                         // cara->calculaNormal();
 
                         cares.push_back(*face);
+                    }
+                    // mtlib no se si cal o esta repetit??
+                    else if (lineParts.at(0).compare("mtllib", Qt::CaseInsensitive) == 0)
+                    {
+                        // read material file
+                        QString matFile = lineParts.at(1); // material file name
+                        material->load(matFile);
                     }
                 }
             }
