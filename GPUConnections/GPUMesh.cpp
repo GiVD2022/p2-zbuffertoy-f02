@@ -6,7 +6,7 @@ GPUMesh::GPUMesh()
 	points = new vec4[numPoints];
 	normals= new vec4[numPoints];
     textures = new vec2[numPoints];
-    //colors = new vec4[numPoints];
+    qDebug() << "1\n";
     initTexture();
 	make();
 }
@@ -17,7 +17,7 @@ GPUMesh::GPUMesh(const QString &fileName): Mesh(fileName)
     points = new vec4[numPoints];
     normals = new vec4[numPoints];
     textures = new vec2[numPoints];
-    //colors = new vec4[numPoints];
+    qDebug() << "2\n";
     initTexture();
     make();
 }
@@ -28,8 +28,11 @@ GPUMesh::GPUMesh(const int npoints, const QString &fileName): Mesh(fileName)
     points = new vec4[numPoints];
     normals = new vec4[numPoints];
     textures = new vec2[numPoints];
-    //colors = new vec4[numPoints];
-    initTexture();
+    qDebug() << "3\n";
+
+    if(textVertexs.size() > 0){
+        initTexture();
+    }
     make();
 }
 
@@ -39,15 +42,21 @@ void GPUMesh::read(const QJsonObject &json) {
     normals= new vec4[numPoints];
     textures = new vec2[numPoints];
 
+
+    QTextStream(stdout) << "Mesh object reading:" << "\n";
+
     if(json.contains("material") && json["material"].isObject() ){
         QJsonObject auxMat = json["material"].toObject();
             if (auxMat.contains("type") && auxMat["type"].isString()) {
                 QString tipus = auxMat["type"].toString().toUpper();
+                qDebug() << "a gpu mesh" << tipus <<"\n";
+                GPUMaterialFactory::MATERIAL_TYPES t = GPUMaterialFactory::getInstance().getMaterialType(tipus);
+                gpumaterial = GPUMaterialFactory::getInstance().createMaterial(t);
                 gpumaterial->read(auxMat);
                 qDebug() << gpumaterial->Ka.x <<" "<< gpumaterial->Ka.y <<" "<< gpumaterial->Ka.z  ;
-
             }
     }
+
 
     //colors = new vec4[numPoints];
     Mesh::read(json);
@@ -92,9 +101,10 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
 
     glBufferData( GL_ARRAY_BUFFER, sizeof(vec4)*Index + sizeof(vec4)*Index + sizeof(vec2)*Index, NULL, GL_STATIC_DRAW );
     glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(vec4)*Index, points );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*Index, sizeof(vec4)*Index_n, normals );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*(Index + Index_n), sizeof(vec2)*Index_t, textures );
-    //glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*Index, sizeof(vec4)*Index, colors );
+    glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*Index, sizeof(vec4)*Index, normals );
+    if(textVertexs.size() > 0){
+        glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*(2 * Index), sizeof(vec2)*Index, textures );
+    }
 
     // set up vertex arrays
     glBindVertexArray( vao );
@@ -104,8 +114,10 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0,  (void*)(sizeof(vec4)*Index));
     glEnableVertexAttribArray(1);
 
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0,  (void*)(sizeof(vec4)*(Index + Index_t)));
-    glEnableVertexAttribArray(2);
+    if(textVertexs.size() > 0){
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0,  (void*)(sizeof(vec4)*(2 * Index)));
+        glEnableVertexAttribArray(2);
+    }
 
 }
 
@@ -127,11 +139,11 @@ void GPUMesh::draw(){
     glBindVertexArray( vao );
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
-    glEnableVertexAttribArray(2);
-
-
-    texture->bind(0);
-    program->setUniformValue("texMap", 0);
+    if(textVertexs.size() > 0){
+        glEnableVertexAttribArray(2);
+        texture->bind(0);
+        program->setUniformValue("texMap", 0);
+    }
 
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -140,8 +152,13 @@ void GPUMesh::draw(){
 
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
-    glDisableVertexAttribArray(2);
 
+    if(textVertexs.size() > 0){
+        glDisableVertexAttribArray(2);
+    }
+
+    glDisable( GL_DEPTH_TEST );
+    glDisable(GL_TEXTURE_2D);
 }
 
 /**
@@ -152,36 +169,19 @@ void GPUMesh::make(){
     // TO  DO: A modificar a la fase 1 de la practica 2
     // Cal calcular la normal a cada vertex a la CPU
 
-    static vec3  base_colors[] = {
-        vec3( 1.0, 0.0, 0.0 ),
-        vec3( 0.0, 1.0, 0.0 ),
-        vec3( 0.0, 0.0, 1.0 ),
-        vec3( 1.0, 1.0, 0.0 )
-    };
 
     Index = 0;
-    Index_n = 0;
-    Index_t = 0;
     for(unsigned int i=0; i<cares.size(); i++){
         for(unsigned int j=0; j<cares[i].idxVertices.size(); j++){
             points[Index] = vertexs[cares[i].idxVertices[j]];
-            //colors[Index] = vec4(base_colors[j%4], 1.0);
+            normals[Index] = normalsVertexs[cares[i].idxNormals[j]];
+            if(textVertexs.size() > 0){
+                textures[Index] = textVertexs[cares[i].idxTextures[j]];
+            }
             Index++;
         }
-
-        for(unsigned int j=0; j<cares[i].idxNormals.size(); j++){
-            normals[Index_n] = normalsVertexs[cares[i].idxNormals[j]];
-            Index_n++;
-        }
-
-        for(unsigned int j=0; j<cares[i].idxTextures.size(); j++){
-            textures[Index_t] = textVertexs[cares[i].idxTextures[j]];
-            Index_t++;
-        }
 	}
-    qDebug() << "he enviat "<< Index <<"vertex";
-    qDebug() << "he enviat "<< Index_n <<"normals";
-    qDebug() << "he enviat "<< Index_t <<"textures";
+    qDebug() << "he enviat "<< Index <<"vertex, normals i textures";
 }
 
 

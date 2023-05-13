@@ -17,9 +17,10 @@ shared_ptr<GPUMaterial> GPUMaterialFactory::createMaterial(MATERIAL_TYPES t) {
     case TRANSPARENT:
         m = make_shared<Transparent>();
         break;
+    */
     case MATERIALTEXTURA:
-        m = make_shared<MaterialTextura>();
-        break;*/
+        m = make_shared<GPUMaterialTextura>();
+        break;
     default:
         break;
     }
@@ -39,9 +40,10 @@ shared_ptr<GPUMaterial> GPUMaterialFactory::createMaterial(vec3 a, vec3 d, vec3 
         // En principi nomes transparent fa servir l'index de refraccio i kt
         m = make_shared<Transparent>(a,d,s,t,beta, opacity,mu);
         break;
+        */
     case MATERIALTEXTURA:
-        m = make_shared<MaterialTextura>(a,d,s,beta, opacity);
-        break;*/
+        m = make_shared<GPUMaterialTextura>(a,d,s,beta, opacity);
+        break;
     default:
         break;
     }
@@ -50,14 +52,21 @@ shared_ptr<GPUMaterial> GPUMaterialFactory::createMaterial(vec3 a, vec3 d, vec3 
 
 GPUMaterialFactory::MATERIAL_TYPES GPUMaterialFactory::getIndexType(shared_ptr<GPUMaterial> m) {
     if (dynamic_pointer_cast<GPULambertian>(m) != nullptr) {
+        QTextStream(stdout) << "A\n";
         return MATERIAL_TYPES::LAMBERTIAN;
     } /*else if (dynamic_pointer_cast<Metal>(m) != nullptr) {
         return MATERIAL_TYPES::METAL;
     } else if (dynamic_pointer_cast<Transparent>(m) != nullptr) {
         return MATERIAL_TYPES::TRANSPARENT;
-    }else if (dynamic_pointer_cast<MaterialTextura>(m) != nullptr) {
-        return MATERIAL_TYPES::MATERIALTEXTURA;
     }*/
+    else if (dynamic_pointer_cast<MaterialTextura>(m) != nullptr) {
+        QTextStream(stdout) << "B\n";
+        return MATERIAL_TYPES::MATERIALTEXTURA;
+    } else if (dynamic_pointer_cast<GPUMaterialTextura>(m) != nullptr) {
+        QTextStream(stdout) << "C\n";
+        return MATERIAL_TYPES::MATERIALTEXTURA;
+    }
+    QTextStream(stdout) << "D\n";
     return MATERIAL_TYPES::LAMBERTIAN;
 }
 

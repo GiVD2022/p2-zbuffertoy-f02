@@ -41,8 +41,6 @@ private:
 
 
     int Index; // index de control del numero de vèrtexs a passar a la GPU
-    int Index_n;
-    int Index_t;
 
     shared_ptr<QOpenGLTexture> texture;
 

@@ -16,10 +16,12 @@ shared_ptr<Material> Object::getMaterial() {
 
 void Object::read (const QJsonObject &json)
 {
+
     if (json.contains("material") && json["material"].isObject()) {
         QJsonObject auxMat = json["material"].toObject();
         if (auxMat.contains("type") && auxMat["type"].isString()) {
             QString tipus = auxMat["type"].toString().toUpper();
+            QTextStream(stdout) << "Soc a object; el material es "<<tipus;
             MaterialFactory::MATERIAL_TYPES t = MaterialFactory::getInstance().getMaterialType(tipus);
             material = MaterialFactory::getInstance().createMaterial(t);
             material->read(auxMat);

@@ -3,6 +3,7 @@
 // Input vertex data
 in vec4 position;   // vertex position
 in vec4 normal;     // vertex normal
+in vec2 v_texcoord;
 
 // Output data for the fragment shader
 out vec4 colorOut;
@@ -45,6 +46,8 @@ uniform Material mat_info;  // a la memòria central de la GPU
 uniform Light light_info[5];    //array de 5 elements. Aquest valor sempre ha de ser un numero
 uniform vec4 obs;          // camera position
 uniform vec3 ambientGlobal;
+
+uniform sampler2D texMap;
 
 // Main function (called once per vertex)
 void main()
@@ -98,5 +101,6 @@ void main()
             lightSpecular += mat_info.Ks * light_info[i].Is * pow(max(dot(N, H), 0.0f), mat_info.shininess);
         }
     }
-    colorOut = vec4(ambientGlobal * mat_info.Ka + lightAmbient + lightDiffuse + lightSpecular, mat_info.opacity);
+    vec3 newDiffuse = 0.25 * lightDiffuse + 0.75 * vec3(texture(texMap, v_texcoord).rgb);
+    colorOut = vec4(ambientGlobal * mat_info.Ka + lightAmbient + newDiffuse + lightSpecular, mat_info.opacity);
 }

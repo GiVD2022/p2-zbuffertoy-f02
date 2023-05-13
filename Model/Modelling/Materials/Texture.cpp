@@ -11,10 +11,3 @@ Texture::Texture(QString nomfitxer)
 Texture::~Texture() {
 
 }
-vec3 Texture::getColorPixel(vec2 uv) {
-    if (success) {
-        QColor c(image.pixel((uv.x)*image.width(), (uv.y)*image.height() ));
-        return(vec3(c.redF(), c.greenF(), c.blueF()));
-    }
-    return vec3(0.0f);
-}

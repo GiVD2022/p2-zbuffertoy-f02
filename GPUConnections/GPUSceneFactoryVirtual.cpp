@@ -76,6 +76,8 @@ void GPUSceneFactoryVirtual::read(const QJsonObject &json)
                 QString objStr = objectObject["type"].toString().toUpper();
                 o = dynamic_pointer_cast<GPUObject>(
                             GPUObjectFactory::getInstance().createObject(ObjectFactory::getInstance().getObjectType(objStr)));
+
+                QTextStream(stdout) << "Readig a GPUscene factory" <<"\n";
                 o->read(objectObject);
 
                 // Afegir objecte a l'escena virtual ja amb el seu material corresponent

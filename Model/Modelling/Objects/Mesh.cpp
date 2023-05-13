@@ -110,6 +110,7 @@ void Mesh::load (QString fileName) {
 
 void Mesh::read (const QJsonObject &json)
 {
+    QTextStream(stdout) << "llegint a mesh";
     Object::read(json);
     if (json.contains("objFileName") && json["objFileName"].isString()) {
         nom = json["objFileName"].toString();
