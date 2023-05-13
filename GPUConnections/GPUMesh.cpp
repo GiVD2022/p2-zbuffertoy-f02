@@ -6,8 +6,8 @@ GPUMesh::GPUMesh()
 	points = new vec4[numPoints];
 	normals= new vec4[numPoints];
     textures = new vec2[numPoints];
-    qDebug() << "1\n";
-    initTexture();
+    qDebug() << "Constructor de GPUMesh 1\n";
+    type = GPUMaterialFactory::MATERIAL_TYPES::LAMBERTIAN;
 	make();
 }
 
@@ -17,8 +17,8 @@ GPUMesh::GPUMesh(const QString &fileName): Mesh(fileName)
     points = new vec4[numPoints];
     normals = new vec4[numPoints];
     textures = new vec2[numPoints];
-    qDebug() << "2\n";
-    initTexture();
+    qDebug() << "Constructor de GPUMesh 2\n";
+    type = GPUMaterialFactory::MATERIAL_TYPES::LAMBERTIAN;
     make();
 }
 
@@ -28,11 +28,8 @@ GPUMesh::GPUMesh(const int npoints, const QString &fileName): Mesh(fileName)
     points = new vec4[numPoints];
     normals = new vec4[numPoints];
     textures = new vec2[numPoints];
-    qDebug() << "3\n";
-
-    if(textVertexs.size() > 0){
-        initTexture();
-    }
+    qDebug() << "Constructor de GPUMesh 3\n";
+    type = GPUMaterialFactory::MATERIAL_TYPES::LAMBERTIAN;
     make();
 }
 
@@ -42,24 +39,23 @@ void GPUMesh::read(const QJsonObject &json) {
     normals= new vec4[numPoints];
     textures = new vec2[numPoints];
 
-
     QTextStream(stdout) << "Mesh object reading:" << "\n";
 
     if(json.contains("material") && json["material"].isObject() ){
         QJsonObject auxMat = json["material"].toObject();
             if (auxMat.contains("type") && auxMat["type"].isString()) {
                 QString tipus = auxMat["type"].toString().toUpper();
-                qDebug() << "a gpu mesh" << tipus <<"\n";
-                GPUMaterialFactory::MATERIAL_TYPES t = GPUMaterialFactory::getInstance().getMaterialType(tipus);
-                gpumaterial = GPUMaterialFactory::getInstance().createMaterial(t);
+                type = GPUMaterialFactory::getInstance().getMaterialType(tipus);
+                gpumaterial = GPUMaterialFactory::getInstance().createMaterial(type);
                 gpumaterial->read(auxMat);
-                qDebug() << gpumaterial->Ka.x <<" "<< gpumaterial->Ka.y <<" "<< gpumaterial->Ka.z  ;
             }
     }
 
-
-    //colors = new vec4[numPoints];
     Mesh::read(json);
+
+    if(type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
+        initTexture();
+    }
     make();
 }
 
@@ -71,7 +67,6 @@ GPUMesh::~GPUMesh() {
     if (points!= nullptr) delete points;
     if (normals!= nullptr) delete normals;
     if (textures!= nullptr) delete textures;
-    //if (material!= nullptr) delete material;
 }
 
 /**
@@ -84,6 +79,12 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
     qDebug() << "Obj to GPU.....";
 
     program = pr;
+
+    if(type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
+        program->setUniformValue("hasTexture", true);
+    } else {
+        program->setUniformValue("hasTexture", false);
+    }
     // Creació d'un vertex array object
 
     glGenVertexArrays( 1, &vao );
@@ -102,7 +103,7 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
     glBufferData( GL_ARRAY_BUFFER, sizeof(vec4)*Index + sizeof(vec4)*Index + sizeof(vec2)*Index, NULL, GL_STATIC_DRAW );
     glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(vec4)*Index, points );
     glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*Index, sizeof(vec4)*Index, normals );
-    if(textVertexs.size() > 0){
+    if(type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
         glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*(2 * Index), sizeof(vec2)*Index, textures );
     }
 
@@ -114,7 +115,7 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0,  (void*)(sizeof(vec4)*Index));
     glEnableVertexAttribArray(1);
 
-    if(textVertexs.size() > 0){
+    if(type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0,  (void*)(sizeof(vec4)*(2 * Index)));
         glEnableVertexAttribArray(2);
     }
@@ -139,7 +140,7 @@ void GPUMesh::draw(){
     glBindVertexArray( vao );
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
-    if(textVertexs.size() > 0){
+    if(type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
         glEnableVertexAttribArray(2);
         texture->bind(0);
         program->setUniformValue("texMap", 0);
@@ -153,7 +154,7 @@ void GPUMesh::draw(){
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
 
-    if(textVertexs.size() > 0){
+    if(type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
         glDisableVertexAttribArray(2);
     }
 
@@ -175,7 +176,7 @@ void GPUMesh::make(){
         for(unsigned int j=0; j<cares[i].idxVertices.size(); j++){
             points[Index] = vertexs[cares[i].idxVertices[j]];
             normals[Index] = normalsVertexs[cares[i].idxNormals[j]];
-            if(textVertexs.size() > 0){
+            if(type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
                 textures[Index] = textVertexs[cares[i].idxTextures[j]];
             }
             Index++;
@@ -197,12 +198,18 @@ void GPUMesh::initTexture()
     // Carregar la textura
     glActiveTexture(GL_TEXTURE0);
 
-
-    texture = make_shared<QOpenGLTexture>(QImage("://resources/textures/capsule0.jpg").mirrored());
-    texture->setWrapMode(QOpenGLTexture::Repeat);
-    texture->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
-    texture->setMagnificationFilter(QOpenGLTexture::Linear);
-    texture->bind(0);
+    shared_ptr<GPUMaterialTextura> materialTextura = dynamic_pointer_cast<GPUMaterialTextura>(gpumaterial);
+    if(materialTextura != nullptr){
+        auto text = materialTextura->getTextura();
+        auto image = text->getImage();
+        texture = make_shared<QOpenGLTexture>(image.mirrored());
+        texture->setWrapMode(QOpenGLTexture::Repeat);
+        texture->setMinificationFilter(QOpenGLTexture::LinearMipMapLinear);
+        texture->setMagnificationFilter(QOpenGLTexture::Linear);
+        texture->bind(0);
+    } else {
+        qDebug() << "Fatal error initializing textures";
+    }
 
  }
 

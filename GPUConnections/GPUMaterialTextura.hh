@@ -11,6 +11,8 @@ public:
     GPUMaterialTextura(const vec3& color);
     GPUMaterialTextura(const vec3& a, const vec3& d, const vec3& s, const float k);
     GPUMaterialTextura(const vec3& a, const vec3& d, const vec3& s, const float k, const float o);
+    void read(const QJsonObject &json);
+
 };
 
 #endif // GPUMATERIALTEXTURA_HH

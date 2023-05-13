@@ -43,6 +43,7 @@ private:
     int Index; // index de control del numero de vèrtexs a passar a la GPU
 
     shared_ptr<QOpenGLTexture> texture;
+    GPUMaterialFactory::MATERIAL_TYPES type;
 
     void make();
 

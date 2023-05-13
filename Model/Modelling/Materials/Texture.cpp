@@ -11,3 +11,8 @@ Texture::Texture(QString nomfitxer)
 Texture::~Texture() {
 
 }
+
+QImage Texture::getImage()
+{
+    return image;
+}

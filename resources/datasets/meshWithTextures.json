@@ -5,11 +5,10 @@
   {
   "name": "Br Objecte",
   "type":  "MESH",
-    "objFileName": "://resources/models/capsule.obj",
+    "objFileName": "://resources/models/cube.obj",
     "material": {
-      "type": "materialtextura",
-      "textureFile":"://resources/textures/capsule0.jpg",
-      "ka": [0.2, 0.2, 1],
+      "type": "lambertian",
+      "ka": [1, 0.2, 0.2],
       "kd": [0.1,0.6,1],
       "ks": [0.2, 0.7, 1],
       "shininess": 10.0,
@@ -20,11 +19,11 @@
     {
   "name": "Br Objecte",
   "type":  "MESH",
-    "objFileName": "://resources/models/capsule.obj",
+  "objFileName": "://resources/models/suzanne.obj",
     "material": {
       "type": "materialtextura",
-      "textureFile":"://resources/textures/capsule0.jpg",
-      "ka": [1, 0.2, 0.2],
+      "textureFile":"://resources/textures/bricks.png",
+      "ka": [0.2, 0.2, 1],
       "kd": [1,0.6,0.5],
       "ks": [1, 0.7, 0.7],
       "shininess": 10.0,

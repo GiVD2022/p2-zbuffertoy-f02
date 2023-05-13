@@ -11,10 +11,17 @@ out vec4 colorOut;
 
 uniform sampler2D texMap;
 
+uniform bool hasTexture;
+
 void main()
 {
     //colorOut = color;
-    vec3 newDiffuse = 0.25 * lightDiffuseO + 0.75 * vec3(texture(texMap, v_texcoord).rgb);
+    vec3 newDiffuse;
+    if(hasTexture){
+        newDiffuse = 0.25 * lightDiffuseO + 0.75 * vec3(texture(texMap, v_texcoord).rgb);
+    }else{
+        newDiffuse = lightDiffuseO;
+    }
     colorOut = vec4( lightAmbientO + newDiffuse + lightSpecularO + globalAmbientO, opacityO);
 
     //colorOut = vec4(v_texcoord.x, v_texcoord.y, 0.f,1.f);

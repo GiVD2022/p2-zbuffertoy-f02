@@ -16,3 +16,9 @@ GPUMaterialTextura::GPUMaterialTextura(const vec3& a, const vec3& d, const vec3&
 GPUMaterialTextura::GPUMaterialTextura(const vec3& a, const vec3& d, const vec3& s, const float k, const float o):
     MaterialTextura(a, d, s, k, o), GPUMaterial(a, d, s, k, o) {
 }
+
+void GPUMaterialTextura::read(const QJsonObject &json){
+    GPUMaterial::read(json);
+    if (json.contains("textureFile") && json["textureFile"].isString())
+        textura = make_shared<Texture>(json["textureFile"].toString());
+}

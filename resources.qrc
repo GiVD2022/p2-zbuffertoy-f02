@@ -25,5 +25,8 @@
         <file>resources/textures/2k_jupiter.jpg</file>
         <file>resources/textures/bricks.png</file>
         <file>resources/textures/capsule0.jpg</file>
+        <file>resources/models/capsule.obj</file>
+        <file>resources/models/suzanne.obj</file>
+        <file>resources/models/f16.obj</file>
     </qresource>
 </RCC>

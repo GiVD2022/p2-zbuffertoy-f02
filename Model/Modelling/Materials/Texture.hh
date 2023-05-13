@@ -23,5 +23,7 @@ private:
 public:
     Texture(QString nomfitxer);
     virtual ~Texture();
+
+    QImage getImage();
 };
 

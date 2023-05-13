@@ -42,6 +42,7 @@ uniform Light light_info[5];    //array de 5 elements. Aquest valor sempre ha de
 uniform mat4 model_view;
 uniform mat4 projection;
 uniform vec3 ambientGlobal; //vull veure esfera obtinguda amb aquest color
+
 out vec4 color;
 out vec2 v_texcoord;
 

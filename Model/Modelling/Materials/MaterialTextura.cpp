@@ -22,6 +22,10 @@ vec3 MaterialTextura::getDiffuse(vec2 point) const {
     return Kd;
 }
 
+shared_ptr<Texture> MaterialTextura::getTextura() const {
+    return textura;
+}
+
 bool MaterialTextura::scatter(const Ray& r_in, const HitInfo& rec, vec3& color, Ray & r_out) const  {
     vec3 target = rec.p + rec.normal + Hitable::RandomInSphere();
     r_out =  Ray(rec.p, target-rec.p);
@@ -30,7 +34,6 @@ bool MaterialTextura::scatter(const Ray& r_in, const HitInfo& rec, vec3& color, 
 }
 
 void MaterialTextura::read(const QJsonObject &json){
-    QTextStream(stdout) << "llegint a material textura\n";
     Material::read(json);
     if (json.contains("textureFile") && json["textureFile"].isString())
         textura = make_shared<Texture>(json["textureFile"].toString());

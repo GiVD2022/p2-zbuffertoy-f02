@@ -17,6 +17,8 @@ public:
 
     void print(int indentation) const;
 
-private:
+    shared_ptr<Texture> getTextura() const;
+
+protected:
     shared_ptr<Texture> textura;
 };

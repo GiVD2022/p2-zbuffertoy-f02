@@ -59,7 +59,7 @@ GPUMaterialFactory::MATERIAL_TYPES GPUMaterialFactory::getIndexType(shared_ptr<G
     } else if (dynamic_pointer_cast<Transparent>(m) != nullptr) {
         return MATERIAL_TYPES::TRANSPARENT;
     }*/
-    else if (dynamic_pointer_cast<MaterialTextura>(m) != nullptr) {
+    else if (dynamic_pointer_cast<GPUMaterialTextura>(m) != nullptr) {
         QTextStream(stdout) << "B\n";
         return MATERIAL_TYPES::MATERIALTEXTURA;
     } else if (dynamic_pointer_cast<GPUMaterialTextura>(m) != nullptr) {

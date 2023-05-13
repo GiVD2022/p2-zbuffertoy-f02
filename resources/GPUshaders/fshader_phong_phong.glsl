@@ -48,6 +48,7 @@ uniform vec4 obs;          // camera position
 uniform vec3 ambientGlobal;
 
 uniform sampler2D texMap;
+uniform bool hasTexture;
 
 // Main function (called once per vertex)
 void main()
@@ -106,7 +107,12 @@ void main()
         }
 
     }
-    vec3 newDiffuse = 0.25 * lightDiffuse + 0.75 * vec3(texture(texMap, v_texcoord).rgb);
+    vec3 newDiffuse;
+    if(hasTexture){
+        newDiffuse = 0.25 * lightDiffuse + 0.75 * vec3(texture(texMap, v_texcoord).rgb);
+    }else{
+        newDiffuse = lightDiffuse;
+    }
     colorOut = vec4(ambientGlobal * mat_info.Ka + lightAmbient + newDiffuse + lightSpecular, mat_info.opacity);
 }
 

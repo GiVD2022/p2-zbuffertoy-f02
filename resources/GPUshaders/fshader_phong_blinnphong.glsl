@@ -49,6 +49,8 @@ uniform vec3 ambientGlobal;
 
 uniform sampler2D texMap;
 
+uniform bool hasTexture;
+
 // Main function (called once per vertex)
 void main()
 {
@@ -101,6 +103,10 @@ void main()
             lightSpecular += mat_info.Ks * light_info[i].Is * pow(max(dot(N, H), 0.0f), mat_info.shininess);
         }
     }
-    vec3 newDiffuse = 0.25 * lightDiffuse + 0.75 * vec3(texture(texMap, v_texcoord).rgb);
-    colorOut = vec4(ambientGlobal * mat_info.Ka + lightAmbient + newDiffuse + lightSpecular, mat_info.opacity);
+    vec3 newDiffuse;
+    if(hasTexture){
+        newDiffuse = 0.25 * lightDiffuse + 0.75 * vec3(texture(texMap, v_texcoord).rgb);
+    }else{
+        newDiffuse = lightDiffuse;
+    }colorOut = vec4(ambientGlobal * mat_info.Ka + lightAmbient + newDiffuse + lightSpecular, mat_info.opacity);
 }
