@@ -327,8 +327,8 @@ void GPUCamera::toGPU(shared_ptr<QGLShaderProgram> program)
 
     //passem el radi i la mida del viewport en pixels --> coordenades de viewport
     GLuint glRadius = program->uniformLocation("radi");
-    glUniform1f(glRadius, radi);
-    qDebug()<<"Valor radi"<<radi;
+    glUniform1f(glRadius, radi*2.0f);
+    qDebug()<<"Valor radi"<<radi*2.0f;
 
     GLuint glViewportSize = program->uniformLocation("viewportSize");
     glUniform2f(glViewportSize, vp.a, vp.h);
