@@ -86,9 +86,13 @@ void GPUSceneFactoryData::read(const QJsonObject &json)
 
             // TO DO: Pràctica 2:  Afegeix l'objecte base a l'escena.
             // En aquestes linies es crea però no s'afegeix
-            // o = GPUObjectFactory::getInstance().createObject(ObjectFactory::getInstance().getObjectType(objStr));
-            // o->read(jbase);
+            o = GPUObjectFactory::getInstance().createObject(ObjectFactory::getInstance().getObjectType(objStr));
+            o->read(jbase);
 
+            if (o)
+            {
+
+            }
         }
     }
 

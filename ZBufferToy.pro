@@ -14,6 +14,7 @@ SOURCES += \
     DataInOut/AttributeMapping.cpp \
     DataInOut/VisualMapping.cpp \
     GPUConnections/GPUCamera.cpp \
+    GPUConnections/GPUFittedPlane.cpp \
     GPUConnections/GPULambertian.cpp \
     GPUConnections/GPULight.cpp \
     GPUConnections/GPULightFactory.cpp \
@@ -43,6 +44,7 @@ SOURCES += \
     Model/Modelling/Materials/MaterialFactory.cpp \
     Model/Modelling/Materials/Texture.cpp \
     Model/Modelling/Objects/Face.cpp \
+    Model/Modelling/Objects/FittedPlane.cpp \
     Model/Modelling/Objects/Mesh.cpp \
     Model/Modelling/Objects/Object.cpp \
     Model/Modelling/Objects/ObjectFactory.cpp \
@@ -66,6 +68,7 @@ HEADERS += \
     DataInOut/VisualMapping.hh \
     GPUConnections/GPUCamera.hh \
     GPUConnections/GPUConnectable.hh \
+    GPUConnections/GPUFittedPlane.hh \
     GPUConnections/GPULambertian.hh \
     GPUConnections/GPULight.hh \
     GPUConnections/GPULightFactory.hh \
@@ -96,6 +99,7 @@ HEADERS += \
     Model/Modelling/Materials/MaterialFactory.hh \
     Model/Modelling/Materials/Texture.hh \
     Model/Modelling/Objects/Face.hh \
+    Model/Modelling/Objects/FittedPlane.hh \
     Model/Modelling/Objects/Mesh.hh \
     Model/Modelling/Objects/Object.hh \
     Model/Modelling/Objects/ObjectFactory.hh \

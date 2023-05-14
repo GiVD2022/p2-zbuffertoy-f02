@@ -48,5 +48,7 @@ private:
 
     void setTexture(shared_ptr<QOpenGLTexture> t);
     void initTexture();
+
+    //void load(QString filename) override;
 };
 
