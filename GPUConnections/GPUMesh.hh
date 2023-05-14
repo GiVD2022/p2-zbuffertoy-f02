@@ -28,6 +28,8 @@ public:
     void aplicaTG(shared_ptr<TG>) override;
 
     void read(const QJsonObject &json) override;
+
+    void compute_indirect_mapping();
 private:
     // Estructures per passar a la GPU
     GLuint buffer;
@@ -49,5 +51,7 @@ private:
 
     void setTexture(shared_ptr<QOpenGLTexture> t);
     void initTexture();
+
+
 };
 

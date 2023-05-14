@@ -19,7 +19,6 @@ Mesh::~Mesh() {
     if (vertexs.size() > 0) vertexs.clear();
 }
 
-
 void Mesh::makeTriangles() {
     // Practica 1: TO DO Fase 1: A implementar
 }
@@ -99,6 +98,7 @@ void Mesh::load (QString fileName) {
 
                         cares.push_back(*face);
                     }
+
                 }
             }
             file.close();
@@ -117,7 +117,6 @@ void Mesh::read (const QJsonObject &json)
         load(nom);
     }
 }
-
 
 //! [1]
 void Mesh::write(QJsonObject &json) const

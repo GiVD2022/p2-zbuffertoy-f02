@@ -1,4 +1,5 @@
 #include "GPUMesh.hh"
+#include <math.h>
 
 GPUMesh::GPUMesh()
 {
@@ -33,13 +34,14 @@ GPUMesh::GPUMesh(const int npoints, const QString &fileName): Mesh(fileName)
     make();
 }
 
+
 void GPUMesh::read(const QJsonObject &json) {
     numPoints = NUMPOINTS;
     points = new vec4[numPoints];
     normals= new vec4[numPoints];
     textures = new vec2[numPoints];
 
-    QTextStream(stdout) << "Mesh object reading:" << "\n";
+    Mesh::read(json);
 
     if(json.contains("material") && json["material"].isObject() ){
         QJsonObject auxMat = json["material"].toObject();
@@ -50,8 +52,6 @@ void GPUMesh::read(const QJsonObject &json) {
                 gpumaterial->read(auxMat);
             }
     }
-
-    Mesh::read(json);
 
     if(type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
         initTexture();
@@ -170,19 +170,24 @@ void GPUMesh::make(){
     // TO  DO: A modificar a la fase 1 de la practica 2
     // Cal calcular la normal a cada vertex a la CPU
 
+    qDebug() << "making gpu mesh\n";
 
     Index = 0;
     for(unsigned int i=0; i<cares.size(); i++){
         for(unsigned int j=0; j<cares[i].idxVertices.size(); j++){
             points[Index] = vertexs[cares[i].idxVertices[j]];
             normals[Index] = normalsVertexs[cares[i].idxNormals[j]];
-            if(type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
+            if(type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA && !Mesh::getIndirectMapping()){
                 textures[Index] = textVertexs[cares[i].idxTextures[j]];
             }
             Index++;
         }
 	}
-    qDebug() << "he enviat "<< Index <<"vertex, normals i textures";
+
+
+    if(type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA && Mesh::getIndirectMapping()){
+        compute_indirect_mapping();
+    }
 }
 
 
@@ -247,6 +252,25 @@ Capsa3D GPUMesh::calculCapsa3D()
     capsa.h = pmax[1]-pmin[1];
     capsa.p = pmax[2]-pmin[2];
     return capsa;
+}
+
+void GPUMesh::compute_indirect_mapping(){
+    qDebug() << "EOOO\n" ;
+    // Center of the box
+    Capsa3D capsa = GPUMesh::calculCapsa3D();
+
+    vec3 c = vec3(capsa.pmin.x + (capsa.a)/2, capsa.pmin.y + (capsa.h)/2, capsa.pmin.z + (capsa.p)/2);
+
+    //Vector del centre al vertex
+    if (textures!= nullptr) delete textures;
+    textures = new vec2[numPoints];
+
+    for(int i = 0; i < Index; i++){
+        vec3 c_vtx = vec3(points[i].x - c.x, points[i].y - c.y, points[i].z - c.z);
+        float u = 0.5 - atan2(c_vtx.z, c_vtx.x)/2*M_PI;
+        float v = 0.5 - asin(c_vtx.y)/M_PI;
+        textures[i] = vec2(u,v);
+    }
 }
 
 bool GPUMesh::hit(Ray& r, float tmin, float tmax, HitInfo& info)const {

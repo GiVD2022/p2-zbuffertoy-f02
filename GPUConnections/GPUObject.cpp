@@ -25,3 +25,4 @@ void GPUObject::print(int indentation) const {
     QTextStream(stdout) << indent << "type:\t" << className<<"\n";
     gpumaterial->print(indentation+2);
 }
+

@@ -3,8 +3,22 @@
 Object::Object()
 {
     material = nullptr;
+    indirect_mapping = false;
 }
 
+Object::Object(bool im)
+{
+    material = nullptr;
+    indirect_mapping = im;
+}
+
+
+void Object::setIndirectMapping(bool im) {
+    indirect_mapping = im;
+}
+bool Object::getIndirectMapping() {
+    return indirect_mapping;
+}
 
 void Object::setMaterial(shared_ptr<Material> m) {
     material = m;
@@ -21,7 +35,6 @@ void Object::read (const QJsonObject &json)
         QJsonObject auxMat = json["material"].toObject();
         if (auxMat.contains("type") && auxMat["type"].isString()) {
             QString tipus = auxMat["type"].toString().toUpper();
-            QTextStream(stdout) << "Soc a object; el material es "<<tipus;
             MaterialFactory::MATERIAL_TYPES t = MaterialFactory::getInstance().getMaterialType(tipus);
             material = MaterialFactory::getInstance().createMaterial(t);
             material->read(auxMat);
@@ -31,6 +44,10 @@ void Object::read (const QJsonObject &json)
 
     if (json.contains("name") && json["name"].isString())
         name = json["name"].toString();
+
+    indirect_mapping = false;
+    if (json.contains("indirectMapping") && json["indirectMapping"].isBool())
+        indirect_mapping = json["indirectMapping"].toBool();
 }
 
 
