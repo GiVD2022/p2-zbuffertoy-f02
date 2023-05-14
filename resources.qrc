@@ -28,5 +28,7 @@
         <file>resources/models/capsule.obj</file>
         <file>resources/models/suzanne.obj</file>
         <file>resources/models/f16.obj</file>
+        <file>resources/GPUshaders/fshader_nightvision.glsl</file>
+        <file>resources/GPUshaders/vshader_nightvision.glsl</file>
     </qresource>
 </RCC>

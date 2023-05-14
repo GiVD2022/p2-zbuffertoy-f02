@@ -60,6 +60,7 @@ public slots:
     void activaEnvMapping();
     void activaReflection();
     void activaTransparency();
+    void activaNightVision();
 
     void setPerspective(float nearPlane, float farPlane);
     void setLookAt(const QVector3D &eye, const QVector3D &center, const QVector3D& up);
