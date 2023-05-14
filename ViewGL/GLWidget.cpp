@@ -323,6 +323,14 @@ void GLWidget::activaTransparency() {
 
 void GLWidget::activaNightVision() {
     //TO DO: Pràctica 2:  implementar a la fase 2
+    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_nightvision.glsl", "://resources/GPUshaders/fshader_nightvision.glsl", program);
+    if (glshader != nullptr) {
+        program->link();
+        program->bind();
+    }
+    auto sc = Controller::getInstance()->getScene();
+    sc->toGPU(program);
+    updateGL();
     qDebug()<<"Estic a Night Vision";
 }
 

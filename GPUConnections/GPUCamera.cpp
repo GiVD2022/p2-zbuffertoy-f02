@@ -6,6 +6,7 @@ GPUCamera::GPUCamera(vec4 lookfrom, vec4 lookat, vec4 vup, float vfov, int viewX
     vp.pmin = vec2( 0., 0.);
     vp.a = viewX;
     vp.h = viewY;
+    radi = min(vp.a, vp.h) / 4.0f;
 
     vfovRadians = vfov RAD;
 
@@ -50,6 +51,7 @@ GPUCamera::GPUCamera(int width, int height)
     vp.h = height;
     vp.pmin[0] = 0;
     vp.pmin[1] = 0;
+    radi = min(vp.a, vp.h) / 4.0f;
 
     float half_height = 1.0;
     float half_width = 1.0;
@@ -99,6 +101,7 @@ void GPUCamera::init(int a, int h, Capsa3D capsaMinima)
     vp.h = h;
     vp.pmin[0] = 0;
     vp.pmin[1] = 0;
+    radi = min(vp.a, vp.h) / 4.0f;
 
     dant = 0.01;
     dpost = 100;
@@ -148,6 +151,7 @@ void GPUCamera::read (const QJsonObject &json)
         vp.pmin = vec2(0, 0);
         vp.a =  (int)(json["pixelsX"].toDouble());
         vp.h = (int)(vp.a/aspectRatio);
+        radi = min(vp.a, vp.h) / 4.0f;
     }
     if (json.contains("typeProjection") && json["typeProjection"].isString()) {
         QString auxProj = json["typeProjection"].toString();
@@ -320,6 +324,17 @@ void GPUCamera::toGPU(shared_ptr<QGLShaderProgram> program)
 
     GLuint glObservador = program->uniformLocation("obs");
     glUniform4fv(glObservador, 1, origin);
+
+    //passem el radi i la mida del viewport en pixels --> coordenades de viewport
+    GLuint glRadius = program->uniformLocation("radi");
+    glUniform1f(glRadius, radi);
+    qDebug()<<"Valor radi"<<radi;
+
+    GLuint glViewportSize = program->uniformLocation("viewportSize");
+    glUniform2f(glViewportSize, vp.a, vp.h);
+    qDebug()<<"Valor viewport"<<vp.a << vp.h;
+
+
 }
 
 void GPUCamera::setModelView(shared_ptr<QGLShaderProgram> program, mat4 m)
@@ -340,6 +355,7 @@ void GPUCamera::setViewport(int x, int y, int a, int h)
     vp.pmin[1] = y;
     vp.a = a;
     vp.h = h;
+    radi = min(vp.a, vp.h) / 4.0f;
 }
 
 // Suposa que les dades d'obs, vrp i vup son correctes en la camera

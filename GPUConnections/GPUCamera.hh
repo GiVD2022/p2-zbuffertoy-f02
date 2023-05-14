@@ -93,6 +93,7 @@ public:
 
     // Viewport
     Capsa2D vp;
+    double radi;
 
 private:
     void VertexCapsa3D(Capsa3D capsaMinima, vec4 vaux[8]);
