@@ -321,6 +321,11 @@ void GLWidget::activaTransparency() {
     qDebug()<<"Estic a Transparencia";
 }
 
+void GLWidget::activaNightVision() {
+    //TO DO: Pràctica 2:  implementar a la fase 2
+    qDebug()<<"Estic a Night Vision";
+}
+
 
 
 void GLWidget::setPerspective(float nearPlane, float farPlane)
