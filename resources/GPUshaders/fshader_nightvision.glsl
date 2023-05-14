@@ -134,7 +134,12 @@ void main()
     if(dist > radi){
         colorOut = vec4(0.0f, 0.0f, 0.0f, 1.0f);
     }else{
-        colorOut = candidate_color;
+        if(candidate_color.xyz == vec3(0.0f, 0.0f, 0.0f)){
+            colorOut = vec4(0.0f, 1.0f, 0.0f, 1.0f);
+        } else{
+            colorOut = candidate_color;
+        }
+
     }
 }
 

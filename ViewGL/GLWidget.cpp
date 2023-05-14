@@ -328,8 +328,14 @@ void GLWidget::activaNightVision() {
         program->link();
         program->bind();
     }
+    // Set the clear color to black
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    // Clear the color buffer to the clear color and the depth buffer
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     auto sc = Controller::getInstance()->getScene();
     sc->toGPU(program);
+
     updateGL();
     qDebug()<<"Estic a Night Vision";
 }
