@@ -4,6 +4,7 @@
 #include "Model/Modelling/Objects/Object.hh"
 #include "GPUConnectable.hh"
 #include "GPUMaterial.hh"
+#include "GPUMaterialFactory.hh"
 
 class GPUObject : public Object, public GPUConnectable,public QObject{
 public:

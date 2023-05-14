@@ -2,6 +2,7 @@
 
 layout (location = 0) in vec4 vPosition;
 layout (location = 1) in vec4 vNormal;
+layout (location = 2) in vec2 vTexture;
 
 struct Light
 {
@@ -41,15 +42,20 @@ uniform Light light_info[5];    //array de 5 elements. Aquest valor sempre ha de
 uniform mat4 model_view;
 uniform mat4 projection;
 uniform vec3 ambientGlobal; //vull veure esfera obtinguda amb aquest color
+
 out vec4 color;
+out vec2 v_texcoord;
 
 void main()
 {
     gl_Position = projection*model_view*vPosition;
     gl_Position = gl_Position/gl_Position.w;
-    color = vec4(light_info[0].Is, 1.0f); //agafa tres components de l'ambient global, la quarta es la opacitat
+    //color = vec4(light_info[0].Is, 1.0f); //agafa tres components de l'ambient global, la quarta es la opacitat
 
     //Testeig de direccionals
-    color = vec4(light_info[0].Ia, 1.0f);
+    //color = vec4(light_info[0].Ia, 1.0f);
+    color = vNormal;
+    v_texcoord = vTexture;
+
 
 }

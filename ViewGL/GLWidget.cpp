@@ -33,6 +33,7 @@ void GLWidget::initializeGL() {
     glEnable(GL_CULL_FACE);
     glEnable(GL_RGBA);
     glEnable(GL_DOUBLE);
+    glEnable(GL_TEXTURE_2D);
 
     initShadersGPU();
     Controller::getInstance()->getSetUp()->setAmbientGlobalToGPU(program);

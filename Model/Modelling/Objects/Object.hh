@@ -14,6 +14,7 @@ using namespace std;
 class Object: public Hitable, public Animable, public Serializable {
   public:
     Object();
+    Object(bool indirect_mapping);
     virtual ~Object() {};
 
     // Metodes a implementar en les classes filles: son  metodes abstractes
@@ -27,12 +28,17 @@ class Object: public Hitable, public Animable, public Serializable {
     virtual void write(QJsonObject &json) const override;
     virtual void print(int indentation) const override;
 
-    void     setMaterial(shared_ptr<Material> m);
+    virtual bool getIndirectMapping();
+    virtual void setIndirectMapping(bool indirect_mapping);
 
+    void     setMaterial(shared_ptr<Material> m);
     shared_ptr<Material> getMaterial();
+
     QString name;
 
 protected:
     shared_ptr<Material> material;   // Material de l'objecte
+private:
+    bool indirect_mapping;
 };
 
