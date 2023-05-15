@@ -29,5 +29,6 @@
         <file>resources/models/suzanne.obj</file>
         <file>resources/models/f16.obj</file>
         <file>resources/GPUshaders/vshader_blue_gouraud_blinn_phong.glsl</file>
+        <file>resources/GPUshaders/fshader_blue_gouraud.glsl</file>
     </qresource>
 </RCC>

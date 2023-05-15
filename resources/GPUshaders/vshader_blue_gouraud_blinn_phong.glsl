@@ -50,11 +50,13 @@ out vec3 lightSpecularO;
 out vec3 globalAmbientO;
 out float opacityO;
 out vec2 v_texcoord;
+out vec4 position;
+out vec4 normal;
+out vec2 v_texcoord;
 
 // The entry point for our vertex shader.
 void main()
 {
-    vec3 newKd = normalize(mat_info.Kd + vec3(0,0,1));
 
     gl_Position = projection*model_view*vPosition;
     gl_Position = gl_Position/gl_Position.w;
@@ -70,60 +72,74 @@ void main()
     vec4 L, N, H;
     float spotEffect, attenuation, distance;
 
-    for (int i=0; i < numLights; i++){ //array de lights de length 5
-        Light light = light_info[i];
-        lightAmbient += light.Ia * mat_info.Ka;
-        if (light.type == 0) // point light
-        {
-            // Diffuse component
-            L = vec4(light.position, 1.0) - vPosition;
-            N = normalize(vNormal);
-            distance = length(vec3(L));
-            L = normalize(L);
-            attenuation = max(min(1.0 / (light.coeficients.z + light.coeficients.y * distance + light.coeficients.x * distance * distance), 1.0), 0.0);
-            lightDiffuse += attenuation * light.Id * newKd * max(dot(L, N), 0.0);
+    float R = 0.7;
 
-            // Specular
-            H = normalize(L + normalize(obs - vPosition));
-            lightSpecular += attenuation * mat_info.Ks * light.Is * pow(max(dot(N, H), 0.0f), mat_info.shininess);
 
-        }
-        else if (light.type == 1) // spot light
-        {
-            //Calculate the diffuse component
-            L = vec4(light.position, 1.0) - vPosition;
-            N = normalize(vNormal);
-            distance = length(vec3(L));
-            L = normalize(L);
-            attenuation = max(min(1.0 / (light.coeficients.z + light.coeficients.y * distance + light.coeficients.x * distance * distance), 1.0), 0.0);
-            spotEffect = dot(-L, normalize(vec4(light.spotDirection, 0.0)));
-            if (spotEffect > light.spotCosineCutoff) { //surface point is inside the cone of the spot light
-                spotEffect = pow(spotEffect, light.spotExponent);
-                lightDiffuse += attenuation * light.Id * mat_info.Kd * spotEffect * max(dot(L, N), 0.0);
+    // Si son dins la tempesta Gouraud blavós
+    if( (pow(vPosition.x, 2) + pow(vPosition.y, 2) + pow(vPosition.z, 2)) < pow(R, 2)){
+        for (int i=0; i < numLights; i++){ //array de lights de length 5
+            Light light = light_info[i];
 
-                //Calculate the specular component
+            lightAmbient += light.Ia * mat_info.Ka;
+            if (light.type == 0) // point light
+            {
+                // Diffuse component
+                L = vec4(light.position, 1.0) - vPosition;
+                N = normalize(vNormal);
+                distance = length(vec3(L));
+                L = normalize(L);
+                attenuation = max(min(1.0 / (light.coeficients.z + light.coeficients.y * distance + light.coeficients.x * distance * distance), 1.0), 0.0);
+                lightDiffuse += attenuation * light.Id * mat_info.Kd * max(dot(L, N), 0.0);
+
+                // Specular
                 H = normalize(L + normalize(obs - vPosition));
-                lightSpecular += attenuation * mat_info.Ks * light.Is * spotEffect * pow(max(dot(N, H), 0.0f), mat_info.shininess);
+                lightSpecular += attenuation * mat_info.Ks * light.Is * pow(max(dot(N, H), 0.0f), mat_info.shininess);
+
             }
+            else if (light.type == 1) // spot light
+            {
+                //Calculate the diffuse component
+                L = vec4(light.position, 1.0) - vPosition;
+                N = normalize(vNormal);
+                distance = length(vec3(L));
+                L = normalize(L);
+                attenuation = max(min(1.0 / (light.coeficients.z + light.coeficients.y * distance + light.coeficients.x * distance * distance), 1.0), 0.0);
+                spotEffect = dot(-L, normalize(vec4(light.spotDirection, 0.0)));
+                if (spotEffect > light.spotCosineCutoff) { //surface point is inside the cone of the spot light
+                    spotEffect = pow(spotEffect, light.spotExponent);
+                    lightDiffuse += attenuation * light.Id * mat_info.Kd * spotEffect * max(dot(L, N), 0.0);
 
-        }
-        else if (light.type == 2) //directional light
-        {
-            //diffuse
-            L = -normalize(vec4(light.direction, 0.0));
-            lightDiffuse += light.Id * mat_info.Kd * max(dot(L, N), 0.0);
+                    //Calculate the specular component
+                    H = normalize(L + normalize(obs - vPosition));
+                    lightSpecular += attenuation * mat_info.Ks * light.Is * spotEffect * pow(max(dot(N, H), 0.0f), mat_info.shininess);
+                }
 
-            //specular
-            H = normalize(L + normalize(obs - vPosition));
-            lightSpecular += mat_info.Ks * light.Is * pow(max(dot(N, H), 0.0f), mat_info.shininess);
+            }
+            else if (light.type == 2) //directional light
+            {
+                //diffuse
+                L = -normalize(vec4(light.direction, 0.0));
+                lightDiffuse += light.Id * mat_info.Kd * max(dot(L, N), 0.0);
+
+                //specular
+                H = normalize(L + normalize(obs - vPosition));
+                lightSpecular += mat_info.Ks * light.Is * pow(max(dot(N, H), 0.0f), mat_info.shininess);
+            }
         }
+
     }
 
     // out color of the vertex
     lightAmbientO = lightAmbient;
+    lightDiffuse.z = max(0.9, lightDiffuse.z);
     lightDiffuseO = lightDiffuse;
     lightSpecularO = lightSpecular;
     globalAmbientO = globalAmbient;
     opacityO = mat_info.opacity;
+    v_texcoord = vTexture;
+
+    // To compute blinn phong
+    position = vPosition;
+    normal = vNormal;
     v_texcoord = vTexture;
 }

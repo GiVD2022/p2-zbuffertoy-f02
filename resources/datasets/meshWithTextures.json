@@ -19,7 +19,7 @@
     {
   "name": "Br Objecte",
   "type":  "MESH",
-  "objFileName": "://resources/models/suzanne.obj",
+  "objFileName": "://resources/models/capsule.obj",
     "material": {
       "type": "materialtextura",
       "textureFile":"://resources/textures/bricks.png",
