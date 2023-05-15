@@ -144,7 +144,8 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
         
 - FASE 2:
     - Pas 1.1: Visió Nocturna o Target amb cercle verd
-        * **Detalla on es faria el càlcul? Amb quines coordenades? Amb coordenades de món? De càmera? O de viewport?** 
+        * **Detalla on es faria el càlcul? Amb quines coordenades? Amb coordenades de món? De càmera? O de viewport?**
+
             El càlcul es fa a nivell de viewport, passant com a variable uniform la mida horitzontal i vertical del viewport en coordenades de pixels i el seu radi. Aleshores es calcula la distància entre el píxel actual en el fragment shader i el del centre de l'escena, i es compara amb el radi.
         * **Com aconseguiries que els píxels de fons inclosos en el cercle de visió nocturna es pintessin també de color verd?** 
             S'hauria d'incloure un pla en el punt més allunyat de la capsa contenidora per a que el framgnet shader detectés els píxels de fons i poder-los així pintar de verd.
