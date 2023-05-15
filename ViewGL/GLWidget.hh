@@ -55,6 +55,7 @@ public slots:
     void activaGouraudBlinnShader();
     void activaBlinnPhongShader();
     void activaToonShader();
+    void activaTempestaFortnite();
 
 
     void activaEnvMapping();

@@ -676,5 +676,7 @@ void GLMainWindow::connectShaders()
     connect(this->ui->action_reflections, SIGNAL(triggered()), glWidget, SLOT(activaReflection()));
     connect(this->ui->action_transparencies, SIGNAL(triggered()), glWidget, SLOT(activaTransparency()));
 
+    connect(this->ui->actionHighlight_Region, SIGNAL(triggered()), glWidget, SLOT(activaTempestaFortnite()));
+
 }
 
