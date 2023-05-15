@@ -2,11 +2,11 @@
 
 GPUMaterial::GPUMaterial():Material()
 {
-    Ka = vec3(1.0, 0.0, 0.0);
-    Kd = vec3(1.0, 0.0, 0.0);
-    Ks = vec3(1.0, 0.0, 0.0);
+    Ka = vec3(0.2, 0.2, 0.2);
+    Kd = vec3(0.8, 0.5, 0.5);
+    Ks = vec3(1.0, 1.0, 1.0);
     Kt = vec3(1.0, 0.0, 0.0);
-    shininess = 1.0;
+    shininess = 20;
     opacity = 1.0;
 }
 

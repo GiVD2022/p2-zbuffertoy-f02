@@ -43,10 +43,10 @@ void GLWidget::initializeGL() {
 
     //Creacio de tres llums per defecte per a poder interactuar des de la ui
     // Default point light
-    vec3 position1 = vec3(-25,25,25);
-    vec3 Ia1 = vec3(0.3,0.3,0.3);
-    vec3 Id1 = vec3(1,1,1);
-    vec3 Is1 = vec3(0.5,0.5,0.5);
+    vec3 position1 = vec3(10, 10, 20);
+    vec3 Ia1 = vec3(0.2, 0.2, 0.2);
+    vec3 Id1 = vec3(0.8, 0.8, 0.8);
+    vec3 Is1 = vec3(1.0, 1.0, 1.0);
     float a1 = 0.0;
     float b1 = 0.0;
     float c1 = 1.0;
