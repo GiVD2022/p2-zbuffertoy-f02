@@ -66,7 +66,7 @@ void main()
     vec3 lightSpecular = vec3(0.0);
     int numLights = light_info.length();
     vec4 L, N, R, V;
-    float spotEffect, attenuation, distance;
+    float spotEffect, attenuation, distance, color_green;
     for(int i = 0; i < numLights; i++){
         // Calculate the ambient component (same for all light types)
         lightAmbient += light_info[i].Ia * mat_info.Ka;
@@ -117,28 +117,20 @@ void main()
     }
 
     vec3 newDiffuse;
-    vec3 newLightSpecular;
-    vec3 newLightAmbient;
-    vec3 newLightAmbientGlobal;
+
     if(hasTexture){
-        newDiffuse = 0.25 * lightDiffuse + 0.75 * vec3(0.0, texture(texMap, v_texcoord).r, 0.0);
+        newDiffuse = 0.25 * lightDiffuse + 0.75 * vec3(texture(texMap, v_texcoord).rgb);
     }else{
-        newDiffuse = vec3(0.0, lightDiffuse.r, 0.0);
+        newDiffuse = lightDiffuse;
     }
-    newLightSpecular = vec3(0.0, lightSpecular.r, 0.0);
-    newLightAmbient = vec3(0.0, lightAmbient.r, 0.0);
-    newLightAmbientGlobal = vec3(0.0, ambientGlobal.r, 0.0);
-    candidate_color = vec4(newLightAmbientGlobal * mat_info.Ka + newLightAmbient + newDiffuse + newLightSpecular, mat_info.opacity);
+    candidate_color = vec4(ambientGlobal * mat_info.Ka + lightAmbient + newDiffuse + lightSpecular, mat_info.opacity);
+    color_green = sqrt(candidate_color.r*candidate_color.r + candidate_color.g*candidate_color.g + candidate_color.b*candidate_color.b)/3.0;
 
 
     if(dist > radi){
         colorOut = vec4(0.0f, 0.0f, 0.0f, 1.0f);
     }else{
-        if(candidate_color.xyz == vec3(0.0f, 0.0f, 0.0f)){
-            colorOut = vec4(0.0f, 1.0f, 0.0f, 1.0f);
-        } else{
-            colorOut = candidate_color;
-        }
+        colorOut = vec4(0.0f, color_green, 0.0f, mat_info.opacity);
 
     }
 }

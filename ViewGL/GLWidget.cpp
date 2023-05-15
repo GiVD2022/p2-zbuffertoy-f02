@@ -323,6 +323,10 @@ void GLWidget::activaTransparency() {
 
 void GLWidget::activaNightVision() {
     //TO DO: Pràctica 2:  implementar a la fase 2
+
+    //posar al fons de l'escana un pla. Podem agafar el pla més llunyà, radere l'escena ->
+    //depenent d'on estigui la càmera l'hauré de posar en un  lloc o un altre.
+    //Qui dona la normal del pla? vector perpendicular al point of view de la càmera
     GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_nightvision.glsl", "://resources/GPUshaders/fshader_nightvision.glsl", program);
     if (glshader != nullptr) {
         program->link();
