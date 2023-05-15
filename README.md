@@ -166,25 +166,32 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
     float c1 = 1.0;
     ```
     * Color shading 
-        <img width="857" alt="color" src="https://user-images.githubusercontent.com/44063174/236870834-321ca1ff-c1bb-4ba5-8625-51d3b4392138.png">
+        <img width="855" alt="Captura de pantalla 2023-05-15 a las 18 52 31" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/95770cd0-7453-4d91-8cdd-2c012e467e6e">
+
 
     * Depth shading 
-        <img width="855" alt="normal" src="https://user-images.githubusercontent.com/44063174/236870881-8eef213c-bb02-41ef-b757-70b9efcecd5f.png">
+        <img width="851" alt="Captura de pantalla 2023-05-15 a las 18 52 54" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/400e6c90-0e87-43be-94da-d2bd1a8849b2">
+
 
     * Normal shading 
-        <img width="855" alt="depth" src="https://user-images.githubusercontent.com/44063174/236870934-0c6cecaa-6344-4004-b1a8-427b1a62aeac.png">
+        <img width="855" alt="Captura de pantalla 2023-05-15 a las 18 52 38" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/18cc537f-2b1e-4c1b-82ec-695a3e67873f">
+
 
     * Gouraud-phong shading 
-        <img width="855" alt="gouraud-phong" src="https://user-images.githubusercontent.com/44063174/236870968-88a65405-f4d7-44af-a31e-97922c1914a1.png">
+        <img width="857" alt="Captura de pantalla 2023-05-15 a las 18 51 13" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/65613ae7-4d94-4a18-9e6a-adc9fc837a6c">
+
 
     * Phong-phong shading 
-        <img width="856" alt="phong-phong" src="https://user-images.githubusercontent.com/44063174/236870998-35a56b09-cc38-4e62-838d-9595048a5b14.png">
+        <img width="861" alt="Captura de pantalla 2023-05-15 a las 18 51 30" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/d0d52c75-2232-4e62-8920-933ae9a2c3ac">
+
        
     * Gouraud-blinn-phong shading 
-        <img width="855" alt="gouraud-bp" src="https://user-images.githubusercontent.com/44063174/236871108-15f16a69-bb6a-4b6a-a218-f4b411493240.png">
+        <img width="857" alt="Captura de pantalla 2023-05-15 a las 18 51 39" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/e222c39d-9a09-4b64-a626-ec7c417e1219">
+
 
     * Phong-blinn-phong shading 
-        <img width="855" alt="phong-bp" src="https://user-images.githubusercontent.com/44063174/236871173-8614869c-567a-4b12-b7f9-b2c6849e2931.png">
+        <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/ef3e5f41-2509-41df-8170-2bbbf428aa05">
+
         
 
 **Extensions addicionals**
