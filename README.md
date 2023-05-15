@@ -30,14 +30,18 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
     - Shading
         - [X] Color
             - Pau B.
-        - [ ] Normal
-        - [ ] Depth 
+        - [X] Normal
+            - Esther Ruano
+        - [X] Depth
+            - Núria Torquet
         - [X] Phong-Gouraud 
             - Pau B.
-        - [ ] Phong-Phong
+        - [X] Phong-Phong
+            - Núria Torquet
         - [X] BlinnPhong-Gouraud 
             - Pau B.
-        - [ ] BlinnPhong-Phong
+        - [X] BlinnPhong-Phong
+            - Núria Torquet
         - [ ] Cel-shading
     - Textures
         - [ ] Textura com material en un objecte 
@@ -48,7 +52,8 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
         - [ ] Escenes de dades 
 
 - Fase 2 
-    - [ ] Visió nocturna 
+    - [X] Visió nocturna
+        - Núria Torquet
     - [ ] La Tempesta de Fornite
     - [ ] Èmfasi de siluetes 
     - [ ] Mapping indirecte de textures
@@ -136,6 +141,11 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
     * **Si vols utilitzar diferents shaders en temps d'execució raona on s'inicialitzaran els shaders i com controlar quin shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader? I també la càmera?**
     * **Quina diferència hi ha entre el Phong-shading i el Gouraud-shading? On l'has de codificar? Necessites uns nous vertex-shader i fragment-shader? Raona on es calcula la il·luminació i modifica convenientment els fitxers de la pràctica.**
     * **Cel-shading: On s'implementarà el càlcul del color per a tenir més trencament entre las games de colors? Necessites uns nous vertex-shader i fragment-shader? Raona on es calcula la il·luminació** 
+        
+- FASE 2:
+    - Pas 1.1: Visió Nocturna o Target amb cercle verd
+        * **Detalla on es faria el càlcul? Amb quines coordenades? Amb coordenades de món? De càmera? O de viewport?**
+            El càlcul es fa a nivell de viewport, passant com a variable uniform la mida horitzontal i vertical del viewport en coordenades de pixels.
     
 
 **Screenshots de cada part**    
