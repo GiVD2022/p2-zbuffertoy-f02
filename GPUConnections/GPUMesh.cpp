@@ -102,7 +102,6 @@ void GPUMesh::toGPU(shared_ptr<QGLShaderProgram> pr) {
  * @brief GPUMesh::draw
  */
 void GPUMesh::draw(){
-
     // Aqui s'ha de fer el pas de dades a la GPU per si hi ha més d'un objecte
     // Activació a GL del Vertex Buffer Object.
     // TO  DO: A modificar a la fase 1 de la practica 2

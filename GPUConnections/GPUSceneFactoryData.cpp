@@ -1,4 +1,5 @@
 #include "GPUSceneFactoryData.hh"
+#include "GPUFittedPlane.hh"
 
 GPUSceneFactoryData::GPUSceneFactoryData(shared_ptr<VisualMapping> mr):GPUSceneFactory()
 {
@@ -79,7 +80,7 @@ void GPUSceneFactoryData::read(const QJsonObject &json)
 
     if (json.contains("base") && json["base"].isObject()) {
         QJsonObject jbase = json["base"].toObject();
-        shared_ptr<Object> o;
+        shared_ptr<GPUObject> o;
         if (jbase.contains("type") && jbase["type"].isString()) {
 
             QString objStr = jbase["type"].toString().toUpper();
@@ -89,9 +90,14 @@ void GPUSceneFactoryData::read(const QJsonObject &json)
             o = GPUObjectFactory::getInstance().createObject(ObjectFactory::getInstance().getObjectType(objStr));
             o->read(jbase);
 
-            if (o)
+            if (o) // Objectes base de l'escena (de moment només el pla afitat)
             {
-
+                if (objStr == "FITTEDPLANE")
+                {
+                    scene->setBaseObject(o);
+                    scene->setDimensions(std::static_pointer_cast<GPUFittedPlane>(o)->getPmin(), std::static_pointer_cast<GPUFittedPlane>(o)->getPmax());
+                    scene->objects.push_back(o);
+                }
             }
         }
     }
