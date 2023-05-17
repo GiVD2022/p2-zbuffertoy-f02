@@ -8,6 +8,7 @@ layout (location = 2) in vec2 vTexture;
 out vec2 v_texcoord;
 uniform mat4 model_view;
 uniform mat4 projection;
+uniform float stormRadius;
 
 // Goraud
 struct Material
@@ -55,10 +56,10 @@ out vec3 globalAmbientO;
 out float opacityO;
 
 // Blinn phong
-/*
+
 out vec4 position;
 out vec4 normal;
-*/
+
 
 // The entry point for our vertex shader.
 void main()
@@ -144,6 +145,6 @@ void main()
     v_texcoord = vTexture;
 
     // Blinn phong
-    //position = vPosition;
-    //normal = vNormal;
+    position = vPosition;
+    normal = vNormal;
 }

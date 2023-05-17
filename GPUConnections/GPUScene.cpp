@@ -35,6 +35,22 @@ void GPUScene::addObject(shared_ptr<GPUObject> obj) {
  * @brief GPUScene::toGPU
  */
 void GPUScene::toGPU(shared_ptr<QGLShaderProgram> p) {
+
+    // Envio el radi de la tempesta
+    // La meitat de l'escena
+
+    program = p;
+
+    program->setUniformValue("hasTexture", false);
+    program->setUniformValue("stormRadius", 0.7f);
+
+    vec3 pMax = vec3(capsaMinima.pmin.x + capsaMinima.a, capsaMinima.pmin.y + capsaMinima.h, capsaMinima.pmin.z + capsaMinima.p);
+    float r = length((capsaMinima.pmin - pMax))/2;
+    float radi = qMin(90.f, r);
+
+
+    qDebug() << "radi" << radi;
+
     for(unsigned int i=0; i < objects.size(); i++){
         if (dynamic_pointer_cast<GPUObject>(objects.at(i))) {
                 auto obj = objects.at(i);
@@ -47,6 +63,7 @@ void GPUScene::toGPU(shared_ptr<QGLShaderProgram> p) {
  * @brief GPUScene::draw
  */
 void GPUScene::draw() {
+
     for(unsigned int i=0; i < objects.size(); i++){
         if (dynamic_pointer_cast<GPUObject>(objects.at(i))) {
                 auto obj = objects.at(i);
