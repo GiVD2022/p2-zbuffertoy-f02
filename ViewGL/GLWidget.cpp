@@ -300,6 +300,21 @@ void GLWidget::activaBlinnPhongShader() {
 
 }
 
+void GLWidget::activaTempestaFortnite() {
+    //TO DO: Pràctica 2:  implementar a la fase 1
+    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_storm_intersect.glsl", "://resources/GPUshaders/fshader_storm_intersect.glsl", program);
+    if (glshader != nullptr) {
+        program->link();
+        program->bind();
+    }
+    auto sc = Controller::getInstance()->getScene();
+    sc->toGPU(program);
+    updateGL();
+    qDebug()<<"Estic a Fortnite Shader";
+
+}
+
+
 void GLWidget::activaToonShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
     qDebug()<<"Estic a Toon";

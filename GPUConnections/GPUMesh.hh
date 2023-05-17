@@ -10,7 +10,7 @@ using namespace Common;
 #include "GPUConnections/GPUMaterial.hh"
 #include "GPUMaterialFactory.hh"
 
-static int NUMPOINTS = 10000;
+static int NUMPOINTS = 100000;
 
 class GPUMesh : public Mesh, public GPUObject
 {

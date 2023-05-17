@@ -255,7 +255,6 @@ Capsa3D GPUMesh::calculCapsa3D()
 }
 
 void GPUMesh::compute_indirect_mapping(){
-    qDebug() << "EOOO\n" ;
     // Center of the box
     Capsa3D capsa = GPUMesh::calculCapsa3D();
 
