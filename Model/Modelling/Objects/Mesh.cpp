@@ -34,6 +34,7 @@ bool Mesh::hit(Ray &raig, float tmin, float tmax, HitInfo& info) const {
 
 void Mesh::aplicaTG(shared_ptr<TG> t) {
     // Practica 1: TO DO: Fase 1
+
 }
 
 void Mesh::load (QString fileName) {

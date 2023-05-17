@@ -30,5 +30,7 @@
         <file>resources/models/f16.obj</file>
         <file>resources/GPUshaders/vshader_storm_intersect.glsl</file>
         <file>resources/GPUshaders/fshader_storm_intersect.glsl</file>
+        <file>resources/GPUshaders/fshader_nightvision.glsl</file>
+        <file>resources/GPUshaders/vshader_nightvision.glsl</file>
     </qresource>
 </RCC>

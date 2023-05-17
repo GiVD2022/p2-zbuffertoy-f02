@@ -43,10 +43,10 @@ void GLWidget::initializeGL() {
 
     //Creacio de tres llums per defecte per a poder interactuar des de la ui
     // Default point light
-    vec3 position1 = vec3(-25,25,25);
-    vec3 Ia1 = vec3(0.3,0.3,0.3);
-    vec3 Id1 = vec3(1,1,1);
-    vec3 Is1 = vec3(0.5,0.5,0.5);
+    vec3 position1 = vec3(10, 10, 20);
+    vec3 Ia1 = vec3(0.2, 0.2, 0.2);
+    vec3 Id1 = vec3(0.8, 0.8, 0.8);
+    vec3 Is1 = vec3(1.0, 1.0, 1.0);
     float a1 = 0.0;
     float b1 = 0.0;
     float c1 = 1.0;
@@ -334,6 +334,29 @@ void GLWidget::activaEnvMapping() {
 void GLWidget::activaTransparency() {
     //TO DO: Pràctica 2:  implementar a la fase 2
     qDebug()<<"Estic a Transparencia";
+}
+
+void GLWidget::activaNightVision() {
+    //TO DO: Pràctica 2:  implementar a la fase 2
+
+    //posar al fons de l'escana un pla. Podem agafar el pla més llunyà, radere l'escena ->
+    //depenent d'on estigui la càmera l'hauré de posar en un  lloc o un altre.
+    //Qui dona la normal del pla? vector perpendicular al point of view de la càmera
+    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_nightvision.glsl", "://resources/GPUshaders/fshader_nightvision.glsl", program);
+    if (glshader != nullptr) {
+        program->link();
+        program->bind();
+    }
+    // Set the clear color to black
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    // Clear the color buffer to the clear color and the depth buffer
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    auto sc = Controller::getInstance()->getScene();
+    sc->toGPU(program);
+
+    updateGL();
+    qDebug()<<"Estic a Night Vision";
 }
 
 
