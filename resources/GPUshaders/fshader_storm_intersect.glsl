@@ -6,10 +6,8 @@ out vec4 colorOut;
 uniform sampler2D texMap;
 uniform bool hasTexture;
 
-<<<<<<< HEAD
-=======
 uniform float stormRadius;
->>>>>>> help_me
+
 
 // Goraud
 in vec3 lightAmbientO;
@@ -21,10 +19,7 @@ in float opacityO;
 // Blinn phong
 in vec4 position;   // vertex position
 in vec4 normal;     // vertex normal
-<<<<<<< HEAD
-// Material properties
-=======
->>>>>>> help_me
+
 struct Material
 {
     vec3 Ka;
@@ -63,14 +58,9 @@ uniform vec3 ambientGlobal;
 
 void main()
 {
-<<<<<<< HEAD
 
-    float R = 0.7;
-
-    if(pow(position.x, 2) + pow(position.y, 2) + pow(position.z, 2) > pow(R, 2)){
-=======
     if (pow(position.x, 2) + pow(position.y, 2) + pow(position.z, 2) > pow(stormRadius, 2)) {
->>>>>>> help_me
+
         vec3 lightAmbient = vec3(0.0);
         vec3 lightDiffuse = vec3(0.0);
         vec3 lightSpecular = vec3(0.0);
@@ -125,13 +115,9 @@ void main()
             newDiffuse = 0.5 * lightDiffuse + 0.5 * vec3(texture(texMap, v_texcoord).rgb);
         }else{
             newDiffuse = lightDiffuse;
-<<<<<<< HEAD
-        }colorOut = vec4(ambientGlobal * mat_info.Ka + lightAmbient + newDiffuse + lightSpecular, mat_info.opacity);
-
-=======
         }
         colorOut = vec4(ambientGlobal * mat_info.Ka + lightAmbient + newDiffuse + lightSpecular, mat_info.opacity);
->>>>>>> help_me
+
     } else {
         vec3 newDiffuse;
         if(hasTexture){
