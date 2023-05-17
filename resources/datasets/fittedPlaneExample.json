@@ -1,0 +1,21 @@
+{
+    "scene": "DataBox",
+    "typeScene": "REALDATA",
+    "Real": {
+        "minPoint": [-5, -5],
+        "maxPoint": [5, 5]
+    },
+    "base" : {
+        "type": "FITTEDPLANE",
+        "pmin": [-5.0, -5.0],
+        "pmax": [5.0, 5.0],
+        "material": {
+            "type": "lambertian",
+            "ka": [0.1, 0.1, 0.1],
+            "kd": [0.7,0.4,0.4],
+            "ks": [0.0, 0.0, 0.0],
+            "shininess": 10.0,
+            "textureFile": "://resources/map.png"
+        }
+    }
+}
