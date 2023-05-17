@@ -50,9 +50,6 @@ out vec3 lightSpecularO;
 out vec3 globalAmbientO;
 out float opacityO;
 out vec2 v_texcoord;
-out vec4 position;
-out vec4 normal;
-out vec2 v_texcoord;
 
 // The entry point for our vertex shader.
 void main()
@@ -67,19 +64,17 @@ void main()
     vec3 lightSpecular = vec3(0.0);
     vec3 globalAmbient = ambientGlobal * mat_info.Ka;
 
+    float R = 0.7;
+
     int numLights = light_info.length();
 
     vec4 L, N, H;
     float spotEffect, attenuation, distance;
 
-    float R = 0.7;
+    if(pow(vPosition.x, 2) + pow(vPosition.y, 2) + pow(vPosition.z, 2) < pow(R, 2)){
 
-
-    // Si son dins la tempesta Gouraud blavós
-    if( (pow(vPosition.x, 2) + pow(vPosition.y, 2) + pow(vPosition.z, 2)) < pow(R, 2)){
         for (int i=0; i < numLights; i++){ //array de lights de length 5
             Light light = light_info[i];
-
             lightAmbient += light.Ia * mat_info.Ka;
             if (light.type == 0) // point light
             {
@@ -126,20 +121,14 @@ void main()
                 lightSpecular += mat_info.Ks * light.Is * pow(max(dot(N, H), 0.0f), mat_info.shininess);
             }
         }
-
+        lightDiffuse.z = 1;
     }
 
     // out color of the vertex
     lightAmbientO = lightAmbient;
-    lightDiffuse.z = max(0.9, lightDiffuse.z);
     lightDiffuseO = lightDiffuse;
     lightSpecularO = lightSpecular;
     globalAmbientO = globalAmbient;
     opacityO = mat_info.opacity;
-    v_texcoord = vTexture;
-
-    // To compute blinn phong
-    position = vPosition;
-    normal = vNormal;
     v_texcoord = vTexture;
 }
