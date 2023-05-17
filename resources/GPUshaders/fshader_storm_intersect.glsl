@@ -56,8 +56,7 @@ uniform vec3 ambientGlobal;
 
 void main()
 {
-    float R = 0.7;
-    if (pow(position.x, 2) + pow(position.y, 2) + pow(position.z, 2) > pow(R, 2)) {
+    if (pow(position.x, 2) + pow(position.y, 2) + pow(position.z, 2) > pow(stormRadius, 2)) {
         vec3 lightAmbient = vec3(0.0);
         vec3 lightDiffuse = vec3(0.0);
         vec3 lightSpecular = vec3(0.0);
