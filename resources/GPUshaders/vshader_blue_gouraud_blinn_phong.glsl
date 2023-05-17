@@ -4,6 +4,12 @@ layout (location = 0) in vec4 vPosition;
 layout (location = 1) in vec4 vNormal;
 layout (location = 2) in vec2 vTexture;
 
+// Common
+out vec2 v_texcoord;
+uniform mat4 model_view;
+uniform mat4 projection;
+
+// Goraud
 struct Material
 {
     vec3 Ka;
@@ -36,11 +42,9 @@ struct Light
 };
 
 uniform Material mat_info;  // a la memòria central de la GPU
-
 uniform Light light_info[5];    //array de 5 elements. Aquest valor sempre ha de ser un numero
 
-uniform mat4 model_view;
-uniform mat4 projection;
+
 uniform vec3 ambientGlobal;
 uniform vec4 obs;
 
@@ -49,7 +53,12 @@ out vec3 lightDiffuseO;
 out vec3 lightSpecularO;
 out vec3 globalAmbientO;
 out float opacityO;
-out vec2 v_texcoord;
+
+// Blinn phong
+/*
+out vec4 position;
+out vec4 normal;
+*/
 
 // The entry point for our vertex shader.
 void main()
@@ -124,11 +133,17 @@ void main()
         lightDiffuse.z = 1;
     }
 
-    // out color of the vertex
+    // Gouraud
     lightAmbientO = lightAmbient;
     lightDiffuseO = lightDiffuse;
     lightSpecularO = lightSpecular;
     globalAmbientO = globalAmbient;
     opacityO = mat_info.opacity;
+
+    // Common
     v_texcoord = vTexture;
+
+    // Blinn phong
+    //position = vPosition;
+    //normal = vNormal;
 }
