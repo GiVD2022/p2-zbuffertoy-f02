@@ -22,7 +22,8 @@ public:
     FittedPlane();
 
     // Constructor a partir de pmin i pmax (extrems del pla afitat)
-    FittedPlane(vec2 pmin, vec2 pmax);  // suposarem sempre z = 0
+    FittedPlane(vec3 pmin, vec3 pmax);  // suposarem sempre z = 0
+    FittedPlane(const QString &fileName);
 
     // Metodes de Object
     virtual bool hit(Ray& r, float tmin, float tmax, HitInfo& info) const override;
@@ -31,11 +32,15 @@ public:
     virtual void write(QJsonObject &json) const override;
     virtual void print(int indentation) const override;
 
+    vec3 getPmin() { return pmin; } // més eficient declarar-los aquí??
+    vec3 getPmax() { return pmax; }
+
 protected:
-    vector<vec4> vertexs[4]; // els 4 vèrtexs del pla afitat (no repetits)
-    //vector<vec4> normalsVertexs[4]; // normals de l'objecte sense repetits
-private:
-    vec2 pmin;
-    vec2 pmax;
+    vec4 vertices[4]; // els 4 extrems del pla, es constueixen a partir dels pmin i pmax
+    vec4 normal; // there is only one
+
+    vec3 pmin;
+    vec3 pmax;
+
 };
 
