@@ -39,7 +39,6 @@ void GPUScene::toGPU(shared_ptr<QGLShaderProgram> p) {
     // Envio el radi de la tempesta
     // Un terç de l'escena
     program = p;
-    program->setUniformValue("stormRadius", 0.7f);
 
     vec3 pMax = vec3(capsaMinima.pmin.x + capsaMinima.a, capsaMinima.pmin.y + capsaMinima.h, capsaMinima.pmin.z + capsaMinima.p);
     float r = length((capsaMinima.pmin - pMax))/3;
