@@ -28,7 +28,7 @@
         <file>resources/models/capsule.obj</file>
         <file>resources/models/suzanne.obj</file>
         <file>resources/models/f16.obj</file>
-        <file>resources/GPUshaders/vshader_blue_gouraud_blinn_phong.glsl</file>
-        <file>resources/GPUshaders/fshader_blue_gouraud.glsl</file>
+        <file>resources/GPUshaders/vshader_storm_intersect.glsl</file>
+        <file>resources/GPUshaders/fshader_storm_intersect.glsl</file>
     </qresource>
 </RCC>
