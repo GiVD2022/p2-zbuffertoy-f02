@@ -127,12 +127,27 @@ void GLWidget::resizeGL(int width, int height) {
  * @brief GLWidget::initShadersGPU
  */
 void GLWidget::initShadersGPU(){
-    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader1.glsl", "://resources/GPUshaders/fshader1.glsl", program);
-    currentProgram = 0;
-    if (glshader != nullptr) {
-        programs[currentProgram]->link();
-        programs[currentProgram]->bind();
-    }
+    currentShader = 0; // set default shader as the first one
+    // Default: 0
+    shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader1.glsl", "://resources/GPUshaders/fshader1.glsl"));
+    // Color: 1
+    shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_color.glsl", "://resources/GPUshaders/fshader_color.glsl"));
+    // Depth: 2
+    shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_depth.glsl", "://resources/GPUshaders/fshader_depth.glsl"));
+    // Normal: 3
+    shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_normal.glsl", "://resources/GPUshaders/fshader_normal.glsl"));
+    // Gouraud Phong: 4
+    shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_gouraud_phong.glsl", "://resources/GPUshaders/fshader_gouraud.glsl"));
+    // Phong Phong: 5
+    shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_phong_phong.glsl", "://resources/GPUshaders/fshader_phong_phong.glsl"));
+    // Gouraud Blinn Phong: 6
+    shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_gouraud_blinn_phong.glsl", "://resources/GPUshaders/fshader_gouraud.glsl"));
+    // Phong Blinn Phong: 7
+    shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_phong_blinnphong.glsl", "://resources/GPUshaders/fshader_phong_blinnphong.glsl"));
+    // Storn: 8
+    shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_storm_intersect.glsl", "://resources/GPUshaders/fshader_storm_intersect.glsl"));
+    // Night Vision: 9
+    shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_nightvision.glsl", "://resources/GPUshaders/fshader_nightvision.glsl"));
 }
 
 QSize GLWidget::minimumSizeHint() const {
@@ -207,110 +222,60 @@ void GLWidget::saveAnimation() {
 
 }
 
+void GLWidget::activaShader(int shaderPos) {
+    shaders[shaderPos]->activateShader();
+    auto sc = Controller::getInstance()->getScene();
+    sc->toGPU(shaders[currentShader]->program);
+    updateGL();
+}
+
 void GLWidget::activaColorShader() {
     //TO DO: Pràctica 2: A implementar a la fase 1
-    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_color.glsl", "://resources/GPUshaders/fshader_color.glsl", program);
-    if (glshader != nullptr) {
-        program->link();
-        program->bind();
-    }
-    auto sc = Controller::getInstance()->getScene();
-    sc->toGPU(program);
-    updateGL();
+    activaShader(1);
     qDebug()<<"Estic a Color Shader";
 }
 
 void GLWidget::activaDepthShader() {
     //TO DO: Pràctica 2: A implementar a la fase 1
-    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_depth.glsl", "://resources/GPUshaders/fshader_depth.glsl", program);
-    if (glshader != nullptr) {
-        program->link();
-        program->bind();
-    }
-    auto sc = Controller::getInstance()->getScene();
-    sc->toGPU(program);
-    updateGL();
+    activaShader(2);
     qDebug()<<"Estic a Depth Shader";
 }
 
 void GLWidget::activaNormalShader() {
     //TO DO: Pràctica 2: A implementar a la fase 1
-
-    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_normal.glsl", "://resources/GPUshaders/fshader_normal.glsl", program);
-    if (glshader != nullptr) {
-        program->link();
-        program->bind();
-    }
-    auto sc = Controller::getInstance()->getScene();
-    sc->toGPU(program);
-    updateGL();
+    activaShader(3);
     qDebug()<<"Estic a Normal Shader";
 }
 
 void GLWidget::activaGouraudShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
-    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_gouraud_phong.glsl", "://resources/GPUshaders/fshader_gouraud.glsl", program);
-    if (glshader != nullptr) {
-        program->link();
-        program->bind();
-    }
-    auto sc = Controller::getInstance()->getScene();
-    sc->toGPU(program);
-    updateGL();
+    activaShader(4);
     qDebug()<<"Estic a Gouraud - Phong shader";
 
 }
 void GLWidget::activaPhongShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
-    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_phong_phong.glsl", "://resources/GPUshaders/fshader_phong_phong.glsl", program);
-    if (glshader != nullptr) {
-        program->link();
-        program->bind();
-    }
-    auto sc = Controller::getInstance()->getScene();
-    sc->toGPU(program);
-    updateGL();
+    activaShader(5);
     qDebug()<<"Estic a Phong - Phong Shader";
 
 }
 
 void GLWidget::activaGouraudBlinnShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
-    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_gouraud_blinn_phong.glsl", "://resources/GPUshaders/fshader_gouraud.glsl", program);
-    if (glshader != nullptr) {
-        program->link();
-        program->bind();
-    }
-    auto sc = Controller::getInstance()->getScene();
-    sc->toGPU(program);
-    updateGL();
+    activaShader(6);
     qDebug()<<"Estic a Gouraud - Blinn-Phong shader";
 
 }
 void GLWidget::activaBlinnPhongShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
-    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_phong_blinnphong.glsl", "://resources/GPUshaders/fshader_phong_blinnphong.glsl", program);
-    if (glshader != nullptr) {
-        program->link();
-        program->bind();
-    }
-    auto sc = Controller::getInstance()->getScene();
-    sc->toGPU(program);
-    updateGL();
+    activaShader(7);
     qDebug()<<"Estic a Phong - Blinn-Phong Shader";
 
 }
 
 void GLWidget::activaTempestaFortnite() {
     //TO DO: Pràctica 2:  implementar a la fase 1
-    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_storm_intersect.glsl", "://resources/GPUshaders/fshader_storm_intersect.glsl", program);
-    if (glshader != nullptr) {
-        program->link();
-        program->bind();
-    }
-    auto sc = Controller::getInstance()->getScene();
-    sc->toGPU(program);
-    updateGL();
+    activaShader(8);
     qDebug()<<"Estic a Fortnite Shader";
 
 }
@@ -339,24 +304,16 @@ void GLWidget::activaTransparency() {
 
 void GLWidget::activaNightVision() {
     //TO DO: Pràctica 2:  implementar a la fase 2
+    activaShader(9);
 
     //posar al fons de l'escana un pla. Podem agafar el pla més llunyà, radere l'escena ->
     //depenent d'on estigui la càmera l'hauré de posar en un  lloc o un altre.
     //Qui dona la normal del pla? vector perpendicular al point of view de la càmera
-    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_nightvision.glsl", "://resources/GPUshaders/fshader_nightvision.glsl", program);
-    if (glshader != nullptr) {
-        program->link();
-        program->bind();
-    }
     // Set the clear color to black
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     // Clear the color buffer to the clear color and the depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    auto sc = Controller::getInstance()->getScene();
-    sc->toGPU(program);
-
-    updateGL();
     qDebug()<<"Estic a Night Vision";
 }
 

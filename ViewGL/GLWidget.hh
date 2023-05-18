@@ -105,9 +105,10 @@ private:
 
     // TO DO: Pràctica 2: Fase 1: Per ara nomes es té un parell vertex-fragment
     // i cal estendre-ho a tenir mé parells
-    vector<shared_ptr<QGLShaderProgram>> programs;
-    int currentProgram;
+    vector<shared_ptr<GLShader>> shaders;
+    int currentShader;
 
     void initShadersGPU();
+    void activaShader(int shaderPos);
 
 };
