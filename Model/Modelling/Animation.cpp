@@ -7,6 +7,10 @@ void Animable::addAnimation(shared_ptr<Animation> anim) {
 
 void Animable::update(int nframe) {
     qDebug()<<"animation updated";
+    if (animFrames.empty()) {
+        qDebug() << "No animations found.";
+        return;
+    }
     bool trobat = false;
     int i;
     for (i = 0; i<animFrames[animFrames.size()-1]->frameFinal && !trobat; i++)
