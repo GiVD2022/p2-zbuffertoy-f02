@@ -128,9 +128,10 @@ void GLWidget::resizeGL(int width, int height) {
  */
 void GLWidget::initShadersGPU(){
     GLShader *glshader = new GLShader("://resources/GPUshaders/vshader1.glsl", "://resources/GPUshaders/fshader1.glsl", program);
+    currentProgram = 0;
     if (glshader != nullptr) {
-        program->link();
-        program->bind();
+        programs[currentProgram]->link();
+        programs[currentProgram]->bind();
     }
 }
 
