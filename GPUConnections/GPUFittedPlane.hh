@@ -30,8 +30,8 @@ private:
     GLuint buffer;
     GLuint vao;
 
-    vec4 *points; // els vèrtexs repetits
-    vec4 *normals;
+    vec4 points[6]; // els vèrtexs repetits
+    vec4 normals[6];
 
     int Index; // index de control del numero de vèrtexs a passar a la GPU
     int Index_n;

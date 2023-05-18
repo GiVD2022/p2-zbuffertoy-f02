@@ -3,7 +3,7 @@
 FittedPlane::FittedPlane()
 {
     pmin = vec3(0.0);
-    pmax = vec3(1.0, 1.0, 0.0);
+    pmax = vec3(1.0, 0.0, 1.0);
 }
 
 FittedPlane::FittedPlane(const QString &fileName): Object()
@@ -16,6 +16,14 @@ FittedPlane::FittedPlane(vec3 pmin, vec3 pmax)
     pmin = pmin;
     pmax = pmax;
 
+    makeVertexs(pmin, pmax);
+}
+
+void FittedPlane::makeVertexs(vec3 pmin, vec3 pmax)
+{
+    this->pmin = pmin;
+    this->pmax = pmax;
+
     float eps = 0.000001;
     if (fabs(pmin.x - pmax.x) < eps)
     {
@@ -23,7 +31,7 @@ FittedPlane::FittedPlane(vec3 pmin, vec3 pmax)
         vertices[0] = vec4(pmin.x, pmin.y, pmin.z, 1.0);
         vertices[1] = vec4(pmin.x, pmax.y, pmin.z, 1.0);
         vertices[2] = vec4(pmin.x, pmax.y, pmax.z, 1.0);
-        vertices[3] = vec4(pmin.x, pmin.y, pmin.z, 1.0);
+        vertices[3] = vec4(pmin.x, pmin.y, pmax.z, 1.0);
 
         normal = vec4(1.0, 0.0, 0.0, 0.0);
     } else if (fabs(pmin.y - pmax.y) < eps)
@@ -32,7 +40,7 @@ FittedPlane::FittedPlane(vec3 pmin, vec3 pmax)
         vertices[0] = vec4(pmin.x, pmin.y, pmin.z, 1.0);
         vertices[1] = vec4(pmax.x, pmin.y, pmin.z, 1.0);
         vertices[2] = vec4(pmax.x, pmin.y, pmax.z, 1.0);
-        vertices[3] = vec4(pmin.x, pmin.y, pmin.z, 1.0);
+        vertices[3] = vec4(pmin.x, pmin.y, pmax.z, 1.0);
 
         normal = vec4(0.0, 1.0, 0.0, 0.0);
 
@@ -48,6 +56,7 @@ FittedPlane::FittedPlane(vec3 pmin, vec3 pmax)
     }
 }
 
+
 // Metodes de Object
 bool FittedPlane::hit(Ray& r, float tmin, float tmax, HitInfo& info) const
 {
@@ -59,6 +68,7 @@ void FittedPlane::aplicaTG(shared_ptr<TG>)
 }
 void FittedPlane::read (const QJsonObject &json)
 {
+    Object::read(json);
     if (json.contains("pmin") && json["pmin"].isArray()) {
         QJsonArray auxVec = json["pmin"].toArray();
         pmin[0] = auxVec[0].toDouble();
@@ -71,7 +81,7 @@ void FittedPlane::read (const QJsonObject &json)
         pmax[1] = 0.0;
         pmax[2] = auxVec[1].toDouble();
     }
-    Object::read(json);
+    makeVertexs(pmin, pmax);
 }
 void FittedPlane::write(QJsonObject &json) const
 {   // s'escriuen components x i z, la y se suposa plana

@@ -42,5 +42,8 @@ protected:
     vec3 pmin;
     vec3 pmax;
 
+private:
+    void makeVertexs(vec3 pmin, vec3 pmax);
+
 };
 
