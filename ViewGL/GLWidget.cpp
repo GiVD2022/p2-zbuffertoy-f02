@@ -127,7 +127,7 @@ void GLWidget::resizeGL(int width, int height) {
  * @brief GLWidget::initShadersGPU
  */
 void GLWidget::initShadersGPU(){
-    currentShader = 0; // set default shader as the first one
+    // Compile all shaders
     // Default: 0
     shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader1.glsl", "://resources/GPUshaders/fshader1.glsl"));
     // Color: 1
@@ -148,7 +148,10 @@ void GLWidget::initShadersGPU(){
     shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_storm_intersect.glsl", "://resources/GPUshaders/fshader_storm_intersect.glsl"));
     // Night Vision: 9
     shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_nightvision.glsl", "://resources/GPUshaders/fshader_nightvision.glsl"));
-    (0);
+
+    // Set default shader
+    currentShader = 0;
+    updateShader(); // links and updates gl
 }
 
 QSize GLWidget::minimumSizeHint() const {
@@ -224,8 +227,7 @@ void GLWidget::saveAnimation() {
 }
 
 void GLWidget::updateShader() {
-    shared_ptr<GLShader> sh = shaders[currentShader];
-    shaders[shaderPos]->activateShader();
+    shaders[currentShader]->activateShader();
     auto sc = Controller::getInstance()->getScene();
     sc->toGPU(shaders[currentShader]->program);
     updateGL();
