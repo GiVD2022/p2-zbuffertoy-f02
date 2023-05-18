@@ -148,6 +148,7 @@ void GLWidget::initShadersGPU(){
     shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_storm_intersect.glsl", "://resources/GPUshaders/fshader_storm_intersect.glsl"));
     // Night Vision: 9
     shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_nightvision.glsl", "://resources/GPUshaders/fshader_nightvision.glsl"));
+    (0);
 }
 
 QSize GLWidget::minimumSizeHint() const {
@@ -222,7 +223,8 @@ void GLWidget::saveAnimation() {
 
 }
 
-void GLWidget::activaShader(int shaderPos) {
+void GLWidget::updateShader() {
+    shared_ptr<GLShader> sh = shaders[currentShader];
     shaders[shaderPos]->activateShader();
     auto sc = Controller::getInstance()->getScene();
     sc->toGPU(shaders[currentShader]->program);
@@ -231,51 +233,59 @@ void GLWidget::activaShader(int shaderPos) {
 
 void GLWidget::activaColorShader() {
     //TO DO: Pràctica 2: A implementar a la fase 1
-    activaShader(1);
+    currentShader = 1;
+    updateShader();
     qDebug()<<"Estic a Color Shader";
 }
 
 void GLWidget::activaDepthShader() {
     //TO DO: Pràctica 2: A implementar a la fase 1
-    activaShader(2);
+    currentShader = 2;
+    updateShader();
     qDebug()<<"Estic a Depth Shader";
 }
 
 void GLWidget::activaNormalShader() {
     //TO DO: Pràctica 2: A implementar a la fase 1
-    activaShader(3);
+    currentShader = 3;
+    updateShader();
     qDebug()<<"Estic a Normal Shader";
 }
 
 void GLWidget::activaGouraudShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
-    activaShader(4);
+    currentShader = 4;
+    updateShader();
     qDebug()<<"Estic a Gouraud - Phong shader";
 
 }
 void GLWidget::activaPhongShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
-    activaShader(5);
+    currentShader = 5;
+    updateShader();
     qDebug()<<"Estic a Phong - Phong Shader";
 
 }
 
 void GLWidget::activaGouraudBlinnShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
-    activaShader(6);
+    currentShader = 6;
+    updateShader();
     qDebug()<<"Estic a Gouraud - Blinn-Phong shader";
 
 }
 void GLWidget::activaBlinnPhongShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
-    activaShader(7);
+    currentShader = 7;
+    updateShader();
     qDebug()<<"Estic a Phong - Blinn-Phong Shader";
 
 }
 
 void GLWidget::activaTempestaFortnite() {
     //TO DO: Pràctica 2:  implementar a la fase 1
-    activaShader(8);
+    currentShader = 8;
+    updateShader();
     qDebug()<<"Estic a Fortnite Shader";
 
 }
@@ -304,7 +314,8 @@ void GLWidget::activaTransparency() {
 
 void GLWidget::activaNightVision() {
     //TO DO: Pràctica 2:  implementar a la fase 2
-    activaShader(9);
+    currentShader = 9;
+    updateShader();
 
     //posar al fons de l'escana un pla. Podem agafar el pla més llunyà, radere l'escena ->
     //depenent d'on estigui la càmera l'hauré de posar en un  lloc o un altre.

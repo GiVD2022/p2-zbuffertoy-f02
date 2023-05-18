@@ -109,6 +109,6 @@ private:
     int currentShader;
 
     void initShadersGPU();
-    void activaShader(int shaderPos);
+    void updateShader();
 
 };

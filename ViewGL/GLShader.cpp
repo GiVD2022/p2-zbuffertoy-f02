@@ -16,7 +16,7 @@ GLShader::GLShader(const char* vShaderFile, const char* fShaderFile){
 void GLShader::activateShader(){
     program->link();
     program->bind();
-
+    qDebug()<<"Estic activant un shader";
 ;}
 
 //Metode per activar shaders de textures

@@ -7,6 +7,8 @@
 #include <QGLShaderProgram>
 #include <QGLShader>
 
+class QGLShaderProgram;
+
 using namespace std;
 
 class GLShader
