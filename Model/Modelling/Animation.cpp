@@ -1,12 +1,10 @@
 #include "Animation.hh"
 
 void Animable::addAnimation(shared_ptr<Animation> anim) {
-    QTextStream(stdout) << "animation added" <<"\n";
     animFrames.push_back(anim);
 }
 
 void Animable::update(int nframe) {
-    qDebug()<<"animation updated";
     if (animFrames.empty()) {
         qDebug() << "No animations found.";
         return;

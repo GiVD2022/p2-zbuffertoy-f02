@@ -200,7 +200,6 @@ void GLWidget::updateScene() {
 
 void GLWidget::saveAnimation() {
     // Comença el timer de l'animació
-    qDebug()<<"I'm saving the animation?";
     timer = new QTimer(this);
     currentFrame=0;
     currentImage=0;

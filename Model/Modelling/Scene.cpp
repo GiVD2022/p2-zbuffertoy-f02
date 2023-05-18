@@ -34,7 +34,6 @@ bool Scene::hit(Ray &raig, float tmin, float tmax, HitInfo& info) const {
 
 
 void Scene::update(int nframe) {
-    qDebug()<<"update scene objects";
     qDebug()<<objects.size();
     for (unsigned int i = 0; i< objects.size(); i++) {
         objects[i]->update(nframe);

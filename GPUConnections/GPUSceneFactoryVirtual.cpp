@@ -82,30 +82,26 @@ void GPUSceneFactoryVirtual::read(const QJsonObject &json)
                 //read animation for each object
                 if (objectObject.contains("animations") && objectObject["animations"].isArray()) {
                     QJsonArray animArray = objectObject["animations"].toArray();
-                    QTextStream(stdout) << "Animation detected in the json" <<"\n";
                     for (int animIndex = 0; animIndex < animArray.size(); animIndex++) {
-                        QTextStream(stdout) << "Number of animations" << animArray.size() <<"\n";
                         QJsonObject animObject = animArray[animIndex].toObject();
                         shared_ptr<Animation> anim = make_shared<Animation>();
                         if (animObject.contains("frameIni") && animObject["frameIni"].isDouble()){
-                            QTextStream(stdout) << "frame ini" <<  animObject["frameIni"].toInt() <<"\n";
                             anim->frameIni = animObject["frameIni"].toInt();
                         }
                         if (animObject.contains("frameFinal") && animObject["frameFinal"].isDouble()){
-                            QTextStream(stdout) << "frame final" <<  animObject["frameFinal"].toInt() <<"\n";
                             anim->frameFinal = animObject["frameFinal"].toInt();
                         }
                         if (animObject.contains("translation") && animObject["translation"].isArray()) {
                             QJsonArray translationArray = animObject["translation"].toArray();
                             shared_ptr<TG> tg = make_shared<TranslateTG>(vec3(translationArray[0].toDouble(), translationArray[1].toDouble(), translationArray[2].toDouble()));
                             anim->transf = tg;
-                            QTextStream(stdout) << "added translation" <<"\n";
+                            o->translation = true;
                         }
                         else if (animObject.contains("scale") && animObject["scale"].isArray()) {
                             QJsonArray scaleArray = animObject["scale"].toArray();
                             shared_ptr<TG> tg = make_shared<ScaleTG>(vec3(scaleArray[0].toDouble(), scaleArray[1].toDouble(), scaleArray[2].toDouble()));
                             anim->transf = tg;
-                            QTextStream(stdout) << "added scale" <<"\n";
+                            o->scale = true;
                         }
 
                         o->addAnimation(anim);

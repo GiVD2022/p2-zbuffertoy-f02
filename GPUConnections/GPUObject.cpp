@@ -15,10 +15,16 @@ GPUObject::~GPUObject() {
 }
 
 void GPUObject::print(int indentation) const {
-    QTextStream(stdout) << "GPU Object Pinting:" << "\n";
+    QTextStream(stdout) << "GPU Object Printing:" << "\n";
 
     const QString indent(indentation * 2, ' ');
-
+    QTextStream(stdout) << "Transformations:\n";
+    if(scale){
+        QTextStream(stdout) << indent << "type:\t" << "Scale"<<"\n";
+    }
+    if(translation){
+        QTextStream(stdout) << indent << "type:\t" << "Translation"<<"\n";
+    }
     QTextStream(stdout) << "Material:\n";
     auto  value = GPUMaterialFactory::getInstance().getIndexType (gpumaterial);
     QString className = GPUMaterialFactory::getInstance().getNameType(value);

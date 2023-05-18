@@ -17,9 +17,12 @@ public:
     virtual Capsa3D calculCapsa3D() = 0;
     virtual void print(int indentation) const override;
     virtual void aplicaTG(shared_ptr<TG>) override = 0 ;
+    bool translation = false;
+    bool scale = false;
 
 protected:
     shared_ptr<GPUMaterial> gpumaterial;
+
 };
 
 #endif // GPUOBJECT_HH
