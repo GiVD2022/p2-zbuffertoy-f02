@@ -148,6 +148,7 @@ void GLWidget::setCurrentFrame(){
 
     auto scene = Controller::getInstance()->getScene();
     scene->update(currentFrame);
+    updateScene();
     updateGL();
     this->saveFrame();
     currentFrame++;
@@ -158,6 +159,7 @@ void GLWidget::setCurrentFrame(){
 }
 
 void GLWidget::saveFrame(){
+    qDebug()<<"Animation saved: " << currentFrame;
     this->grabFrameBuffer().save("screen_output_"+QVariant(currentFrame).toString()+".jpg");
 }
 
@@ -198,6 +200,7 @@ void GLWidget::updateScene() {
 
 void GLWidget::saveAnimation() {
     // Comença el timer de l'animació
+    qDebug()<<"I'm saving the animation?";
     timer = new QTimer(this);
     currentFrame=0;
     currentImage=0;

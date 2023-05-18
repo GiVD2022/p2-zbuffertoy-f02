@@ -4,6 +4,8 @@
 #include "Model/Modelling/Animation.hh"
 
 #include "Model/Modelling/Materials/MaterialFactory.hh"
+#include "Model/Modelling/TG/TG.hh"
+#include "Model/Modelling/TG/TranslateTG.hh"
 #include "DataInOut/Serializable.hh"
 
 
