@@ -1,0 +1,32 @@
+{
+"scene": "Mesh",
+"typeScene": "VIRTUAL",
+"objects": [
+  {
+  "name": "Br Objecte",
+  "type":  "MESH",
+    "objFileName": "://resources/models/sphere0.obj",
+    "material": {
+      "type": "lambertian",
+      "ka": [0.2, 0.2, 1],
+      "kd": [0.1,0.6,1],
+      "ks": [0.2, 0.7, 1],
+      "shininess": 10.0,
+      "kt": [0.0, 0.0, 0.0],
+      "nut": 1
+      },
+    "animations": [
+        {
+              "frameIni": 0,
+              "frameFinal": 10,
+              "scale": [1.01, 1.01, 1.01]
+            },
+            {
+              "frameIni": 11,
+              "frameFinal": 19,
+              "translation": [-0.05, -0.05, -0.05]
+            }
+        ]
+    }
+]
+}

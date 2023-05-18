@@ -78,6 +78,36 @@ void GPUSceneFactoryVirtual::read(const QJsonObject &json)
                             GPUObjectFactory::getInstance().createObject(ObjectFactory::getInstance().getObjectType(objStr)));
 
                 QTextStream(stdout) << "Readig a GPUscene factory" <<"\n";
+
+                //read animation for each object
+                if (objectObject.contains("animations") && objectObject["animations"].isArray()) {
+                    QJsonArray animArray = objectObject["animations"].toArray();
+                    for (int animIndex = 0; animIndex < animArray.size(); animIndex++) {
+                        QJsonObject animObject = animArray[animIndex].toObject();
+                        shared_ptr<Animation> anim = make_shared<Animation>();
+                        if (animObject.contains("frameIni") && animObject["frameIni"].isDouble()){
+                            anim->frameIni = animObject["frameIni"].toInt();
+                        }
+                        if (animObject.contains("frameFinal") && animObject["frameFinal"].isDouble()){
+                            anim->frameFinal = animObject["frameFinal"].toInt();
+                        }
+                        if (animObject.contains("translation") && animObject["translation"].isArray()) {
+                            QJsonArray translationArray = animObject["translation"].toArray();
+                            shared_ptr<TG> tg = make_shared<TranslateTG>(vec3(translationArray[0].toDouble(), translationArray[1].toDouble(), translationArray[2].toDouble()));
+                            anim->transf = tg;
+                            o->translation = true;
+                        }
+                        else if (animObject.contains("scale") && animObject["scale"].isArray()) {
+                            QJsonArray scaleArray = animObject["scale"].toArray();
+                            shared_ptr<TG> tg = make_shared<ScaleTG>(vec3(scaleArray[0].toDouble(), scaleArray[1].toDouble(), scaleArray[2].toDouble()));
+                            anim->transf = tg;
+                            o->scale = true;
+                        }
+
+                        o->addAnimation(anim);
+                    }
+                }
+
                 o->read(objectObject);
 
                 // Afegir objecte a l'escena virtual ja amb el seu material corresponent

@@ -276,6 +276,20 @@ bool GPUMesh::hit(Ray& r, float tmin, float tmax, HitInfo& info)const {
     return false;
 }
 
-void GPUMesh::aplicaTG(shared_ptr<TG>){
+void GPUMesh::aplicaTG(shared_ptr<TG> tg) {
+    qDebug() << "I'm animating the GPUMesh!";
+    if (auto translateTG = dynamic_cast<TranslateTG*>(tg.get())) {
+        qDebug() << "It's a translation!";
+        for (int i = 0; i < vertexs.size(); i++) {
+            this->vertexs[i] = tg->getTG() * this->vertexs[i];
+        }
 
+    }
+    else if (auto scaleTG = dynamic_cast<ScaleTG*>(tg.get())) {
+            qDebug() << "It's a scaling transformation!";
+            for (int i = 0; i < vertexs.size(); i++) {
+                this->vertexs[i] = tg->getTG() * this->vertexs[i];  // Apply scaling to each vertex
+            }
+        }
+    make();
 }

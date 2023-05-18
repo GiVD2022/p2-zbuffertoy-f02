@@ -27,6 +27,7 @@ void GPUScene::setDimensions(vec3 p1, vec3 p2) {
  * @param obj
  */
 void GPUScene::addObject(shared_ptr<GPUObject> obj) {
+    Scene::objects.push_back(obj);
     objects.push_back(obj);
     calculCapsaMinCont3DEscena();
 }

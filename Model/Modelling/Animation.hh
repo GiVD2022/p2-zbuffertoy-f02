@@ -2,7 +2,7 @@
 
 #include "Model/Modelling/TG/TG.hh"
 #include <vector>
-#define MAXFRAMES 5
+#define MAXFRAMES 20
 
 #include <memory>
 
