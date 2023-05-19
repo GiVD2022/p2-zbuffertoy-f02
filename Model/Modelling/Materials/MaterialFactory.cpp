@@ -6,6 +6,9 @@ shared_ptr<Material> MaterialFactory::createMaterial(MATERIAL_TYPES t) {
     case LAMBERTIAN:
         m = make_shared<Lambertian>();
         break;
+    case MATERIALTEXTURA:
+        m = make_shared<MaterialTextura>();
+        break;
     default:
         break;
     }
@@ -18,6 +21,9 @@ shared_ptr<Material> MaterialFactory::createMaterial(vec3 a, vec3 d, vec3 s, flo
     switch (t) {
     case LAMBERTIAN:
         m = make_shared<Lambertian>(a, d, s, beta, opacity);
+        break;
+    case MATERIALTEXTURA:
+        m = make_shared<MaterialTextura>(a, d, s, beta, opacity);
         break;
     default:
         break;

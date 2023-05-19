@@ -2,6 +2,7 @@
 
 layout (location = 0) in vec4 vPosition;
 layout (location = 1) in vec4 vNormal;
+layout (location = 2) in vec2 vTexture;
 
 struct Material
 {
@@ -42,7 +43,13 @@ uniform mat4 model_view;
 uniform mat4 projection;
 uniform vec3 ambientGlobal; //vull veure esfera obtinguda amb aquest color
 uniform vec4 obs;
-out vec4 color; // output
+
+out vec3 lightAmbientO;
+out vec3 lightDiffuseO;
+out vec3 lightSpecularO;
+out vec3 globalAmbientO;
+out float opacityO;
+out vec2 v_texcoord;
 
 // The entry point for our vertex shader.
 void main()
@@ -111,7 +118,11 @@ void main()
             lightSpecular += mat_info.Ks * light.Is * pow(max(dot(R, V), 0.0f), mat_info.shininess);
         }
     }
-
     // out color of the vertex
-    color = vec4(lightAmbient + lightDiffuse + lightSpecular + globalAmbient, mat_info.opacity);
+    lightAmbientO = lightAmbient;
+    lightDiffuseO = lightDiffuse;
+    lightSpecularO = lightSpecular;
+    globalAmbientO = globalAmbient;
+    opacityO = mat_info.opacity;
+    v_texcoord = vTexture;
 }

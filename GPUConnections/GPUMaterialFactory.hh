@@ -4,7 +4,7 @@
 #include "GPULambertian.hh"
 //#include "ToonMaterial.hh"
 //#include "Transparent.hh"
-//#include "MaterialTextura.hh"
+#include "GPUMaterialTextura.hh"
 //#include "Metal.h"
 
 class GPUMaterialFactory

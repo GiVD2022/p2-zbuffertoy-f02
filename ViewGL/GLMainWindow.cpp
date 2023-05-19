@@ -675,6 +675,9 @@ void GLMainWindow::connectShaders()
     connect(this->ui->action_environmental_mapping, SIGNAL(triggered()), glWidget, SLOT(activaEnvMapping()));
     connect(this->ui->action_reflections, SIGNAL(triggered()), glWidget, SLOT(activaReflection()));
     connect(this->ui->action_transparencies, SIGNAL(triggered()), glWidget, SLOT(activaTransparency()));
+    connect(this->ui->actionCentered_Target, SIGNAL(triggered()), glWidget, SLOT(activaNightVision()));
+
+    connect(this->ui->actionHighlight_Region, SIGNAL(triggered()), glWidget, SLOT(activaTempestaFortnite()));
 
 }
 

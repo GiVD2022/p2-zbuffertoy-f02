@@ -1,14 +1,15 @@
-#ifndef SCALETG_HH
-#define SCALETG_HH
+#ifndef SCALETG_H
+#define SCALETG_H
 
 #include "TG.hh"
 
-class ScaleTG: public TG
+class ScaleTG : public TG
 {
 public:
-    vec3 escala;
-    ScaleTG(vec3 escala);
+    vec3 scaling;
+
+    ScaleTG(vec3 scale);
     virtual ~ScaleTG();
 };
 
-#endif // SCALETG_HH
+#endif // SCALETG_H

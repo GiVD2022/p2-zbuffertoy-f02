@@ -1,9 +1,11 @@
 #include "ScaleTG.hh"
 
-
-ScaleTG::ScaleTG(vec3 escala): escala(escala)
+ScaleTG::ScaleTG(vec3 scale) : scaling(scale)
 {
-    matTG = Scale(escala);
+    matTG = Scale(scaling);
 }
 
-ScaleTG::~ScaleTG() {}
+ScaleTG::~ScaleTG()
+{
+
+}

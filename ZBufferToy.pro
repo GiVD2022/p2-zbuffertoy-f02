@@ -20,6 +20,7 @@ SOURCES += \
     GPUConnections/GPULightFactory.cpp \
     GPUConnections/GPUMaterial.cpp \
     GPUConnections/GPUMaterialFactory.cpp \
+    GPUConnections/GPUMaterialTextura.cpp \
     GPUConnections/GPUMesh.cpp \
     GPUConnections/GPUObject.cpp \
     GPUConnections/GPUObjectFactory.cpp \
@@ -42,6 +43,7 @@ SOURCES += \
     Model/Modelling/Materials/Lambertian.cpp \
     Model/Modelling/Materials/Material.cpp \
     Model/Modelling/Materials/MaterialFactory.cpp \
+    Model/Modelling/Materials/MaterialTextura.cpp \
     Model/Modelling/Materials/Texture.cpp \
     Model/Modelling/Objects/Face.cpp \
     Model/Modelling/Objects/FittedPlane.cpp \
@@ -75,6 +77,7 @@ HEADERS += \
     GPUConnections/GPULightFactory.hh \
     GPUConnections/GPUMaterial.hh \
     GPUConnections/GPUMaterialFactory.hh \
+    GPUConnections/GPUMaterialTextura.hh \
     GPUConnections/GPUMesh.hh \
     GPUConnections/GPUObject.hh \
     GPUConnections/GPUObjectFactory.hh \
@@ -98,6 +101,7 @@ HEADERS += \
     Model/Modelling/Materials/Lambertian.hh \
     Model/Modelling/Materials/Material.hh \
     Model/Modelling/Materials/MaterialFactory.hh \
+    Model/Modelling/Materials/MaterialTextura.hh \
     Model/Modelling/Materials/Texture.hh \
     Model/Modelling/Objects/Face.hh \
     Model/Modelling/Objects/FittedPlane.hh \

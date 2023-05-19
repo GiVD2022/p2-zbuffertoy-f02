@@ -19,7 +19,6 @@ Mesh::~Mesh() {
     if (vertexs.size() > 0) vertexs.clear();
 }
 
-
 void Mesh::makeTriangles() {
     // Practica 1: TO DO Fase 1: A implementar
 }
@@ -112,6 +111,7 @@ void Mesh::load (QString fileName) {
 
                         cares.push_back(*face);
                     }
+
                 }
             }
             file.close();
@@ -123,13 +123,13 @@ void Mesh::load (QString fileName) {
 
 void Mesh::read (const QJsonObject &json)
 {
+    QTextStream(stdout) << "llegint a mesh";
     Object::read(json);
     if (json.contains("objFileName") && json["objFileName"].isString()) {
         nom = json["objFileName"].toString();
         load(nom);
     }
 }
-
 
 //! [1]
 void Mesh::write(QJsonObject &json) const

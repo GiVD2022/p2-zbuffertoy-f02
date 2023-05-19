@@ -26,7 +26,7 @@ void GPUPointLight::toGPU(shared_ptr<QGLShaderProgram> p) {
     gl_IdLights.spotExponent = p->uniformLocation(QString("light_info[%1].spotExponent").arg(i));
 
     GPULight::toGPU(p);
-    glUniform4fv(gl_IdLights.position, 1, this->getPosition());
+    glUniform3fv(gl_IdLights.position, 1, this->getPosition());
     glUniform3fv(gl_IdLights.coeficients, 1, this->getCoeficients());
     qDebug() << "point lights.....";
 

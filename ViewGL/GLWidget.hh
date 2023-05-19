@@ -55,11 +55,13 @@ public slots:
     void activaGouraudBlinnShader();
     void activaBlinnPhongShader();
     void activaToonShader();
+    void activaTempestaFortnite();
 
 
     void activaEnvMapping();
     void activaReflection();
     void activaTransparency();
+    void activaNightVision();
 
     void setPerspective(float nearPlane, float farPlane);
     void setLookAt(const QVector3D &eye, const QVector3D &center, const QVector3D& up);
@@ -103,8 +105,10 @@ private:
 
     // TO DO: Pràctica 2: Fase 1: Per ara nomes es té un parell vertex-fragment
     // i cal estendre-ho a tenir mé parells
-    shared_ptr<QGLShaderProgram> program;
+    vector<shared_ptr<GLShader>> shaders;
+    int currentShader;
 
     void initShadersGPU();
+    void updateShader();
 
 };

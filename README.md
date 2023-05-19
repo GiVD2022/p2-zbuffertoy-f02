@@ -30,14 +30,18 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
     - Shading
         - [X] Color
             - Pau B.
-        - [ ] Normal
-        - [ ] Depth 
+        - [X] Normal
+            - Esther Ruano
+        - [X] Depth
+            - Núria Torquet
         - [X] Phong-Gouraud 
             - Pau B.
-        - [ ] Phong-Phong
+        - [X] Phong-Phong
+            - Núria Torquet
         - [X] BlinnPhong-Gouraud 
             - Pau B.
-        - [ ] BlinnPhong-Phong
+        - [X] BlinnPhong-Phong
+            - Núria Torquet
         - [ ] Cel-shading
     - Textures
         - [ ] Textura com material en un objecte 
@@ -48,7 +52,8 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
         - [ ] Escenes de dades 
 
 - Fase 2 
-    - [ ] Visió nocturna 
+    - [X] Visió nocturna
+        - Núria Torquet
     - [ ] La Tempesta de Fornite
     - [ ] Èmfasi de siluetes 
     - [ ] Mapping indirecte de textures
@@ -79,7 +84,7 @@ tot? Cada vegada que es visualitza l’escena?**
    * **Què contindrà el "struct" de la GPU? Com l’estructurareu?** 
    
         L'struct de la GPU s'ha definit de la següent manera:
-        ```
+        ```glsl
         struct Light {
         vec3 Ia;
         vec3 Id;
@@ -104,27 +109,53 @@ tot? Cada vegada que es visualitza l’escena?**
    
 - Pas 2.1: Modificació de la classe Material
     * **Utilitzarem també “structs” per a estructurar la informació tant a la CPU com a la GPU, tal i com fèiem a les llums.
-Des d’on es cridarà aquest mètode?**
+Des d’on es cridarà aquest mètode? (fent referència al toGPU)**
+        En aquest cas, l'struct del Material és:
+        ```glsl
+        struct Material
+        {
+            vec3 Ka;
+            vec3 Kd;
+            vec3 Ks;
+            vec3 Kt;
+            float shininess;
+            float opacity;
+        };
+        ```
+        El ```toGPU()``` de ```GPUMaterial``` s'haurà de cridar a la funció draw() dels objectes. Això es deu a que volem que per cada objecte es tingui la informació del seu material. Si ho fessim tots seguits i desprès els dibuixéssim, aleshores només es tindria a la memòria de la GPU el material de l'últim objecte. Posant-ho al draw aconseguim que abans de pintar cada objecte, es passa el seu material.
     * **Si vols utilitzar diferents shaders en temps d'execució raona on s'inicialitzaran els shaders i com controlar quin
 shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
+        La variable ```program``` guarda el shader que usem. Quan canviem de shader cal tornar a passar l'escena per tal que la GPU tingui la informació necessària. Podem tenir un array de programs compilats i linkejats i quan es crida des del menú, canviar quin d'ells s'utilitza. Això és més eficient que fer link i bind cada cop que canviem de shader.
         
 - Pas 3.1: Creació de diferents tipus de shadings
     * **Gouraud: Fixa't que quan es llegeix un objecte, cada vèrtex ja té la seva normal. Com serà aquest valor de la normal? Uniform o no uniform?**
-    * **En la classe Camera utilitza el mètode toGPU per a passar l'observador als shaders per a que es passi la posició de l'observador cada vegada que s'actualitza la posició de la càmera amb el ratolí. Com serà aquesta variable al shader? Uniform? O IN?**
+        La normal no pot ser de tipus uniform, ja que cada punt de la superfície en té una de diferent. Per això la definim com 
+        ```glsl
+            layout (location = 1) in vec4 vNormal;
         ```
+    * **En la classe Camera utilitza el mètode toGPU per a passar l'observador als shaders per a que es passi la posició de l'observador cada vegada que s'actualitza la posició de la càmera amb el ratolí. Com serà aquesta variable al shader? Uniform? O IN?**
+        ```glsl
         uniform vec4 obs;
         ```
         S'ha definit de tipus uniform, perquè no varia el seu valor d'un shader a un altre en la mateixa crida de rendering. El seu valor és uniforme en totes les invocacions.
     * **Si vols utilitzar diferents shaders en temps d'execució raona on s'inicialitzaran els shaders i com controlar quin shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader? I també la càmera?**
     * **Quina diferència hi ha entre el Phong-shading i el Gouraud-shading? On l'has de codificar? Necessites uns nous vertex-shader i fragment-shader? Raona on es calcula la il·luminació i modifica convenientment els fitxers de la pràctica.**
     * **Cel-shading: On s'implementarà el càlcul del color per a tenir més trencament entre las games de colors? Necessites uns nous vertex-shader i fragment-shader? Raona on es calcula la il·luminació** 
+        
+- FASE 2:
+    - Pas 1.1: Visió Nocturna o Target amb cercle verd
+        * **Detalla on es faria el càlcul? Amb quines coordenades? Amb coordenades de món? De càmera? O de viewport?**
+
+            El càlcul es fa a nivell de viewport, passant com a variable uniform la mida horitzontal i vertical del viewport en coordenades de pixels i el seu radi. Aleshores es calcula la distància entre el píxel actual en el fragment shader i el del centre de l'escena, i es compara amb el radi.
+        * **Com aconseguiries que els píxels de fons inclosos en el cercle de visió nocturna es pintessin també de color verd?** 
+            S'hauria d'incloure un pla en el punt més allunyat de la capsa contenidora per a que el framgnet shader detectés els píxels de fons i poder-los així pintar de verd.
     
 
 **Screenshots de cada part**    
 - Pas 3.1: Creació de diferents tipus de shadings 
 
     S'ha definit una GPULight de tipus PointLight per a fer les proves de visualització. Els paràmetres per a inicialitzar-la són els següents:
-    ```
+    ```c++
     // Default point light
     vec3 position1 = vec3(-25,25,25);
     vec3 Ia1 = vec3(0.3,0.3,0.3);
@@ -135,25 +166,32 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
     float c1 = 1.0;
     ```
     * Color shading 
-        <img width="857" alt="color" src="https://user-images.githubusercontent.com/44063174/236870834-321ca1ff-c1bb-4ba5-8625-51d3b4392138.png">
+        <img width="855" alt="Captura de pantalla 2023-05-15 a las 18 52 31" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/95770cd0-7453-4d91-8cdd-2c012e467e6e">
+
 
     * Depth shading 
-        <img width="855" alt="normal" src="https://user-images.githubusercontent.com/44063174/236870881-8eef213c-bb02-41ef-b757-70b9efcecd5f.png">
+        <img width="851" alt="Captura de pantalla 2023-05-15 a las 18 52 54" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/400e6c90-0e87-43be-94da-d2bd1a8849b2">
+
 
     * Normal shading 
-        <img width="855" alt="depth" src="https://user-images.githubusercontent.com/44063174/236870934-0c6cecaa-6344-4004-b1a8-427b1a62aeac.png">
+        <img width="855" alt="Captura de pantalla 2023-05-15 a las 18 52 38" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/18cc537f-2b1e-4c1b-82ec-695a3e67873f">
+
 
     * Gouraud-phong shading 
-        <img width="855" alt="gouraud-phong" src="https://user-images.githubusercontent.com/44063174/236870968-88a65405-f4d7-44af-a31e-97922c1914a1.png">
+        <img width="857" alt="Captura de pantalla 2023-05-15 a las 18 51 13" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/65613ae7-4d94-4a18-9e6a-adc9fc837a6c">
+
 
     * Phong-phong shading 
-        <img width="856" alt="phong-phong" src="https://user-images.githubusercontent.com/44063174/236870998-35a56b09-cc38-4e62-838d-9595048a5b14.png">
+        <img width="861" alt="Captura de pantalla 2023-05-15 a las 18 51 30" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/d0d52c75-2232-4e62-8920-933ae9a2c3ac">
+
        
     * Gouraud-blinn-phong shading 
-        <img width="855" alt="gouraud-bp" src="https://user-images.githubusercontent.com/44063174/236871108-15f16a69-bb6a-4b6a-a218-f4b411493240.png">
+        <img width="857" alt="Captura de pantalla 2023-05-15 a las 18 51 39" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/e222c39d-9a09-4b64-a626-ec7c417e1219">
+
 
     * Phong-blinn-phong shading 
-        <img width="855" alt="phong-bp" src="https://user-images.githubusercontent.com/44063174/236871173-8614869c-567a-4b12-b7f9-b2c6849e2931.png">
+        <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/ef3e5f41-2509-41df-8170-2bbbf428aa05">
+
         
 
 **Extensions addicionals**

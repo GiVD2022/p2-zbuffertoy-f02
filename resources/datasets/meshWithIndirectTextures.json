@@ -1,0 +1,37 @@
+{
+"scene": "Mesh",
+"typeScene": "VIRTUAL",
+"objects": [
+  {
+  "name": "Br Objecte",
+  "type":  "MESH",
+    "objFileName": "://resources/models/cube.obj",
+    "indirectMapping": true,
+    "material": {
+      "type": "materialtextura",
+      "textureFile":"://resources/textures/2k_jupiter.jpg",
+      "ka": [1, 0.2, 0.2],
+      "kd": [0.1,0.6,1],
+      "ks": [0.2, 0.7, 1],
+      "shininess": 10.0,
+      "kt": [0.0, 0.0, 0.0],
+      "nut": 1
+      }
+    },
+    {
+  "name": "Br Objecte",
+  "type":  "MESH",
+  "objFileName": "://resources/models/capsule.obj",
+    "material": {
+      "type": "materialtextura",
+      "textureFile":"://resources/textures/capsule0.jpg",
+      "ka": [0.2, 0.2, 1],
+      "kd": [1,0.6,0.5],
+      "ks": [1, 0.7, 0.7],
+      "shininess": 10.0,
+      "kt": [0.0, 0.0, 0.0],
+      "nut": 1
+      }
+    }
+]
+}

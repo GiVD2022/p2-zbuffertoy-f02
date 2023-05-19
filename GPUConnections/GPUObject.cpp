@@ -6,7 +6,9 @@ GPUObject::GPUObject()
 }
 
 void GPUObject::read (const QJsonObject &json){
+    QTextStream(stdout) << "GPU Object READING:" << "\n";
     Object::read(json);
+    /*
     if(json.contains("material") && json["material"].isObject() ){
         QJsonObject auxMat = json["material"].toObject();
             if (auxMat.contains("type") && auxMat["type"].isString()) {
@@ -16,6 +18,8 @@ void GPUObject::read (const QJsonObject &json){
 
             }
     }
+    */
+    gpumaterial->read(json);
 }
 
 GPUObject::~GPUObject() {
@@ -23,10 +27,20 @@ GPUObject::~GPUObject() {
 }
 
 void GPUObject::print(int indentation) const {
+    QTextStream(stdout) << "GPU Object Printing:" << "\n";
+
     const QString indent(indentation * 2, ' ');
-
-    QTextStream(stdout) << "Material:" << "\n";
-
-    QTextStream(stdout) << indent << "type:\t" << "LAMBERTIAN"<<"\n";
+    QTextStream(stdout) << "Transformations:\n";
+    if(scale){
+        QTextStream(stdout) << indent << "type:\t" << "Scale"<<"\n";
+    }
+    if(translation){
+        QTextStream(stdout) << indent << "type:\t" << "Translation"<<"\n";
+    }
+    QTextStream(stdout) << "Material:\n";
+    auto  value = GPUMaterialFactory::getInstance().getIndexType (gpumaterial);
+    QString className = GPUMaterialFactory::getInstance().getNameType(value);
+    QTextStream(stdout) << indent << "type:\t" << className<<"\n";
     gpumaterial->print(indentation+2);
 }
+

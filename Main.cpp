@@ -9,6 +9,7 @@ Controller* Controller ::instancePtr = NULL;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
     GLMainWindow w;
 
     w.show();
