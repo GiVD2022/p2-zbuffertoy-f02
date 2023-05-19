@@ -8,6 +8,7 @@ using namespace Common;
 #include "GPUConnections/GPUConnectable.hh"
 #include "GPUConnections/GPUMesh.hh"
 #include "Model/Modelling/Scene.hh"
+#include "GPUConnections/GPUFittedPlane.hh"
 
 
 using namespace std;
@@ -31,7 +32,8 @@ public:
 
 
     // TO DO: Pràctica 2: Fase 1 Incloure el Fitted Plane que es pugui passar a la GPU
-    //shared_ptr<GPUFittedPlane> basePlane;
+    shared_ptr<GPUFittedPlane> basePlane;
+    void setBaseObject(shared_ptr<GPUObject> base);
 
     // TODO: Pràctica 2: Fase 1
     // Constructora a utilitzar quan s'inicialitza una escena amb un pla base o

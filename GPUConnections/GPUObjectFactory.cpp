@@ -9,6 +9,9 @@ shared_ptr<GPUObject> GPUObjectFactory::createObject(ObjectFactory::OBJECT_TYPES
     case ObjectFactory::OBJECT_TYPES::MESH:
         o = make_shared<GPUMesh>();
         break;
+    case ObjectFactory::OBJECT_TYPES::FITTEDPLANE:
+        o = make_shared<GPUFittedPlane>();
+        break;
     default:
         break;
     }

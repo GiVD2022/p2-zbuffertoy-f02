@@ -77,6 +77,8 @@ void GPUSceneFactoryVirtual::read(const QJsonObject &json)
                 o = dynamic_pointer_cast<GPUObject>(
                             GPUObjectFactory::getInstance().createObject(ObjectFactory::getInstance().getObjectType(objStr)));
 
+                o->read(objectObject); //com que serà mesh, crida el read de gpumesh!!!
+
                 QTextStream(stdout) << "Readig a GPUscene factory" <<"\n";
 
                 //read animation for each object

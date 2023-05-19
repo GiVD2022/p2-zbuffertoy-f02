@@ -17,7 +17,8 @@ public:
     typedef enum  {
         BOX,
         MESH,
-        FITTEDPLANE
+        FITTEDPLANE,
+        SPHERE
     } OBJECT_TYPES;
 
     virtual shared_ptr<Object> createObject(OBJECT_TYPES t);

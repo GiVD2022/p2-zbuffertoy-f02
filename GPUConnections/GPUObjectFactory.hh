@@ -2,6 +2,7 @@
 
 #include "Model/Modelling/Objects/ObjectFactory.hh"
 #include "GPUConnections/GPUMesh.hh"
+#include "GPUConnections/GPUFittedPlane.hh"
 
 class GPUObjectFactory: public Singleton<GPUObjectFactory>
 {

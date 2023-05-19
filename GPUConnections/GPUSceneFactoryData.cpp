@@ -79,16 +79,25 @@ void GPUSceneFactoryData::read(const QJsonObject &json)
 
     if (json.contains("base") && json["base"].isObject()) {
         QJsonObject jbase = json["base"].toObject();
-        shared_ptr<Object> o;
+        shared_ptr<GPUObject> o;
         if (jbase.contains("type") && jbase["type"].isString()) {
 
             QString objStr = jbase["type"].toString().toUpper();
 
             // TO DO: Pràctica 2:  Afegeix l'objecte base a l'escena.
             // En aquestes linies es crea però no s'afegeix
-            // o = GPUObjectFactory::getInstance().createObject(ObjectFactory::getInstance().getObjectType(objStr));
-            // o->read(jbase);
+            o = GPUObjectFactory::getInstance().createObject(ObjectFactory::getInstance().getObjectType(objStr));
+            o->read(jbase);
 
+            if (o) // Objectes base de l'escena (de moment només el pla afitat)
+            {
+                if (objStr == "FITTEDPLANE")
+                {
+                    scene->setBaseObject(o);
+                    scene->setDimensions(std::static_pointer_cast<GPUFittedPlane>(o)->getPmin(), std::static_pointer_cast<GPUFittedPlane>(o)->getPmax());
+                    scene->objects.push_back(o);
+                }
+            }
         }
     }
 
@@ -205,7 +214,7 @@ shared_ptr<GPUScene> GPUSceneFactoryData::visualMaps() {
 
         // Per cada valor de l'atribut, cal donar d'alta un objecte (gizmo) a l'escena
         for (unsigned int j=0; j<dades[i].second.size(); j++) {
-            auto o = objectMaps(i);
+            auto o = objectMaps(i, j);
 
             // TODO: Pràctica 2: Afegir els materials
             //o->setMaterial(materialMaps(i, j));
@@ -227,7 +236,7 @@ vec3 GPUSceneFactoryData::getPuntBase(ObjectFactory::OBJECT_TYPES gyzmo, vec2 pu
 }
 
 
-shared_ptr<GPUMesh> GPUSceneFactoryData::objectMaps(int i) {
+shared_ptr<GPUMesh> GPUSceneFactoryData::objectMaps(int i, int j) { // m'he inventat jo el j (??????)
 
     // Gyzmo és el tipus d'objecte
 
@@ -236,17 +245,49 @@ shared_ptr<GPUMesh> GPUSceneFactoryData::objectMaps(int i) {
     o = dynamic_pointer_cast<GPUMesh>(GPUObjectFactory::getInstance().createObject(
                                           mapping->attributeMapping[i]->gyzmo));
 
-    // TODO: Posa aqui el codi que tenies a la Pràctica 1
-    //Fase 1. Cal situar l'objecte unitari creat al (0,0,0) a escala proporcional
-    // monReal-monVirtual (valors de mapping) i el valor de la dada, i a la posició corresponent segons
-    // les coordenades donades a la dada (corresponen a x, z de mon virtual)
-    // Dades (x, y, z) --> Escena Virtual (x_v, 0, z_v) i l'objecte escalat segons
-    // la relació de y a escala amb el mon virtual
+    // Obtenim les dimensions del mon virtual
+    float mv_width = mapping->Vxmax - mapping->Vxmin -1;
+    float mv_depth = mapping->Vzmax - mapping->Vzmin -1 ;
+    //float mv_height = mapping->Vymax - mapping->Vymin;
+
+    // Obtenim les dimensions del mon real
+    float mr_width = mapping->Rxmax - mapping->Rxmin;
+    float mr_depth = mapping->Rzmax - mapping->Rzmin;
 
     // a. Calcula primer l'escala
+    vec3 sc;
+
+    float scale = 0.25 + 0.8 * ((dades[i].second.at(j).z - mapping->attributeMapping[0]->minValue) / (mapping->attributeMapping[i]->maxValue - mapping->attributeMapping[i]->minValue));
+    // Per Zoom i OneValue
+    // Perque el major valor tingui radi 2.3 (1.75^(3/2)) i la més petita radi 0.35 (0.5^(2/3))
+    //float scale = 0.5 + 1.25 * ((dades[i].second.at(j).z - mapping->attributeMapping[0]->minValue) / (mapping->attributeMapping[i]->maxValue - mapping->attributeMapping[i]->minValue));
+
+    if(mapping->attributeMapping[i]->gyzmo ==  ObjectFactory::getInstance().SPHERE){ // totes ho haurien de ser
+        sc = vec3(scale);
+        auto scalation = make_shared<ScaleTG>(ScaleTG(sc));
+        o->aplicaTG(scalation);
+    } else {
+        QTextStream(stdout)<< "UNKNOWN GYZMO SceneFactoryData::ObjectMaps\n";
+    }
+
+
     // b. Calcula la translació
+    // centre de l'esfera a y = 0
+    // Per defecte, l'obj base és un pla
+    vec3 trasl;
+    float new_x = mapping->Vxmin + 1 + ((dades[i].second.at(j).x - mapping->Rxmin) / mr_width * (mv_width - 2));
+    float new_y = 0.f;
+    float new_z = mapping->Vzmin + 1 + ((dades[i].second.at(j).y - mapping->Rzmin) / mr_depth * (mv_depth -2 ));
+    trasl = vec3(new_x, new_y, new_z);
+
+
+    QTextStream(stdout) << "  "  << "scale:\t" << sc[0] << ", "<< sc[1] << ", "<< sc[2] << "\n";
+    //QTextStream(stdout) << "  "  << "traslation:\t" << trasl[0] << ", "<< trasl[1] << ", "<< trasl[2] << "\n";
+
     // c. Aplica la TG a l'objecte usant
     //        o->aplicaTG(transformacio)
+    auto translation = make_shared<TranslateTG>(TranslateTG(trasl));
+    o->aplicaTG(translation);
 
     return o;
 }

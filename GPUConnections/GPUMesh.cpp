@@ -43,19 +43,12 @@ void GPUMesh::read(const QJsonObject &json) {
 
     Mesh::read(json);
 
-    if(json.contains("material") && json["material"].isObject() ){
-        QJsonObject auxMat = json["material"].toObject();
-            if (auxMat.contains("type") && auxMat["type"].isString()) {
-                QString tipus = auxMat["type"].toString().toUpper();
-                type = GPUMaterialFactory::getInstance().getMaterialType(tipus);
-                gpumaterial = GPUMaterialFactory::getInstance().createMaterial(type);
-                gpumaterial->read(auxMat);
-            }
-    }
+    GPUObject::read(json); //llegeix gpumaterial
 
     if(type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
         initTexture();
     }
+    Mesh::read(json);
     make();
 }
 

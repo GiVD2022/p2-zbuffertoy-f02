@@ -1,4 +1,5 @@
 #include "GPUScene.hh"
+#include "GPUFittedPlane.hh"
 
 GPUScene::GPUScene()
 {
@@ -20,6 +21,15 @@ GPUScene::~GPUScene() {
 void GPUScene::setDimensions(vec3 p1, vec3 p2) {
     pmin = p1;
     pmax = p2;
+}
+
+void GPUScene::setBaseObject(shared_ptr<GPUObject> base) {
+    // Check the type of base object
+    if (auto plane = std::dynamic_pointer_cast<GPUFittedPlane>(base)) {
+        basePlane = plane;
+    } else {
+        throw std::invalid_argument("Invalid base object type.");
+    }
 }
 
 /**
