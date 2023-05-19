@@ -148,6 +148,8 @@ void GLWidget::initShadersGPU(){
     shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_storm_intersect.glsl", "://resources/GPUshaders/fshader_storm_intersect.glsl"));
     // Night Vision: 9
     shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_nightvision.glsl", "://resources/GPUshaders/fshader_nightvision.glsl"));
+    // Environmental Mapping: 10
+    shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_cubeMap.glsl", "://resources/GPUshaders/fshader_cubeMap.glsl"));
 
     // Set default shader
     currentShader = 0;
@@ -308,6 +310,11 @@ void GLWidget::activaReflection() {
 
 void GLWidget::activaEnvMapping() {
     //TO DO: Pràctica 2:  implementar a la fase 2
+    //genera cub a l'escena
+    auto sc = Controller::getInstance()->getScene();
+    sc->CUBEMAP_ACTIVATED = true;
+    currentShader = 10;
+    updateShader();
     qDebug()<<"Estic a Environmental Mapping";
 }
 

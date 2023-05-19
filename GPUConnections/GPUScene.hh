@@ -55,6 +55,7 @@ public:
     void draw() override;
 
     void calculCapsaMinCont3DEscena();
+    bool CUBEMAP_ACTIVATED = false;
 
 };
 

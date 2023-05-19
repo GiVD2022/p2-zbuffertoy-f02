@@ -32,5 +32,7 @@
         <file>resources/GPUshaders/fshader_storm_intersect.glsl</file>
         <file>resources/GPUshaders/fshader_nightvision.glsl</file>
         <file>resources/GPUshaders/vshader_nightvision.glsl</file>
+        <file>resources/GPUshaders/vshader_cubeMap.glsl</file>
+        <file>resources/GPUshaders/fshader_cubeMap.glsl</file>
     </qresource>
 </RCC>
