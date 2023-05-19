@@ -40,7 +40,7 @@ void Mesh::aplicaTG(shared_ptr<TG> t) {
 
         }
     } else if (auto scaleTG = dynamic_pointer_cast<ScaleTG>(t)) {
-        vec3 scale = scaleTG->escala;
+        vec3 scale = scaleTG->scaling;
         for (int i = 0; i < vertexs.size(); i++){ //v1 es un vec3 i un 1.0f, com es veu al load
             // suposem la mesh centrada en l'origen
             vec3 v1 = scale * (vec3(vertexs[i].x, vertexs[i].y, vertexs[i].z));
