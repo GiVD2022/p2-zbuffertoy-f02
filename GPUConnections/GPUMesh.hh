@@ -53,4 +53,3 @@ private:
     void initTexture();
 
 };
-
