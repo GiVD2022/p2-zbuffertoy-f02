@@ -49,13 +49,11 @@ void GPUFittedPlane::toGPU(shared_ptr<QGLShaderProgram> p)
 
     glBindBuffer( GL_ARRAY_BUFFER, buffer );
 
-    // TO  DO: A modificar a la fase 1 de la practica 2
     // Cal passar les normals a la GPU
 
     glBufferData( GL_ARRAY_BUFFER, sizeof(vec4)*Index + sizeof(vec4)*Index, NULL, GL_STATIC_DRAW );
     glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(vec4)*Index, points );
     glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*Index, sizeof(vec4)*Index_n, normals );
-    //glBufferSubData( GL_ARRAY_BUFFER, sizeof(vec4)*Index, sizeof(vec4)*Index, colors );
 
     // set up vertex arrays
     glBindVertexArray( vao );
@@ -83,15 +81,21 @@ bool GPUFittedPlane::hit(Ray& r, float tmin, float tmax, HitInfo& info) const
 {
     return false;
 }
-void GPUFittedPlane::aplicaTG(shared_ptr<TG>)
-{
-    // TODO
-}
+void GPUFittedPlane::aplicaTG(shared_ptr<TG>){}
 
 void GPUFittedPlane::read(const QJsonObject &json)
 {
     FittedPlane::read(json);
     GPUObject::read(json);
+    /*if(json.contains("material") && json["material"].isObject() ){
+        QJsonObject auxMat = json["material"].toObject();
+            if (auxMat.contains("type") && auxMat["type"].isString()) {
+                QString tipus = auxMat["type"].toString().toUpper();
+                gpumaterial->read(auxMat);
+                qDebug() << gpumaterial->Ka.x <<" "<< gpumaterial->Ka.y <<" "<< gpumaterial->Ka.z  ;
+
+            }
+    }*/
     make();
 }
 

@@ -40,7 +40,7 @@ void GPUMesh::read(const QJsonObject &json) {
 
             }
     }
-
+    // GPUObject::read(json);??
     //colors = new vec4[numPoints];
     Mesh::read(json);
     make();

@@ -4,6 +4,7 @@ FittedPlane::FittedPlane()
 {
     pmin = vec3(0.0);
     pmax = vec3(1.0, 0.0, 1.0);
+    normal = vec3(0.0, 1.0, 0.0);
 }
 
 FittedPlane::FittedPlane(const QString &fileName): Object()
