@@ -316,21 +316,45 @@ void GLWidget::activaTransparency() {
     qDebug()<<"Estic a Transparencia";
 }
 
+
 void GLWidget::activaNightVision() {
-    //TO DO: Pràctica 2:  implementar a la fase 2
     currentShader = 9;
+    auto sc = Controller::getInstance()->getScene();
+
+    shared_ptr<GPUCamera> camera = Controller::getInstance()->getSetUp()->getCamera();
+    vec4 cameraDirection = camera->vrp - camera->origin;
+    vec3 planeNormal = normalize(vec3(cameraDirection.x, cameraDirection.y, cameraDirection.z));
+
+    // Step 1: Find an arbitrary vector perpendicular to the plane normal
+    vec3 arbitraryVector;
+    if (abs(planeNormal.x) < 0.1 && abs(planeNormal.y) < 0.1)
+        arbitraryVector = vec3(1.0, 0.0, 0.0);  // Use the x-axis as an arbitrary vector
+    else
+        arbitraryVector = vec3(0.0, 1.0, 0.0);  // Use the y-axis as an arbitrary vector
+
+    // Step 2: Calculate two additional vectors on the plane
+    vec3 u = normalize(cross(planeNormal, arbitraryVector));
+    vec3 v = normalize(cross(planeNormal, u));
+
+    // Step 3: Choose a scale factor for the plane
+    float planeSize = 5.0;
+
+    float distanceToMove = 4.0f;
+
+    // Move the plane behind the scene
+    vec3 center = planeNormal * (distanceToMove + camera->distancia);
+    vec3 pmin = center - (u + v) * planeSize;
+    vec3 pmax = center + (u + v) * planeSize;
+
+    // Create the GPUFittedPlane with pmin and pmax
+    shared_ptr<GPUObject> gpuObject = make_shared<GPUFittedPlane>(pmin, pmax);
+
+    sc->addObject(gpuObject);
     updateShader();
 
-    //posar al fons de l'escana un pla. Podem agafar el pla més llunyà, radere l'escena ->
-    //depenent d'on estigui la càmera l'hauré de posar en un  lloc o un altre.
-    //Qui dona la normal del pla? vector perpendicular al point of view de la càmera
-    // Set the clear color to black
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    // Clear the color buffer to the clear color and the depth buffer
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    qDebug()<<"Estic a Night Vision";
+    qDebug() << "Estic a Night Vision";
 }
+
 
 
 
