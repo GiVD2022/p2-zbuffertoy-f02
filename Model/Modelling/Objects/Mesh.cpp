@@ -34,7 +34,20 @@ bool Mesh::hit(Ray &raig, float tmin, float tmax, HitInfo& info) const {
 
 
 void Mesh::aplicaTG(shared_ptr<TG> t) {
-    // Practica 1: TO DO: Fase 1
+    // Codi de la p1:
+    if (auto translateTG = dynamic_pointer_cast<TranslateTG>(t)) {
+        for (int i = 0; i < vertexs.size(); i++){ //v1 es un vec3 i un 1.0f, com es veu al load
+            vertexs[i] = translateTG->getTG() * vertexs[i];
+
+        }
+    } else if (auto scaleTG = dynamic_pointer_cast<ScaleTG>(t)) {
+        vec3 scale = scaleTG->escala;
+        for (int i = 0; i < vertexs.size(); i++){ //v1 es un vec3 i un 1.0f, com es veu al load
+            // suposem la mesh centrada en l'origen
+            vec3 v1 = scale * (vec3(vertexs[i].x, vertexs[i].y, vertexs[i].z));
+            vertexs[i] = vec4(v1, 1.f);
+        }
+    }
 }
 
 void Mesh::load (QString fileName) {

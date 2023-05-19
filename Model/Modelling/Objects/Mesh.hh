@@ -14,6 +14,8 @@
 
 #include "Object.hh"
 #include "Face.hh"
+#include "Model/Modelling/TG/ScaleTG.hh"
+#include "Model/Modelling/TG/TranslateTG.hh"
 
 using namespace std;
 

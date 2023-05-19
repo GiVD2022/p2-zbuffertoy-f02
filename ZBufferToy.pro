@@ -49,6 +49,7 @@ SOURCES += \
     Model/Modelling/Objects/Object.cpp \
     Model/Modelling/Objects/ObjectFactory.cpp \
     Model/Modelling/Scene.cpp \
+    Model/Modelling/TG/ScaleTG.cpp \
     Model/Modelling/TG/TG.cpp \
     Model/Modelling/TG/TranslateTG.cpp \
     Model/Rendering/ColorShading.cpp \
@@ -105,6 +106,7 @@ HEADERS += \
     Model/Modelling/Objects/ObjectFactory.hh \
     Model/Modelling/Ray.hh \
     Model/Modelling/Scene.hh \
+    Model/Modelling/TG/ScaleTG.hh \
     Model/Modelling/TG/TG.hh \
     Model/Modelling/TG/TranslateTG.hh \
     Model/Rendering/ColorShading.hh \
