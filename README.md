@@ -44,7 +44,10 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
             - Núria Torquet
         - [ ] Cel-shading
     - Textures
-        - [ ] Textura com material en un objecte 
+        - [X] Textura com material en un objecte 
+            - Esther Ruano
+        - [X] Textura amb indirect mapping en un objecte
+            - Esther Ruano
         - [ ] Textura al pla base 
     - Adaptació a la lectura de fitxers de dades
         - [ ] Escenes virtuals 
@@ -54,7 +57,8 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
 - Fase 2 
     - [X] Visió nocturna
         - Núria Torquet
-    - [ ] La Tempesta de Fornite
+    - [X] La Tempesta de Fornite
+        - Esther Ruano
     - [ ] Èmfasi de siluetes 
     - [ ] Mapping indirecte de textures
     - [ ] Animacions amb dades temporals
