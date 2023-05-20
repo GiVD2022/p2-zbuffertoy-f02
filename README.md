@@ -159,7 +159,12 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
     - Pas 1.1: Visió Nocturna o Target amb cercle verd
         * **Detalla on es faria el càlcul? Amb quines coordenades? Amb coordenades de món? De càmera? O de viewport?**
 
-            El càlcul es fa a nivell de viewport, passant com a variable uniform la mida horitzontal i vertical del viewport en coordenades de pixels i el seu radi. Aleshores es calcula la distància entre el píxel actual en el fragment shader i el del centre de l'escena, i es compara amb el radi.
+            El càlcul es faria a nivell de viewport, utilitzant les coordenades de la finestra de visualització (viewport). Aquestes coordenades es proporcionen pel gl_fragCoord, que indica en quin píxel s'està pintant l'objecte. Per realitzar el càlcul, es necessiten les següents dades:
+            - Mida horitzontal i vertical del viewport: Aquestes dades es passen com a variables uniform al fragment shader. La mida es proporciona en coordenades de píxels de la finestra de visualització i s'utilitza per determinar el radi del cercle de visió.
+            - Radi del cercle de visió: També es passa com a variable uniform al fragment shader. El radi es calcula com la meitat de la mida horitzontal o vertical del viewport, ja que es vol que el cercle de visió tingui un radi igual a la meitat de l'amplada del viewport.
+            Amb aquestes dades, es pot calcular la distància entre el píxel actual en el fragment shader (gl_fragCoord) i el centre de l'escena, que està en el punt més allunyat de la capsa contenidora. La distància es calcula utilitzant la fórmula de la distància euclidiana entre dos punts.
+            Finalment, es compara la distància amb el radi del cercle de visió. Si la distància és inferior o igual al radi, significa que el píxel està dins del cercle de visió i s'ha de pintar de color verd. En cas contrari, el píxel es pinta de color negre. 
+            
         * **Com aconseguiries que els píxels de fons inclosos en el cercle de visió nocturna es pintessin també de color verd?** 
             S'hauria d'incloure un pla en el punt més allunyat de la capsa contenidora per a que el framgnet shader detectés els píxels de fons i poder-los així pintar de verd.
      - Pas 1.2: La tempesta de Fornite
