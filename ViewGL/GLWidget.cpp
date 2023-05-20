@@ -361,11 +361,12 @@ void GLWidget::activaNightVision() {
     vec3 v = normalize(cross(planeNormal, u));
 
     // Step 3: Choose a scale factor for the plane
-    float planeSize = 5.0;
+    float planeSize = 10.0;
     auto capsaMinima = sc->capsaMinima;
 
     // Compute the position of the fitted plane at the back of the bounding box
     vec3 position = capsaMinima.pmin + vec3(capsaMinima.a, capsaMinima.h, capsaMinima.p);
+    qDebug()<<"Position of the fitted plane" << position.x << position.y << position.z;
 
     // Determine the distance to move for the plane based on its position
     vec3 cameraPosition = vec3(camera->origin.x, camera->origin.y, camera->origin.z);/* Obtain the camera's position */;
@@ -373,9 +374,12 @@ void GLWidget::activaNightVision() {
     float distanceToMove = length(cameraToPlane);
 
     // Move the plane behind the scene
-    vec3 center = planeNormal * (distanceToMove + camera->distancia);
+    vec3 center = cameraPosition + planeNormal * (distanceToMove + camera->distancia);
+    qDebug()<<"Center of the fitted plane" << center.x << center.y << center.z;
     vec3 pmin = center - (u + v) * planeSize;
+    qDebug()<<"Min point of the fitted plane" << pmin.x << pmin.y << pmin.z;
     vec3 pmax = center + (u + v) * planeSize;
+    qDebug()<<"Max point of the fitted plane" << pmax.x << pmax.y << pmax.z;
 
     // Create the GPUFittedPlane with pmin and pmax
     shared_ptr<GPUObject> gpuObject = make_shared<GPUFittedPlane>(pmin, pmax);
@@ -385,7 +389,6 @@ void GLWidget::activaNightVision() {
 
     qDebug() << "Estic a Night Vision";
 }
-
 
 
 
