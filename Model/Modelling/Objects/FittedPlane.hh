@@ -38,6 +38,7 @@ public:
 protected:
     vec4 vertices[4]; // els 4 extrems del pla, es constueixen a partir dels pmin i pmax
     vec4 normal; // there is only one
+    vec2 textVertexs[4];
 
     vec3 pmin;
     vec3 pmax;

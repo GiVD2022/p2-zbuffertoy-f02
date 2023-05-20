@@ -2,9 +2,7 @@
 
 FittedPlane::FittedPlane()
 {
-    pmin = vec3(0.0);
-    pmax = vec3(1.0, 0.0, 1.0);
-    normal = vec3(0.0, 1.0, 0.0);
+    makeVertexs(vec3(0.0), vec3(1.0, 0.0, 1.0));
 }
 
 FittedPlane::FittedPlane(const QString &fileName): Object()
@@ -14,9 +12,6 @@ FittedPlane::FittedPlane(const QString &fileName): Object()
 
 FittedPlane::FittedPlane(vec3 pmin, vec3 pmax)
 {
-    pmin = pmin;
-    pmax = pmax;
-
     makeVertexs(pmin, pmax);
 }
 
@@ -55,6 +50,10 @@ void FittedPlane::makeVertexs(vec3 pmin, vec3 pmax)
 
         normal = vec4(0.0, 0.0, 1.0, 0.0);
     }
+    textVertexs[0] = vec2(0.0, 0.0);
+    textVertexs[1] = vec2(1.0, 0.0);
+    textVertexs[2] = vec2(1.0, 1.0);
+    textVertexs[3] = vec2(0.0, 1.0);
 }
 
 
@@ -73,13 +72,13 @@ void FittedPlane::read (const QJsonObject &json)
     if (json.contains("pmin") && json["pmin"].isArray()) {
         QJsonArray auxVec = json["pmin"].toArray();
         pmin[0] = auxVec[0].toDouble();
-        pmin[1] = 0.0; // es llegeixen components x i z, la y se suposa plana
+        pmin[1] = -2.0; // es llegeixen components x i z, la y se suposa plana
         pmin[2] = auxVec[1].toDouble();
     }
     if (json.contains("pmax") && json["pmax"].isArray()) {
         QJsonArray auxVec = json["pmax"].toArray();
         pmax[0] = auxVec[0].toDouble();
-        pmax[1] = 0.0;
+        pmax[1] = -2.0;
         pmax[2] = auxVec[1].toDouble();
     }
     makeVertexs(pmin, pmax);

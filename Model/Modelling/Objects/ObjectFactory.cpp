@@ -9,9 +9,6 @@ shared_ptr<Object> ObjectFactory::createObject(OBJECT_TYPES t)
     case MESH:
         o = make_shared<Mesh>();
         break;
-    case SPHERE:
-        o = make_shared<Mesh>("./resources/models/sphere0.obj"); // TODO ha de ser aixi?
-        break;
     default:
         break;
     }
