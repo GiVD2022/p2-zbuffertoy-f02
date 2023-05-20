@@ -148,6 +148,8 @@ void GLWidget::initShadersGPU(){
     shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_storm_intersect.glsl", "://resources/GPUshaders/fshader_storm_intersect.glsl"));
     // Night Vision: 9
     shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_nightvision.glsl", "://resources/GPUshaders/fshader_nightvision.glsl"));
+    //Cell Shading 10
+    shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_toon.glsl", "://resources/GPUshaders/fshader_toon.glsl"));
 
     // Set default shader
     currentShader = 0;
@@ -297,14 +299,8 @@ void GLWidget::activaTempestaFortnite() {
 
 void GLWidget::activaToonShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
-    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_toon.glsl", "://resources/GPUshaders/fshader_toon.glsl", program);
-    if (glshader != nullptr) {
-        program->link();
-        program->bind();
-    }
-    auto sc = Controller::getInstance()->getScene();
-    sc->toGPU(program);
-    updateGL();
+    currentShader=10;
+    updateShader();
     qDebug()<<"Estic a Toon";
 }
 
