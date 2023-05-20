@@ -46,8 +46,6 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
     - Textures
         - [X] Textura com material en un objecte 
             - Esther Ruano
-        - [X] Textura amb indirect mapping en un objecte
-            - Esther Ruano
         - [ ] Textura al pla base 
     - Adaptació a la lectura de fitxers de dades
         - [ ] Escenes virtuals 
@@ -59,8 +57,11 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
         - Núria Torquet
     - [X] La Tempesta de Fornite
         - Esther Ruano
+        
+- Opcionals
     - [ ] Èmfasi de siluetes 
-    - [ ] Mapping indirecte de textures
+    - [X] Mapping indirecte de textures
+         - Esther Ruano
     - [ ] Animacions amb dades temporals
     - [ ] Normal mapping 
     - [ ] Entorn amb textures
@@ -146,6 +147,13 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
     * **Quina diferència hi ha entre el Phong-shading i el Gouraud-shading? On l'has de codificar? Necessites uns nous vertex-shader i fragment-shader? Raona on es calcula la il·luminació i modifica convenientment els fitxers de la pràctica.**
         La diferència principal és que els shaders de Gouraud es calculen al vertex shader i llavors els fragments prenen valors interpolats. En canvi, en el Phong Shader, es calcula el valor per cada fragment, i per això s'ha de fer en el fragment shader. En tots el casos, per fer noves estratègies de shader es necessiten nous fitxers vertex-shader i fragment-shader.
     * **Cel-shading: On s'implementarà el càlcul del color per a tenir més trencament entre las games de colors? Necessites uns nous vertex-shader i fragment-shader? Raona on es calcula la il·luminació** 
+
+- Pas 4.1: Inclusió de textures
+    * Per implementar les textures hem creat un nou material, MATERIALTEXTURA, inspirant-nos en la primera pràctica. Té les mateixes característiques que un lambertian però a més incorpora una Textura. Hem creat de manera simètrica GPUMaterialTextura. 
+    
+      Per facilitar les comprovacions, a més, desem en un atribut ```type``` (de la classe GPUMesh) el tipus de material que és segons llegim al mètode ```read()```. És en funció d'aquest atribut que s'envia o no el vector de textures, i s'assigna un valor de cert o fals a la variable uniforme ```hasTexture```; des del mètode ```toGPU()``` de GPUMesh. 
+      
+      Els shaders que permeten veure les textures són Gouraud (Phong i Blinn Phong), Phong i BlinnPhong
         
 - FASE 2:
     - Pas 1.1: Visió Nocturna o Target amb cercle verd
@@ -154,7 +162,17 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
             El càlcul es fa a nivell de viewport, passant com a variable uniform la mida horitzontal i vertical del viewport en coordenades de pixels i el seu radi. Aleshores es calcula la distància entre el píxel actual en el fragment shader i el del centre de l'escena, i es compara amb el radi.
         * **Com aconseguiries que els píxels de fons inclosos en el cercle de visió nocturna es pintessin també de color verd?** 
             S'hauria d'incloure un pla en el punt més allunyat de la capsa contenidora per a que el framgnet shader detectés els píxels de fons i poder-los així pintar de verd.
-    
+     - Pas 1.2: La tempesta de Fornite
+        * **Considera quants parells de vèrtex-fragment shaders has d’usar, a on cal considerar el test amb l’esfera, etc.**
+
+            Farem servir tres parells de vèrtex-fragment shaders: BlinnPhong pels objectes completament exteriors, una modificació de Gouraud (que posa el valor de blau de la component difusa a 1) pels objectes interiors i un de mixt que en funció de la distància de cada vèrtex al centre de l'esfera calcula Gouraud blavós o Blinn Phong. 
+            
+            El radi de l'esfera es decideix al mètode calculaRadi() de la classe GPUScene, i hem decidit que sigui el mínim entre 1/3 del diàmetre de l'escena i 90. 
+            
+            És GLWidget qui activa cada un dels shaders i envia els elements de dins, fora i interesectas amb l'esfera fent servir tres mètodes toGPU creats a GPUScene especialment per això: ```toGPUIn(), toGPUOut() i toGPUIntersect()```
+        
+- OPCIONALS:
+    - Textures indirectes: hem fet el càlcul del mapejat a CPU, no GPU, en funció de la variable indirectMapping que llegim dels arxius JSON i de la qual en suposem un valor fals per defecte.
 
 **Screenshots de cada part**    
 - Pas 3.1: Creació de diferents tipus de shadings 
