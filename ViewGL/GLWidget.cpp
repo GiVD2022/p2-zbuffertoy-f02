@@ -302,6 +302,14 @@ void GLWidget::activaBlinnPhongShader() {
 
 void GLWidget::activaToonShader() {
     //TO DO: Pràctica 2:  implementar a la fase 1
+    GLShader *glshader = new GLShader("://resources/GPUshaders/vshader_toon.glsl", "://resources/GPUshaders/fshader_toon.glsl", program);
+    if (glshader != nullptr) {
+        program->link();
+        program->bind();
+    }
+    auto sc = Controller::getInstance()->getScene();
+    sc->toGPU(program);
+    updateGL();
     qDebug()<<"Estic a Toon";
 }
 
