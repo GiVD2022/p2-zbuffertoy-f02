@@ -21,6 +21,22 @@
     {
   "name": "Br Objecte",
   "type":  "MESH",
+    "objFileName": "://resources/models/sphere0.obj",
+    "indirectMapping": true,
+    "material": {
+      "type": "materialtextura",
+      "textureFile":"://resources/textures/bricks.png",
+      "ka": [1, 0.2, 0.2],
+      "kd": [0.1,0.6,1],
+      "ks": [0.2, 0.7, 1],
+      "shininess": 10.0,
+      "kt": [0.0, 0.0, 0.0],
+      "nut": 1
+      }
+    },
+    {
+  "name": "Br Objecte",
+  "type":  "MESH",
   "objFileName": "://resources/models/capsule.obj",
     "material": {
       "type": "materialtextura",

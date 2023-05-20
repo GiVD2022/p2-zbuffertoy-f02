@@ -32,5 +32,8 @@
         <file>resources/GPUshaders/fshader_storm_intersect.glsl</file>
         <file>resources/GPUshaders/fshader_nightvision.glsl</file>
         <file>resources/GPUshaders/vshader_nightvision.glsl</file>
+        <file>resources/GPUshaders/fshader_toon.glsl</file>
+        <file>resources/GPUshaders/vshader_toon.glsl</file>
+        <file>resources/GPUshaders/vshader_blue_gouraud.glsl</file>
     </qresource>
 </RCC>
