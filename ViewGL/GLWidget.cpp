@@ -342,8 +342,15 @@ void GLWidget::activaNightVision() {
 
     // Step 3: Choose a scale factor for the plane
     float planeSize = 5.0;
+    auto capsaMinima = sc->capsaMinima;
 
-    float distanceToMove = 4.0f;
+    // Compute the position of the fitted plane at the back of the bounding box
+    vec3 position = capsaMinima.pmin + vec3(capsaMinima.a, capsaMinima.h, capsaMinima.p);
+
+    // Determine the distance to move for the plane based on its position
+    vec3 cameraPosition = vec3(camera->origin.x, camera->origin.y, camera->origin.z);/* Obtain the camera's position */;
+    vec3 cameraToPlane = position - cameraPosition;
+    float distanceToMove = length(cameraToPlane);
 
     // Move the plane behind the scene
     vec3 center = planeNormal * (distanceToMove + camera->distancia);
