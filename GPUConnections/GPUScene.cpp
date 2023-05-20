@@ -32,6 +32,15 @@ void GPUScene::setBaseObject(shared_ptr<GPUObject> base) {
     }
 }
 
+void GPUScene::removeBaseObject(shared_ptr<GPUObject> base) {
+    if (basePlane == base) {
+        basePlane.reset();
+        objects.erase(std::remove(objects.begin(), objects.end(), base), objects.end());
+        calculCapsaMinCont3DEscena();
+        calculaRadi();
+    }
+}
+
 /**
  * @brief GPUScene::addObject
  * @param obj
@@ -171,14 +180,20 @@ void GPUScene::toGPUIntersect(shared_ptr<QGLShaderProgram> p) {
  * @brief GPUScene::draw
  */
 void GPUScene::draw() {
+    // Draw the fitted plane first
+    if (basePlane) {
+        basePlane->draw();
+    }
 
-    for(unsigned int i=0; i < objects.size(); i++){
-        if (dynamic_pointer_cast<GPUObject>(objects.at(i))) {
-                auto obj = objects.at(i);
-                obj->draw();
+    // Draw the remaining objects
+    for(unsigned int i = 0; i < objects.size(); i++){
+        if (dynamic_pointer_cast<GPUObject>(objects.at(i)) && objects.at(i) != basePlane) {
+            auto obj = objects.at(i);
+            obj->draw();
         }
     }
 }
+
 
 /**
  * @brief GPUScene::calculCapsaMinCont3DEscena
@@ -216,4 +231,27 @@ void GPUScene::calculCapsaMinCont3DEscena()
     capsaMinima.a = pmax[0]-capsaMinima.pmin[0];
     capsaMinima.h = pmax[1]-capsaMinima.pmin[1];
     capsaMinima.p = pmax[2]-capsaMinima.pmin[2];
+}
+
+void GPUScene::removeFittedPlanes() {
+    vector<shared_ptr<GPUObject>> objectsToRemove;
+
+    for (const auto& obj : objects) {
+        if (dynamic_pointer_cast<GPUFittedPlane>(obj)) {
+            objectsToRemove.push_back(obj);
+        }
+    }
+
+    for (const auto& obj : objectsToRemove) {
+        removeObject(obj);
+    }
+}
+
+void GPUScene::removeObject(shared_ptr<GPUObject> obj) {
+    auto it = find(objects.begin(), objects.end(), obj);
+    if (it != objects.end()) {
+        objects.erase(it);
+        calculCapsaMinCont3DEscena();
+        calculaRadi();
+    }
 }

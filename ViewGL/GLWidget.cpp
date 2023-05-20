@@ -381,12 +381,17 @@ void GLWidget::activaNightVision() {
     vec3 pmax = center + (u + v) * planeSize;
     qDebug()<<"Max point of the fitted plane" << pmax.x << pmax.y << pmax.z;
 
+
+
     // Create the GPUFittedPlane with pmin and pmax
     shared_ptr<GPUObject> gpuObject = make_shared<GPUFittedPlane>(pmin, pmax);
-
+    // Remove any existing fitted planes from the scene
+    sc->removeFittedPlanes();
+    sc->removeBaseObject(gpuObject);
+    sc->setBaseObject(gpuObject);
     sc->addObject(gpuObject);
-    updateShader();
 
+    updateShader();
     qDebug() << "Estic a Night Vision";
 }
 
