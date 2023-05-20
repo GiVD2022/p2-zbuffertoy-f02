@@ -15,6 +15,6 @@ void main()
     }else{
         colorOut = color;
     }
-    //colorOut = vec4(v_texcoord.x, v_texcoord.y, 0.0, 1.0);
+    //colorOut = vec4(texture(texMap, v_texcoord).rgb, 1.0f);
 }
 

@@ -102,6 +102,7 @@ void GPUSceneFactoryData::read(const QJsonObject &json)
     }
 
     mapping = make_shared<VisualMapping>();
+
     mapping->read(json);
     if (json.contains("attributes") && json["attributes"].isArray()) {
       QJsonArray attributeMappingsArray = json["attributes"].toArray();
@@ -111,6 +112,7 @@ void GPUSceneFactoryData::read(const QJsonObject &json)
           readData(propObject);
       }
     }
+
 }
 //! [0]
 

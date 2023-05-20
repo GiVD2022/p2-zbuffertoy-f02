@@ -2,7 +2,7 @@
 
 GPUFittedPlane::GPUFittedPlane()
 {
-
+    make();
 }
 
 GPUFittedPlane::GPUFittedPlane(vec3 pmin, vec3 pmax): FittedPlane(pmin, pmax)
@@ -128,8 +128,8 @@ void GPUFittedPlane::draw()
         glDisableVertexAttribArray(2);
     }
 
-    //glDisable( GL_DEPTH_TEST );
-    //glDisable(GL_TEXTURE_2D);
+    glDisable( GL_DEPTH_TEST );
+    glDisable(GL_TEXTURE_2D);
 }
 bool GPUFittedPlane::hit(Ray& r, float tmin, float tmax, HitInfo& info) const
 {
