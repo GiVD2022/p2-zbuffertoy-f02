@@ -165,7 +165,8 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
             Amb aquestes dades, es pot calcular la distància entre el píxel actual en el fragment shader (gl_fragCoord) i el centre de l'escena, que està en el punt més allunyat de la capsa contenidora. La distància es calcula utilitzant la fórmula de la distància euclidiana entre dos punts.
             Finalment, es compara la distància amb el radi del cercle de visió. Si la distància és inferior o igual al radi, significa que el píxel està dins del cercle de visió i s'ha de pintar de color verd. En cas contrari, el píxel es pinta de color negre. 
             
-      * **Com aconseguiries que els píxels de fons inclosos en el cercle de visió nocturna es pintessin també de color verd?** 
+     * **Com aconseguiries que els píxels de fons inclosos en el cercle de visió nocturna es pintessin també de color verd?** 
+
             Per aconseguir que els píxels de fons inclosos en el cercle de visió nocturna es pintin de color verd, es pot afegir un pla en el punt més allunyat de la capsa contenidora de l'escena. Aquest pla s'anomenaria "pla de fons" i serviria com a superfície per als píxels de fons que estan més enllà dels objectes de l'escena. Aquest pla ha de ser perpendicular al vector de càmera per assegurar que cobreix tota la vista de fons. 
             
      - Pas 1.2: La tempesta de Fornite
