@@ -65,6 +65,9 @@ public:
     void draw() override;
 
     void calculCapsaMinCont3DEscena();
+    void removeFittedPlanes();
+    void removeObject(shared_ptr<GPUObject> obj);
+    void removeBaseObject(shared_ptr<GPUObject> base);
 
 private:
     void calculaRadi();
