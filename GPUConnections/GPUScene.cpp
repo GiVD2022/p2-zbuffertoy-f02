@@ -40,6 +40,34 @@ void GPUScene::addObject(shared_ptr<GPUObject> obj) {
     Scene::objects.push_back(obj);
     objects.push_back(obj);
     calculCapsaMinCont3DEscena();
+    calculaRadi();
+
+    /*
+    //Decidir en quin array va
+    auto capsaObj = obj->calculCapsa3D();
+    vec3 pMax = vec3(capsaObj.pmin.x + capsaObj.a, capsaObj.pmin.y + capsaObj.h, capsaObj.pmin.z + capsaObj.p);
+
+    vec3 centre = (pMax + capsaObj.pmin)/2.0;
+
+    // Distancia entre centres
+    float dist = length(centre);
+
+    // Si esta completament dins l'esfera
+    if( (dist + radi ) <= length(pMax - centre)){
+        objectsIn.push_back(obj);
+    // Si esta completament fora
+    } else if( (dist - radi ) > length(pMax - centre)){
+        objectsOut.push_back(obj);
+    } else {
+        objectsIntersect.push_back(obj);
+    }*/
+
+}
+
+void GPUScene::calculaRadi(){
+    vec3 pMax = vec3(capsaMinima.pmin.x + capsaMinima.a, capsaMinima.pmin.y + capsaMinima.h, capsaMinima.pmin.z + capsaMinima.p);
+    float r = length((capsaMinima.pmin - pMax))/3;
+    radi = qMin(90.f, r);
 }
 
 /**
@@ -51,9 +79,8 @@ void GPUScene::toGPU(shared_ptr<QGLShaderProgram> p) {
     // Un terç de l'escena
     program = p;
 
-    vec3 pMax = vec3(capsaMinima.pmin.x + capsaMinima.a, capsaMinima.pmin.y + capsaMinima.h, capsaMinima.pmin.z + capsaMinima.p);
-    float r = length((capsaMinima.pmin - pMax))/3;
-    float radi = qMin(90.f, r);
+    calculaRadi();
+
     program->setUniformValue("stormRadius", radi);
 
     for(unsigned int i=0; i < objects.size(); i++){

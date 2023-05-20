@@ -290,8 +290,20 @@ void GLWidget::activaBlinnPhongShader() {
 
 void GLWidget::activaTempestaFortnite() {
     //TO DO: Pràctica 2:  implementar a la fase 1
+
+    auto sc = Controller::getInstance()->getScene();
+
+    //Enviar els de fora
+
+    // Enviar els de dins
+
+
+    //enviar els del mig
     currentShader = 8;
-    updateShader();
+
+    shaders[currentShader]->activateShader();
+    sc->toGPU(shaders[currentShader]->program);
+    updateGL();
     qDebug()<<"Estic a Fortnite Shader";
 
 }

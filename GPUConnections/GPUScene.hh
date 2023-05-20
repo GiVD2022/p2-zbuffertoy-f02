@@ -27,6 +27,9 @@ public:
 
     // Vector d'objectes continguts a l'escena
     std::vector<shared_ptr<GPUObject>> objects;
+    std::vector<shared_ptr<GPUObject>> objectsIn;
+    std::vector<shared_ptr<GPUObject>> objectsOut;
+    std::vector<shared_ptr<GPUObject>> objectsIntersect;
 
     GPUScene();
 
@@ -51,12 +54,16 @@ public:
     // Pràctica 2 opcional: Posible objecte que no sigui un fitted plane: una esfera
     // void setBaseSphere(shared_ptr<Sphere> sphere);
 
-    void   addObject(shared_ptr<GPUObject> obj);
+    void addObject(shared_ptr<GPUObject> obj);
 
     void toGPU(shared_ptr<QGLShaderProgram> p) override;
     void draw() override;
 
     void calculCapsaMinCont3DEscena();
+
+private:
+    void calculaRadi();
+    float radi;
 
 };
 
