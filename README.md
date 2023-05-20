@@ -167,7 +167,7 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
             
          * **Com aconseguiries que els píxels de fons inclosos en el cercle de visió nocturna es pintessin també de color verd?** 
 
-            Per aconseguir que els píxels de fons inclosos en el cercle de visió nocturna es pintin de color verd, es pot afegir un pla en el punt més allunyat de la capsa contenidora de l'escena. Aquest pla s'anomenaria "pla de fons" i serviria com a superfície per als píxels de fons que estan més enllà dels objectes de l'escena. Aquest pla ha de ser perpendicular al vector de càmera per assegurar que cobreix tota la vista de fons. 
+            Per aconseguir que els píxels de fons inclosos en el cercle de visió nocturna es pintin de color verd, es pot afegir un pla en el punt més allunyat de la capsa contenidora de l'escena. Aquest pla s'anomenaria "pla de fons" i serviria com a superfície per als píxels de fons que estan més enllà dels objectes de l'escena. Aquest pla ha de ser perpendicular al vector de càmera per assegurar que cobreix tot el fons de l'escena. 
             
      - Pas 1.2: La tempesta de Fornite
         * **Considera quants parells de vèrtex-fragment shaders has d’usar, a on cal considerar el test amb l’esfera, etc.**
