@@ -8,7 +8,7 @@ GPUObject::GPUObject()
 void GPUObject::read (const QJsonObject &json){
     QTextStream(stdout) << "GPU Object READING:" << "\n";
     Object::read(json);
-    /*
+
     if(json.contains("material") && json["material"].isObject() ){
         QJsonObject auxMat = json["material"].toObject();
             if (auxMat.contains("type") && auxMat["type"].isString()) {
@@ -18,7 +18,7 @@ void GPUObject::read (const QJsonObject &json){
 
             }
     }
-    */
+
     gpumaterial->read(json);
 }
 
