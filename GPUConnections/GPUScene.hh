@@ -57,6 +57,11 @@ public:
     void addObject(shared_ptr<GPUObject> obj);
 
     void toGPU(shared_ptr<QGLShaderProgram> p) override;
+    void toGPUIn(shared_ptr<QGLShaderProgram> p);
+    void toGPUOut(shared_ptr<QGLShaderProgram> p);
+    void toGPUIntersect(shared_ptr<QGLShaderProgram> p);
+
+    void calculaInOutIntersect();
     void draw() override;
 
     void calculCapsaMinCont3DEscena();

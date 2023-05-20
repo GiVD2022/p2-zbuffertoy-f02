@@ -150,6 +150,8 @@ void GLWidget::initShadersGPU(){
     shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_nightvision.glsl", "://resources/GPUshaders/fshader_nightvision.glsl"));
     //Cell Shading 10
     shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_toon.glsl", "://resources/GPUshaders/fshader_toon.glsl"));
+    //Blue Gouraud 11
+    shaders.push_back(make_shared<GLShader>("://resources/GPUshaders/vshader_blue_gouraud.glsl", "://resources/GPUshaders/fshader_gouraud.glsl"));
 
     // Set default shader
     currentShader = 0;
@@ -292,17 +294,23 @@ void GLWidget::activaTempestaFortnite() {
     //TO DO: Pràctica 2:  implementar a la fase 1
 
     auto sc = Controller::getInstance()->getScene();
+    sc->calculaInOutIntersect();
 
-    //Enviar els de fora
-
-    // Enviar els de dins
-
-
-    //enviar els del mig
-    currentShader = 8;
-
+    // Enviar els de fora - Blinn phong
+    currentShader = 7;
     shaders[currentShader]->activateShader();
-    sc->toGPU(shaders[currentShader]->program);
+    sc->toGPUOut(shaders[currentShader]->program);
+
+    // Enviar els de dins - Blue Gouraud
+    currentShader = 11;
+    shaders[currentShader]->activateShader();
+    sc->toGPUIn(shaders[currentShader]->program);
+
+    // Enviar els del mig - Intersect
+    currentShader = 8;
+    shaders[currentShader]->activateShader();
+    sc->toGPUIntersect(shaders[currentShader]->program);
+
     updateGL();
     qDebug()<<"Estic a Fortnite Shader";
 

@@ -41,27 +41,38 @@ void GPUScene::addObject(shared_ptr<GPUObject> obj) {
     objects.push_back(obj);
     calculCapsaMinCont3DEscena();
     calculaRadi();
+}
 
-    /*
-    //Decidir en quin array va
-    auto capsaObj = obj->calculCapsa3D();
-    vec3 pMax = vec3(capsaObj.pmin.x + capsaObj.a, capsaObj.pmin.y + capsaObj.h, capsaObj.pmin.z + capsaObj.p);
+void GPUScene::calculaInOutIntersect(){
+    objectsIn.clear();
+    objectsOut.clear();
+    objectsIntersect.clear();
+    for(unsigned int i=0; i < objects.size(); i++){
+        if (dynamic_pointer_cast<GPUObject>(objects.at(i))) {
+                auto obj = objects.at(i);
+                //Decidir en quin array va
+                auto capsaObj = obj->calculCapsa3D();
+                vec3 pMax = vec3(capsaObj.pmin.x + capsaObj.a, capsaObj.pmin.y + capsaObj.h, capsaObj.pmin.z + capsaObj.p);
 
-    vec3 centre = (pMax + capsaObj.pmin)/2.0;
+                vec3 centre = (pMax + capsaObj.pmin)/2.0;
 
-    // Distancia entre centres
-    float dist = length(centre);
+                // Distancia entre centres
+                float dist = length(centre);
 
-    // Si esta completament dins l'esfera
-    if( (dist + radi ) <= length(pMax - centre)){
-        objectsIn.push_back(obj);
-    // Si esta completament fora
-    } else if( (dist - radi ) > length(pMax - centre)){
-        objectsOut.push_back(obj);
-    } else {
-        objectsIntersect.push_back(obj);
-    }*/
-
+                // Si esta completament dins l'esfera
+                if( (dist + length(pMax - centre) ) < radi ){
+                    qDebug() << "in\n";
+                    objectsIn.push_back(obj);
+                // Si esta completament fora
+                } else if( (dist - radi ) > length(pMax - centre)){
+                    qDebug() << "out\n";
+                    objectsOut.push_back(obj);
+                } else {
+                    qDebug() << "intersect\n";
+                    objectsIntersect.push_back(obj);
+                }
+        }
+    }
 }
 
 void GPUScene::calculaRadi(){
@@ -86,6 +97,71 @@ void GPUScene::toGPU(shared_ptr<QGLShaderProgram> p) {
     for(unsigned int i=0; i < objects.size(); i++){
         if (dynamic_pointer_cast<GPUObject>(objects.at(i))) {
                 auto obj = objects.at(i);
+                obj->toGPU(p);
+        }
+    }
+}
+
+
+/**
+ * @brief GPUScene::toGPU
+ */
+void GPUScene::toGPUIn(shared_ptr<QGLShaderProgram> p) {
+
+    // Envio el radi de la tempesta
+    // Un terç de l'escena
+    program = p;
+
+    calculaRadi();
+
+    program->setUniformValue("stormRadius", radi);
+
+    for(unsigned int i=0; i < objectsIn.size(); i++){
+        if (dynamic_pointer_cast<GPUObject>(objectsIn.at(i))) {
+                auto obj = objectsIn.at(i);
+                obj->toGPU(p);
+        }
+    }
+}
+
+/**
+ * @brief GPUScene::toGPU
+ */
+void GPUScene::toGPUOut(shared_ptr<QGLShaderProgram> p) {
+
+    // Envio el radi de la tempesta
+    // Un terç de l'escena
+    program = p;
+
+    calculaRadi();
+
+    program->setUniformValue("stormRadius", radi);
+
+    for(unsigned int i=0; i < objectsOut.size(); i++){
+        if (dynamic_pointer_cast<GPUObject>(objectsOut.at(i))) {
+                auto obj = objectsOut.at(i);
+                obj->toGPU(p);
+        }
+    }
+}
+
+
+/**
+ * @brief GPUScene::toGPU
+ */
+void GPUScene::toGPUIntersect(shared_ptr<QGLShaderProgram> p) {
+
+    // Envio el radi de la tempesta
+    // Un terç de l'escena
+    program = p;
+
+    calculaRadi();
+
+    program->setUniformValue("stormRadius", radi);
+
+    for(unsigned int i=0; i < objectsIntersect.size(); i++){
+        if (dynamic_pointer_cast<GPUObject>(objectsIntersect.at(i))) {
+                auto obj = objectsIntersect.at(i);
                 obj->toGPU(p);
         }
     }
