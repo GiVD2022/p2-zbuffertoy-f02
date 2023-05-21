@@ -239,9 +239,6 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
 
     * Phong-blinn-phong shading 
         <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/ef3e5f41-2509-41df-8170-2bbbf428aa05">
-        
-    * Cell shading 
-    ![image](https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/72074326/72f68660-e36b-4ed3-8208-6043ae01f88d)
 
         
         
