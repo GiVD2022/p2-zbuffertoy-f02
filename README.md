@@ -155,7 +155,9 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
         La diferència principal és que els shaders de Gouraud es calculen al vertex shader i llavors els fragments prenen valors interpolats. En canvi, en el Phong Shader, es calcula el valor per cada fragment, i per això s'ha de fer en el fragment shader. En tots el casos, per fer noves estratègies de shader es necessiten nous fitxers vertex-shader i fragment-shader.
     * **Cel-shading: On s'implementarà el càlcul del color per a tenir més trencament entre las games de colors? Necessites uns nous vertex-shader i fragment-shader? Raona on es calcula la il·luminació** 
         El càlcul de color s'implementa en el fragment shader per a que siguin més marcades les diferents franges. En cas que es calculés el color en el vertex shader el resultat seria el següent: 
-        ![image](https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/72074326/e4d253cb-11ce-460c-9aed-5d16835a6e73)
+        
+        <img width="400" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="assets/10_cell-shading-vertex.png">
+        
         Es necessiten nous vertex i fragment shaders. En el primer cas, perquè es produeixen una serie de càlculs (productes escalars entre la posició de la llum i la de la càmera) que dona com a resultat la variable alpha, que es passa al fragment shader. També és necessari un nou en aquest cas, perquè s'utilitza una estratègia completament diferent a les utilitzades anteriorment i per tant no es pot reutilitzar. Tant la iluminació com la variable alpha es calcula en el vertex shader per tal de reduir el nombre d'operacions a realitzar.
 
 
