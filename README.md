@@ -247,7 +247,7 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
 
         <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="assets/08_cell_shader.png">
 
-- Pas 4.1: Inclusió de textures
+- Pas 4: Inclusió de textures
 
     * Textures directes (meshWithTextures.json)
 
@@ -256,6 +256,16 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
     * [opcional] Textures indirectes (meshWithIndirectTextures.json) Notem que hi ha una esfera dins la càpsula per comprovar que amb el Fortnite shader es carreguen correctament els objectes de dins la tempesta
 
         <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="assets/12_indirectTextures.PNG">
+      
+ - Pas 5: Dades geolocalitzades
+
+    * Textures directes (data10.json)
+
+        <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="assets/14_gyzmos.PNG">
+        
+    * Textures a les dades geolocalitzades (data10MapBCN.json)
+
+        <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="assets/15_barcelona.PNG">
 
         
 - Pas 2.1: Visió Nocturna o Target amb cercle verd
