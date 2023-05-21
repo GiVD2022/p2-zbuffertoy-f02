@@ -1,0 +1,29 @@
+{
+    "scene": "Data10",
+    "typeScene": "REALDATA",
+    "base" : {
+        "type": "FITTEDPLANE",
+        "normal": [0.0, 1.0, 0.0],
+        "point": [0.0, 0.5, 0.0],
+        "pmin": [-10.0, -10.0],
+        "pmax": [10.0, 10.0],
+        "material": {
+            "type": "materialtextura",
+            "textureFile":"://resources/textures/bricks.png",
+            "ka": [0.2, 0.2, 1],
+            "kd": [1,0.6,0.5],
+            "ks": [1, 0.7, 0.7],
+            "shininess": 10.0,
+            "kt": [0.0, 0.0, 0.0],
+            "nut": 1
+        }
+    },
+    "Real": {
+      "minPoint": [2.0259, 41.3013],
+      "maxPoint": [2.2955,  41.4903]
+    },
+    "Virtual": {
+      "minPoint": [-10,  -0.5, -10],
+      "maxPoint": [ 10,  0.5,  10]
+    }
+}
