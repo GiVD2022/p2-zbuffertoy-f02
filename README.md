@@ -54,7 +54,6 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
     - Adaptació a la lectura de fitxers de dades
         - [X] Escenes virtuals 
             - Esther Ruano
-        - [ ] SetUp
         - [X] Escenes de dades 
             - Pau B.
 
