@@ -180,11 +180,16 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
             
             És GLWidget qui activa cada un dels shaders i envia els elements de dins, fora i interesectas amb l'esfera fent servir tres mètodes toGPU creats a GPUScene especialment per això: ```toGPUIn(), toGPUOut() i toGPUIntersect()```
         
-**Extensions addicionals**
-    - Tipus de llums: s'han inclòs tres tipus de llums: directional light, spot light i ambient light. A més, per a que l'usuari pugui interactuar ràpidament amb l'escena s'han afegit noves pestanyes a la ui per a modificar els valors de les llums. Ara bé, aquests paràmetres únicament es modificaran si prèviament l'usuari ha introduït la llum al vector de llums de l'escena a través de la calsse GLWidget. Als shaders es té en compte el tipus de llum amb els que s'està treballant, i computarà el color tenint en compte els paràmetres de cada llum en concret.
-    - Textures indirectes: hem fet el càlcul del mapejat a CPU, no GPU, en funció de la variable indirectMapping que llegim dels arxius JSON i de la qual en suposem un valor fals per defecte.
-    - Animacions de dades temporals: s'ha implementat l'animació de malles poligonals afegint les transformacions ```translateTG``` i ```scaleTG``` als vèrtex de la GPUMesh.
+**Extensions addicionals** 
+
+    - Tipus de llums: s'han inclòs tres tipus de llums: directional light, spot light i ambient light. A més, per a que l'usuari pugui interactuar ràpidament amb l'escena s'han afegit noves pestanyes a la ui per a modificar els valors de les llums. Ara bé, aquests paràmetres únicament es modificaran si prèviament l'usuari ha introduït la llum al vector de llums de l'escena a través de la calsse GLWidget. Als shaders es té en compte el tipus de llum amb els que s'està treballant, i computarà el color tenint en compte els paràmetres de cada llum en concret. 
+    
+    - Textures indirectes: hem fet el càlcul del mapejat a CPU, no GPU, en funció de la variable indirectMapping que llegim dels arxius JSON i de la qual en suposem un valor fals per defecte. 
+    
     - Pla afitat al shader night-vision: s'ha utilitzat el pla afitat implementat en el pas 5 de la fase 1 per a simular un fons en l'escena. S'ha calculat la seva normal a través del vector director de la càmera. I la seva posició amb el càlcul de la capsa mínima contenidora a GPUScene. En el cas que l'usuari seleccioni múltiples vegades l'activació del night-shader, únicament es generarà un pla de fons, eliminant el que hi havia prèviament.
+        
+    - Animacions de dades temporals: s'ha implementat l'animació de malles poligonals afegint les transformacions ```translateTG``` i ```scaleTG``` als vèrtex de la GPUMesh. 
+
 
 **Screenshots de cada part**    
 - Pas 3.1: Creació de diferents tipus de shadings 
