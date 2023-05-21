@@ -214,7 +214,7 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
     float c1 = 1.0;
     ```
     * Color shading 
-        <img width="855" alt="Captura de pantalla 2023-05-15 a las 18 52 31" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/95770cd0-7453-4d91-8cdd-2c012e467e6e">
+        <img width="855" alt="Captura de pantalla 2023-05-15 a las 18 52 31" src="assets/01_color_shader.png">
 
 
     * Depth shading 
