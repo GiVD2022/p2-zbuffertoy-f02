@@ -218,34 +218,34 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
 
 
     * Depth shading 
-        <img width="851" alt="Captura de pantalla 2023-05-15 a las 18 52 54" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/400e6c90-0e87-43be-94da-d2bd1a8849b2">
+        <img width="851" alt="Captura de pantalla 2023-05-15 a las 18 52 54" src="assets/03_depth_shader.png">
 
 
     * Normal shading 
-        <img width="855" alt="Captura de pantalla 2023-05-15 a las 18 52 38" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/18cc537f-2b1e-4c1b-82ec-695a3e67873f">
+        <img width="855" alt="Captura de pantalla 2023-05-15 a las 18 52 38" src="assets/02_normal_shader.png">
 
 
     * Gouraud-phong shading 
-        <img width="857" alt="Captura de pantalla 2023-05-15 a las 18 51 13" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/65613ae7-4d94-4a18-9e6a-adc9fc837a6c">
+        <img width="857" alt="Captura de pantalla 2023-05-15 a las 18 51 13" src="assets/04_gouraud_phong.png">
 
 
     * Phong-phong shading 
-        <img width="861" alt="Captura de pantalla 2023-05-15 a las 18 51 30" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/d0d52c75-2232-4e62-8920-933ae9a2c3ac">
+        <img width="861" alt="Captura de pantalla 2023-05-15 a las 18 51 30" src="assets/05_phong_phong.png">
 
        
     * Gouraud-blinn-phong shading 
-        <img width="857" alt="Captura de pantalla 2023-05-15 a las 18 51 39" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/e222c39d-9a09-4b64-a626-ec7c417e1219">
+        <img width="857" alt="Captura de pantalla 2023-05-15 a las 18 51 39" src="assets/06_gouraud_blinnphong.png">
 
 
     * Phong-blinn-phong shading 
-        <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/ef3e5f41-2509-41df-8170-2bbbf428aa05">
+        <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="assets/07_phong_blinnphong.png">
         
     * Cell shading 
-    ![image](https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/72074326/72f68660-e36b-4ed3-8208-6043ae01f88d)
+        <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="assets/08_cell_shader.png">
 
         
         
 - Pas 1.1: Visió Nocturna o Target amb cercle verd
-    <img width="860" alt="Captura de pantalla 2023-05-21 a las 12 39 36" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/ec13b11c-e327-4e53-9165-0ae8e11d226a">
+    <img width="860" alt="Captura de pantalla 2023-05-21 a las 12 39 36" src="assets/09_night_vision.png">
 
     
