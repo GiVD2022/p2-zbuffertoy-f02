@@ -1,13 +1,15 @@
 # ZBufferToy
 Codi de la Pràctica 2 de GiVD: ZBufferToy 2022-23
-
-::
-
-    Aquest és el model base del README.rst que haureu d'omplir com a documentació de la pràctica. De cara a la presentació d'aquests document, si us plau, esborreu les notes i aquest text. 
     
 **Abstract**
 
-Petit resum de fins on heu arribat a fer
+Aquesta pràctica té com a objectiu principal adaptar algunes funcionalitats de la pràctica anterior de Raytracing utilitzant mètodes projectius a la GPU (ZBuffer). S'ha realitzat la visualització d'objectes representats mitjançant malles triangulars amb materials lambertians i textures, tant directes com indirectes, per obtenir escenes d'alta fidelitat i realistes. S'ha incorporat un conjunt ampli de llums per a millorar la il·luminació de les escenes i s'ha modificat el codi per a carregar escenes de dades temporals i reals (gizmos). A més, la inclusió d'un pla acotat ha permès aportar un fons d'escena o terra sobre el qual mapejar els objectes.
+
+En segon lloc, també s'aprèn a usar els shaders per programar els models d'il·luminació. Es permet la visualització de l'escena amb diferents shaders actius en temps d'execució, que proporcionen diferents tipus d'il·luminació. Durant aquest procés, s'ha treballat en la transmissió de valors al vertex shader i al fragment shader per aconseguir els efectes d'il·luminació desitjats. A través d'aquests shaders s'han pogut explorar nous efectes visuals com la visió nocturna o la tempesta de Fortnite.
+
+A més de tot això, s'han desenvolupat algunes parts opcionals de la pràctica, com la implementació de tres tipus diferents de llums (spot light, ambient light i directional light), el mapping indirecte de textures i les animacions amb dades temporals.
+
+A través d'aquests objectius i funcionalitats, s'han adquirit coneixement sobre l'ús del ZBuffer i la GPU per a la visualització, permetent obtenir representacions d'escenes d'alta fidelitat i realistes amb materials, textures i una il·luminació variada.
 
 **Features**
 
@@ -62,7 +64,7 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
     - [ ] Èmfasi de siluetes 
     - [X] Mapping indirecte de textures
          - Esther Ruano
-    - [ ] Animacions amb dades temporals
+    - [X] Animacions amb dades temporals
     - [ ] Normal mapping 
     - [ ] Entorn amb textures
     - [ ] Reflexions
@@ -178,8 +180,16 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
             
             És GLWidget qui activa cada un dels shaders i envia els elements de dins, fora i interesectas amb l'esfera fent servir tres mètodes toGPU creats a GPUScene especialment per això: ```toGPUIn(), toGPUOut() i toGPUIntersect()```
         
-- OPCIONALS:
-    - Textures indirectes: hem fet el càlcul del mapejat a CPU, no GPU, en funció de la variable indirectMapping que llegim dels arxius JSON i de la qual en suposem un valor fals per defecte.
+**Extensions addicionals** 
+
+- Tipus de llums: s'han inclòs tres tipus de llums: directional light, spot light i ambient light. A més, per a que l'usuari pugui interactuar ràpidament amb l'escena s'han afegit noves pestanyes a la ui per a modificar els valors de les llums. Ara bé, aquests paràmetres únicament es modificaran si prèviament l'usuari ha introduït la llum al vector de llums de l'escena a través de la calsse GLWidget. Als shaders es té en compte el tipus de llum amb els que s'està treballant, i computarà el color tenint en compte els paràmetres de cada llum en concret. 
+
+- Textures indirectes: hem fet el càlcul del mapejat a CPU, no GPU, en funció de la variable indirectMapping que llegim dels arxius JSON i de la qual en suposem un valor fals per defecte. 
+
+- Pla afitat al shader night-vision: s'ha utilitzat el pla afitat implementat en el pas 5 de la fase 1 per a simular un fons en l'escena. S'ha calculat la seva normal a través del vector director de la càmera. I la seva posició amb el càlcul de la capsa mínima contenidora a GPUScene. En el cas que l'usuari seleccioni múltiples vegades l'activació del night-shader, únicament es generarà un pla de fons, eliminant el que hi havia prèviament.
+
+- Animacions de dades temporals: s'ha implementat l'animació de malles poligonals afegint les transformacions ```translateTG``` i ```scaleTG``` als vèrtex de la GPUMesh. 
+
 
 **Screenshots de cada part**    
 - Pas 3.1: Creació de diferents tipus de shadings 
@@ -222,9 +232,3 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
     * Phong-blinn-phong shading 
         <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/ef3e5f41-2509-41df-8170-2bbbf428aa05">
 
-        
-
-**Extensions addicionals**
-
-
-**Memòria**
