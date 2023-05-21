@@ -41,6 +41,7 @@ ObjectFactory::OBJECT_TYPES ObjectFactory::getObjectType( QString name) {
     if (name=="MESH") return OBJECT_TYPES::MESH;
     else if (name=="BOX") return OBJECT_TYPES::BOX;
     else if (name=="FITTEDPLANE") return OBJECT_TYPES::FITTEDPLANE;
+    else if (name=="SPHERE") return OBJECT_TYPES::SPHERE;
     else return  OBJECT_TYPES::MESH;
 }
 

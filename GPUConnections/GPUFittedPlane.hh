@@ -40,7 +40,6 @@ private:
     GPUMaterialFactory::MATERIAL_TYPES type;
 
     int Index; // index de control del numero de vèrtexs a passar a la GPU
-    int Index_n;
 
     void make(); // Funció per fer els triangles a partir de punts
     void setTexture(shared_ptr<QOpenGLTexture> t);

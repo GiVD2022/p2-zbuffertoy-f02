@@ -72,13 +72,13 @@ void FittedPlane::read (const QJsonObject &json)
     if (json.contains("pmin") && json["pmin"].isArray()) {
         QJsonArray auxVec = json["pmin"].toArray();
         pmin[0] = auxVec[0].toDouble();
-        pmin[1] = -2.0; // es llegeixen components x i z, la y se suposa plana
+        pmin[1] = -0.0; // es llegeixen components x i z, la y se suposa plana
         pmin[2] = auxVec[1].toDouble();
     }
     if (json.contains("pmax") && json["pmax"].isArray()) {
         QJsonArray auxVec = json["pmax"].toArray();
         pmax[0] = auxVec[0].toDouble();
-        pmax[1] = -2.0;
+        pmax[1] = -0.0;
         pmax[2] = auxVec[1].toDouble();
     }
     makeVertexs(pmin, pmax);

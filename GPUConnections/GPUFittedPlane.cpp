@@ -21,37 +21,23 @@ void GPUFittedPlane::make()
 {
     Index = 0;
     // Triangle 1
-    points[Index] = vertices[0]; normals[Index] = normal;
-    if (type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
-        textures[Index] = textVertexs[0];
-    }
-    Index++;
-    points[Index] = vertices[1]; normals[Index] = normal;
-    if (type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
-        textures[Index] = textVertexs[1];
-    }
-    Index++;
-    points[Index] = vertices[2]; normals[Index] = normal;
-    if (type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
-        textures[Index] = textVertexs[2];
-    }
-    Index++;
+    points[Index] = vertices[0]; normals[Index] = normal; Index++;
+    points[Index] = vertices[1]; normals[Index] = normal; Index++;
+    points[Index] = vertices[2]; normals[Index] = normal; Index++;
     // Triangle 2
-    points[Index] = vertices[0]; normals[Index] = normal;
+    points[Index] = vertices[0]; normals[Index] = normal; Index++;
+    points[Index] = vertices[2]; normals[Index] = normal; Index++;
+    points[Index] = vertices[3]; normals[Index] = normal; Index++;
+
     if (type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
-        textures[Index] = textVertexs[0];
+        Index = 0;
+        textures[Index] = textVertexs[0]; Index++;
+        textures[Index] = textVertexs[1]; Index++;
+        textures[Index] = textVertexs[2]; Index++;
+        textures[Index] = textVertexs[0]; Index++;
+        textures[Index] = textVertexs[2]; Index++;
+        textures[Index] = textVertexs[3]; Index++;
     }
-    Index++;
-    points[Index] = vertices[2]; normals[Index] = normal;
-    if (type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
-        textures[Index] = textVertexs[2];
-    }
-    Index++;
-    points[Index] = vertices[3]; normals[Index] = normal;
-    if (type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
-        textures[Index] = textVertexs[3];
-    }
-    Index++;
 
 }
 
@@ -108,6 +94,12 @@ void GPUFittedPlane::draw()
     glEnable(GL_TEXTURE_2D);
 
     gpumaterial->toGPU(program);
+    // send also whether it has texture or not
+    if(type == GPUMaterialFactory::MATERIAL_TYPES::MATERIALTEXTURA){
+        program->setUniformValue("hasTexture", true);
+    } else {
+        program->setUniformValue("hasTexture", false);
+    }
     glBindVertexArray(vao);
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);

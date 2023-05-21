@@ -50,6 +50,15 @@ shared_ptr<GPUMaterial> GPUMaterialFactory::createMaterial(vec3 a, vec3 d, vec3 
     return m;
 }
 
+GPUMaterialFactory::MATERIAL_TYPES GPUMaterialFactory::getIndexType(shared_ptr<Material> m) {
+    if (dynamic_pointer_cast<Lambertian>(m) != nullptr) {
+        QTextStream(stdout) << "A\n";
+        return MATERIAL_TYPES::LAMBERTIAN;
+    }
+    return MATERIAL_TYPES::LAMBERTIAN;
+}
+
+
 GPUMaterialFactory::MATERIAL_TYPES GPUMaterialFactory::getIndexType(shared_ptr<GPUMaterial> m) {
     if (dynamic_pointer_cast<GPULambertian>(m) != nullptr) {
         QTextStream(stdout) << "A\n";
