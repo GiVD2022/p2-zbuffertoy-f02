@@ -1,13 +1,15 @@
 # ZBufferToy
 Codi de la Pràctica 2 de GiVD: ZBufferToy 2022-23
-
-::
-
-    Aquest és el model base del README.rst que haureu d'omplir com a documentació de la pràctica. De cara a la presentació d'aquests document, si us plau, esborreu les notes i aquest text. 
     
 **Abstract**
 
-Petit resum de fins on heu arribat a fer
+Aquesta pràctica té com a objectiu principal adaptar algunes funcionalitats de la pràctica anterior de Raytracing utilitzant mètodes projectius a la GPU (ZBuffer). S'ha realitzat la visualització d'objectes representats mitjançant malles triangulars amb materials lambertians i textures, tant directes com indirectes, per obtenir escenes d'alta fidelitat i realistes. S'ha incorporat un conjunt ampli de llums per a millorar la il·luminació de les escenes i s'ha modificat el codi per a carregar escenes de dades temporals i reals (gizmos). A més, la inclusió d'un pla acotat ha permès aportar un fons d'escena o terra sobre el qual mapejar els objectes.
+
+En segon lloc, també s'aprèn a usar els shaders per programar els models d'il·luminació. Es permet la visualització de l'escena amb diferents shaders actius en temps d'execució, que proporcionen diferents tipus d'il·luminació. Durant aquest procés, s'ha treballat en la transmissió de valors al vertex shader i al fragment shader per aconseguir els efectes d'il·luminació desitjats. A través d'aquests shaders s'han pogut explorar nous efectes visuals com la visió nocturna o la tempesta de Fortnite.
+
+A més de tot això, s'han desenvolupat algunes parts opcionals de la pràctica, com la implementació de tres tipus diferents de llums (spot light, ambient light i directional light) i el mapping indirecte de textures.
+
+A través d'aquests objectius i funcionalitats, s'han adquirit coneixement sobre l'ús del ZBuffer i la GPU per a la visualització, permetent obtenir representacions d'escenes d'alta fidelitat i realistes amb materials, textures i una il·luminació variada.
 
 **Features**
 
