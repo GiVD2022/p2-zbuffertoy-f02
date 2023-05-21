@@ -48,7 +48,7 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
     - Textures
         - [X] Textura com material en un objecte 
             - Esther Ruano
-        - [ ] Textura al pla base 
+        - [X] Textura al pla base 
             - Pau B.
     - Adaptació a la lectura de fitxers de dades
         - [ ] Escenes virtuals 
