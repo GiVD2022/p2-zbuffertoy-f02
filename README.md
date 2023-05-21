@@ -49,10 +49,12 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
         - [X] Textura com material en un objecte 
             - Esther Ruano
         - [ ] Textura al pla base 
+            - Pau B.
     - Adaptació a la lectura de fitxers de dades
         - [ ] Escenes virtuals 
         - [ ] SetUp
-        - [ ] Escenes de dades 
+        - [X] Escenes de dades 
+            - Pau B.
 
 - Fase 2 
     - [X] Visió nocturna
