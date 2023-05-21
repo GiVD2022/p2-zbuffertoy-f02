@@ -64,7 +64,7 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
     - [ ] Èmfasi de siluetes 
     - [X] Mapping indirecte de textures
          - Esther Ruano
-    - [ ] Animacions amb dades temporals
+    - [X] Animacions amb dades temporals
     - [ ] Normal mapping 
     - [ ] Entorn amb textures
     - [ ] Reflexions
