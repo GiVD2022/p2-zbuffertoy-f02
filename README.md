@@ -68,6 +68,7 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
     - [X] Mapping indirecte de textures
          - Esther Ruano
     - [X] Animacions amb dades temporals
+        - Núria Torquet
     - [ ] Normal mapping 
     - [ ] Entorn amb textures
     - [ ] Reflexions
@@ -241,6 +242,7 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
         <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="assets/07_phong_blinnphong.png">
         
     * Cell shading 
+
         <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="assets/08_cell_shader.png">
 
         
