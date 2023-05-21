@@ -44,7 +44,8 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
             - Pau B.
         - [X] BlinnPhong-Phong
             - Núria Torquet
-        - [ ] Cel-shading
+        - [X] Cel-shading
+            - Pau H
     - Textures
         - [X] Textura com material en un objecte 
             - Esther Ruano
@@ -148,9 +149,14 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
         ```
         S'ha definit de tipus uniform, perquè no varia el seu valor d'un shader a un altre en la mateixa crida de rendering. El seu valor és uniforme en totes les invocacions.
     * **Si vols utilitzar diferents shaders en temps d'execució raona on s'inicialitzaran els shaders i com controlar quin shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader? I també la càmera?**
+        Hem canviat la variable program de GLWidget per un vector de GLShaders, i hem afegit un atribut program a GLShader. També hem afegit un atribut ```currentShader``` que és un enter i guarda la posició del shader actual dins del vector. Podríem guardar un shader o un program directament, però així es gasta menys memmòria. Llavors inicialitzem tots els shaders al principi, al mètode ```initShaders()``` i així ja els tenim compilats i llestos per ser usats (serà més ràpid canviar de shaders). Llavors per canviar de shader, cridem la funció ```updateShader()``` desprès de canviar el ```currentShader```. Aquest mètode activa el shader seleccionat i envia els dades a GPU. (Tornar a enviar l'escena és necessari, ja que al carregar el nou shader sha perdut la informació que ja hi havia.
     * **Quina diferència hi ha entre el Phong-shading i el Gouraud-shading? On l'has de codificar? Necessites uns nous vertex-shader i fragment-shader? Raona on es calcula la il·luminació i modifica convenientment els fitxers de la pràctica.**
         La diferència principal és que els shaders de Gouraud es calculen al vertex shader i llavors els fragments prenen valors interpolats. En canvi, en el Phong Shader, es calcula el valor per cada fragment, i per això s'ha de fer en el fragment shader. En tots el casos, per fer noves estratègies de shader es necessiten nous fitxers vertex-shader i fragment-shader.
     * **Cel-shading: On s'implementarà el càlcul del color per a tenir més trencament entre las games de colors? Necessites uns nous vertex-shader i fragment-shader? Raona on es calcula la il·luminació** 
+        El càlcul de color s'implementa en el fragment shader per a que siguin més marcades les diferents franges. En cas que es calculés el color en el vertex shader el resultat seria el següent: 
+        ![image](https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/72074326/e4d253cb-11ce-460c-9aed-5d16835a6e73)
+        Es necessiten nous vertex i fragment shaders. En el primer cas, perquè es produeixen una serie de càlculs (productes escalars entre la posició de la llum i la de la càmera) que dona com a resultat la variable alpha, que es passa al fragment shader. També és necessari un nou en aquest cas, perquè s'utilitza una estratègia completament diferent a les utilitzades anteriorment i per tant no es pot reutilitzar. Tant la iluminació com la variable alpha es calcula en el vertex shader per tal de reduir el nombre d'operacions a realitzar.
+
 
 - Pas 4.1: Inclusió de textures
     * Per implementar les textures hem creat un nou material, MATERIALTEXTURA, inspirant-nos en la primera pràctica. Té les mateixes característiques que un lambertian però a més incorpora una Textura. Hem creat de manera simètrica GPUMaterialTextura. 
@@ -233,6 +239,10 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
 
     * Phong-blinn-phong shading 
         <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/44063174/ef3e5f41-2509-41df-8170-2bbbf428aa05">
+        
+    * Cell shading 
+    ![image](https://github.com/GiVD2022/p2-zbuffertoy-f02/assets/72074326/72f68660-e36b-4ed3-8208-6043ae01f88d)
+
         
         
 - Pas 1.1: Visió Nocturna o Target amb cercle verd
