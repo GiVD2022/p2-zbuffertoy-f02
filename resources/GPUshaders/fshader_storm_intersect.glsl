@@ -112,7 +112,7 @@ void main()
         }
         vec3 newDiffuse;
         if(hasTexture){
-            newDiffuse = 0.5 * lightDiffuse + 0.5 * vec3(texture(texMap, v_texcoord).rgb);
+            newDiffuse = 0.25 * lightDiffuse + 0.75 * vec3(texture(texMap, v_texcoord).rgb);
         }else{
             newDiffuse = lightDiffuse;
         }
@@ -121,7 +121,7 @@ void main()
     } else {
         vec3 newDiffuse;
         if(hasTexture){
-            newDiffuse = 0.5 * lightDiffuseO + 0.5 * vec3(texture(texMap, v_texcoord).rgb);
+            newDiffuse = 0.25 * lightDiffuseO + 0.75 * vec3(texture(texMap, v_texcoord).rgb);
         }else{
             newDiffuse = lightDiffuseO;
         }

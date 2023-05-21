@@ -340,20 +340,59 @@ void GLWidget::activaTransparency() {
     qDebug()<<"Estic a Transparencia";
 }
 
+
 void GLWidget::activaNightVision() {
-    //TO DO: Pràctica 2:  implementar a la fase 2
     currentShader = 9;
+    auto sc = Controller::getInstance()->getScene();
+
+    shared_ptr<GPUCamera> camera = Controller::getInstance()->getSetUp()->getCamera();
+    vec4 cameraDirection = camera->vrp - camera->origin;
+    vec3 planeNormal = normalize(vec3(cameraDirection.x, cameraDirection.y, cameraDirection.z));
+
+    // Step 1: Find an arbitrary vector perpendicular to the plane normal
+    vec3 arbitraryVector;
+    if (abs(planeNormal.x) < 0.1 && abs(planeNormal.y) < 0.1)
+        arbitraryVector = vec3(1.0, 0.0, 0.0);  // Use the x-axis as an arbitrary vector
+    else
+        arbitraryVector = vec3(0.0, 1.0, 0.0);  // Use the y-axis as an arbitrary vector
+
+    // Step 2: Calculate two additional vectors on the plane
+    vec3 u = normalize(cross(planeNormal, arbitraryVector));
+    vec3 v = normalize(cross(planeNormal, u));
+
+    // Step 3: Choose a scale factor for the plane
+    float planeSize = 10.0;
+    auto capsaMinima = sc->capsaMinima;
+
+    // Compute the position of the fitted plane at the back of the bounding box
+    vec3 position = capsaMinima.pmin + vec3(capsaMinima.a, capsaMinima.h, capsaMinima.p);
+    qDebug()<<"Position of the fitted plane" << position.x << position.y << position.z;
+
+    // Determine the distance to move for the plane based on its position
+    vec3 cameraPosition = vec3(camera->origin.x, camera->origin.y, camera->origin.z);/* Obtain the camera's position */;
+    vec3 cameraToPlane = position - cameraPosition;
+    float distanceToMove = length(cameraToPlane);
+
+    // Move the plane behind the scene
+    vec3 center = cameraPosition + planeNormal * (distanceToMove + camera->distancia);
+    qDebug()<<"Center of the fitted plane" << center.x << center.y << center.z;
+    vec3 pmin = center - (u + v) * planeSize;
+    qDebug()<<"Min point of the fitted plane" << pmin.x << pmin.y << pmin.z;
+    vec3 pmax = center + (u + v) * planeSize;
+    qDebug()<<"Max point of the fitted plane" << pmax.x << pmax.y << pmax.z;
+
+
+
+    // Create the GPUFittedPlane with pmin and pmax
+    shared_ptr<GPUObject> gpuObject = make_shared<GPUFittedPlane>(pmin, pmax);
+    // Remove any existing fitted planes from the scene
+    sc->removeFittedPlanes();
+    sc->removeBaseObject(gpuObject);
+    sc->setBaseObject(gpuObject);
+    sc->addObject(gpuObject);
+
     updateShader();
-
-    //posar al fons de l'escana un pla. Podem agafar el pla més llunyà, radere l'escena ->
-    //depenent d'on estigui la càmera l'hauré de posar en un  lloc o un altre.
-    //Qui dona la normal del pla? vector perpendicular al point of view de la càmera
-    // Set the clear color to black
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    // Clear the color buffer to the clear color and the depth buffer
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    qDebug()<<"Estic a Night Vision";
+    qDebug() << "Estic a Night Vision";
 }
 
 
