@@ -52,7 +52,8 @@ A continuació s'indica quines parts s'han fet i qui les ha implementat
         - [X] Textura al pla base 
             - Pau B.
     - Adaptació a la lectura de fitxers de dades
-        - [ ] Escenes virtuals 
+        - [X] Escenes virtuals 
+            - Esther Ruano
         - [ ] SetUp
         - [X] Escenes de dades 
             - Pau B.
@@ -247,9 +248,20 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
 
         <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="assets/08_cell_shader.png">
 
+- Pas 4.1: Inclusió de textures
+
+    * Textures directes (meshWithTextures.json)
+
+        <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="assets/11_textures.PNG">
         
+    * [opcional] Textures indirectes (meshWithIndirectTextures.json) Notem que hi ha una esfera dins la càpsula per comprovar que amb el Fortnite shader es carreguen correctament els objectes de dins la tempesta
+
+        <img width="854" alt="Captura de pantalla 2023-05-15 a las 18 51 49" src="assets/12_indirectTextures.PNG">
+
         
-- Pas 1.1: Visió Nocturna o Target amb cercle verd
+- Pas 2.1: Visió Nocturna o Target amb cercle verd
     <img width="860" alt="Captura de pantalla 2023-05-21 a las 12 39 36" src="assets/09_night_vision.png">
 
+- Pas 2.2: La tempesta de Fortnite
+    <img width="860" alt="Captura de pantalla 2023-05-21 a las 12 39 36" src="assets/13_fornite_storm.PNG">
     
