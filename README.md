@@ -265,6 +265,6 @@ shader s'usa? Cal tornar a passar l'escena a la GPU quan es canvia de shader?**
 - Pas 2.2: La tempesta de Fortnite
     <img width="860" alt="Captura de pantalla 2023-05-21 a las 12 39 36" src="assets/13_fornite_storm.PNG">
 
-- Opcional 1: Animacions amb dades temporals
+- [opcional] Animacions amb dades temporals (meshAnimated.json) L'esfera experimenta una escalació amb raó 1.01 durant 11 frames i una translació amb vector de translació (-0.05, -0.05, -0.05) durant 9 frames.
     <img width="860" alt="Captura de pantalla 2023-05-21 a las 12 39 36" src="assets/ezgif.com-gif-maker(2).gif">
     
