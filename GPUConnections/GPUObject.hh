@@ -19,6 +19,7 @@ public:
     virtual void aplicaTG(shared_ptr<TG>) override = 0 ;
     bool translation = false;
     bool scale = false;
+    void setMaterial(shared_ptr<GPUMaterial> gpumat);
 
 protected:
     shared_ptr<GPUMaterial> gpumaterial;

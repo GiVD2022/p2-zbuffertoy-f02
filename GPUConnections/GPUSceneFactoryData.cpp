@@ -89,7 +89,7 @@ void GPUSceneFactoryData::read(const QJsonObject &json)
             o = GPUObjectFactory::getInstance().createObject(ObjectFactory::getInstance().getObjectType(objStr));
             o->read(jbase);
 
-            if (o) // Objectes base de l'escena (de moment només el pla afitat)
+            if (o) // Objectes base de l'escena
             {
                 if (objStr == "FITTEDPLANE")
                 {
@@ -102,6 +102,7 @@ void GPUSceneFactoryData::read(const QJsonObject &json)
     }
 
     mapping = make_shared<VisualMapping>();
+
     mapping->read(json);
     if (json.contains("attributes") && json["attributes"].isArray()) {
       QJsonArray attributeMappingsArray = json["attributes"].toArray();
@@ -111,6 +112,7 @@ void GPUSceneFactoryData::read(const QJsonObject &json)
           readData(propObject);
       }
     }
+
 }
 //! [0]
 
@@ -217,7 +219,7 @@ shared_ptr<GPUScene> GPUSceneFactoryData::visualMaps() {
             auto o = objectMaps(i, j);
 
             // TODO: Pràctica 2: Afegir els materials
-            //o->setMaterial(materialMaps(i, j));
+            o->GPUObject::setMaterial(materialMaps(i, j));
 
              // Afegir objecte a l'escena virtual ja amb el seu material corresponent
 			 scene->addObject(o);
@@ -246,8 +248,8 @@ shared_ptr<GPUMesh> GPUSceneFactoryData::objectMaps(int i, int j) { // m'he inve
                                           mapping->attributeMapping[i]->gyzmo));
 
     // Obtenim les dimensions del mon virtual
-    float mv_width = mapping->Vxmax - mapping->Vxmin -1;
-    float mv_depth = mapping->Vzmax - mapping->Vzmin -1 ;
+    float mv_width = mapping->Vxmax - mapping->Vxmin;
+    float mv_depth = mapping->Vzmax - mapping->Vzmin;
     //float mv_height = mapping->Vymax - mapping->Vymin;
 
     // Obtenim les dimensions del mon real
@@ -293,7 +295,7 @@ shared_ptr<GPUMesh> GPUSceneFactoryData::objectMaps(int i, int j) { // m'he inve
 }
 
 // TODO Pràctica 2: Fase 1
-/*shared_ptr<Material> GPUSceneFactoryData::materialMaps(int i,  int j) {
+shared_ptr<GPUMaterial> GPUSceneFactoryData::materialMaps(int i,  int j) {
 
     AttributeMapping *propinfo = mapping->attributeMapping[i];
 
@@ -304,17 +306,16 @@ shared_ptr<GPUMesh> GPUSceneFactoryData::objectMaps(int i, int j) { // m'he inve
 
 
     // TODO: Pràctica 2: Fase 1: Cal fer una Factory de GPU Materials
-    //auto tMat = GPUMaterialFactory::getInstance().getIndexType(propinfo->material);
+    auto tMat = GPUMaterialFactory::getInstance().getIndexType(propinfo->material);
 
     // Calcul de l'index de la paleta
     int idx = (int)(255.0*(valorDada-propinfo->minValue)/(propinfo->maxValue-propinfo->minValue));
 
-    // TODO: Pràctica 2: Fase 1: Cal fer una Factory de GPU Materials
-    //auto tMat = GPUMaterialFactory::getInstance().getIndexType(propinfo->material);
-
-   // return GPUMaterialFactory::getInstance().createMaterial(propinfo->material->Ka,
-   //                                                      cm->getColor(idx),
-   //                                                      propinfo->material->Ks,
-   //                                                      propinfo->material->shininess,
-   //                                                      propinfo->material->opacity, tMat);
-}*/
+   return GPUMaterialFactory::getInstance().createMaterial(propinfo->material->Ka,
+                                                            propinfo->material->Kd,
+                                                            propinfo->material->Ks,
+                                                            0.0f,
+                                                            propinfo->material->shininess,
+                                                            propinfo->material->opacity,
+                                                            0.0, tMat);
+}

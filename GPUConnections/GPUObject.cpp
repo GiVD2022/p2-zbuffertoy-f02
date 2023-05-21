@@ -44,3 +44,7 @@ void GPUObject::print(int indentation) const {
     gpumaterial->print(indentation+2);
 }
 
+void GPUObject::setMaterial(shared_ptr<GPUMaterial> gpumat){
+    gpumaterial = gpumat;
+}
+

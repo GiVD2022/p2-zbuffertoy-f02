@@ -14,7 +14,7 @@ public:
     GPUFittedPlane(vec3 pmin, vec3 pmax);
     GPUFittedPlane(const QString &fileName);
 
-    ~GPUFittedPlane(){}
+    ~GPUFittedPlane();
 
     virtual void toGPU(shared_ptr<QGLShaderProgram> p) override;
     virtual void draw() override;
@@ -25,6 +25,8 @@ public:
     Capsa3D calculCapsa3D() override;
     virtual void print(int indentation) const override;
 
+    void compute_indirect_mapping();
+
 private:
     // Estructures per passar a la GPU
     GLuint buffer;
@@ -32,10 +34,15 @@ private:
 
     vec4 points[6]; // els vèrtexs repetits
     vec4 normals[6];
+    vec2 textures[6];
+
+    shared_ptr<QOpenGLTexture> texture;
+    GPUMaterialFactory::MATERIAL_TYPES type;
 
     int Index; // index de control del numero de vèrtexs a passar a la GPU
-    int Index_n;
 
     void make(); // Funció per fer els triangles a partir de punts
+    void setTexture(shared_ptr<QOpenGLTexture> t);
+    void initTexture();
 };
 

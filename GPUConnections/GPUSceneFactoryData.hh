@@ -44,7 +44,7 @@ protected:
     shared_ptr<GPUScene>    visualMaps();
     virtual shared_ptr<GPUMesh>   objectMaps(int i, int j);
     // TODO: Pràctica 2: Fase 1
-    // virtual shared_ptr<GPUMaterial> materialMaps(int i, int j);
+    virtual shared_ptr<GPUMaterial> materialMaps(int i, int j);
 
 };
 

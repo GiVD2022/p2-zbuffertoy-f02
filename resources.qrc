@@ -35,5 +35,9 @@
         <file>resources/GPUshaders/fshader_toon.glsl</file>
         <file>resources/GPUshaders/vshader_toon.glsl</file>
         <file>resources/GPUshaders/vshader_blue_gouraud.glsl</file>
+        <file>resources/textures/mapBCN.png</file>
+        <file>resources/textures/mapDelta.png</file>
+        <file>resources/textures/mapZoom.png</file>
+        <file>resources/textures/europa.png</file>
     </qresource>
 </RCC>
