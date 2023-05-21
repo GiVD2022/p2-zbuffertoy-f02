@@ -7,7 +7,7 @@ Aquesta pràctica té com a objectiu principal adaptar algunes funcionalitats de
 
 En segon lloc, també s'aprèn a usar els shaders per programar els models d'il·luminació. Es permet la visualització de l'escena amb diferents shaders actius en temps d'execució, que proporcionen diferents tipus d'il·luminació. Durant aquest procés, s'ha treballat en la transmissió de valors al vertex shader i al fragment shader per aconseguir els efectes d'il·luminació desitjats. A través d'aquests shaders s'han pogut explorar nous efectes visuals com la visió nocturna o la tempesta de Fortnite.
 
-A més de tot això, s'han desenvolupat algunes parts opcionals de la pràctica, com la implementació de tres tipus diferents de llums (spot light, ambient light i directional light) i el mapping indirecte de textures.
+A més de tot això, s'han desenvolupat algunes parts opcionals de la pràctica, com la implementació de tres tipus diferents de llums (spot light, ambient light i directional light), el mapping indirecte de textures i les animacions amb dades temporals.
 
 A través d'aquests objectius i funcionalitats, s'han adquirit coneixement sobre l'ús del ZBuffer i la GPU per a la visualització, permetent obtenir representacions d'escenes d'alta fidelitat i realistes amb materials, textures i una il·luminació variada.
 
