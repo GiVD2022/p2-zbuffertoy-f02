@@ -55,16 +55,22 @@ public slots:
     void activaGouraudBlinnShader();
     void activaBlinnPhongShader();
     void activaToonShader();
+    void activaTempestaFortnite();
 
 
     void activaEnvMapping();
     void activaReflection();
     void activaTransparency();
+    void activaNightVision();
 
     void setPerspective(float nearPlane, float farPlane);
     void setLookAt(const QVector3D &eye, const QVector3D &center, const QVector3D& up);
-    void setLighting(const QVector3D &lightPos, const QVector3D &Ia, const QVector3D &Id,
+    void setPointLighting(const QVector3D &lightPos, const QVector3D &Ia, const QVector3D &Id,
                     const QVector3D &Is, const QVector3D &coefs);
+    void setSpotLighting(const QVector3D &lightPos, const QVector3D &Ia, const QVector3D &Id,
+                    const QVector3D &Is, const QVector3D &coefs, const float spotCosCutoff, const float spotExp);
+    void setDirLighting(const QVector3D &lightDir, const QVector3D &Ia, const QVector3D &Id,
+                               const QVector3D &Is, const float dirInt);
 
     // Acció per activar a cada update del timer
     void setCurrentFrame();
@@ -99,9 +105,10 @@ private:
 
     // TO DO: Pràctica 2: Fase 1: Per ara nomes es té un parell vertex-fragment
     // i cal estendre-ho a tenir mé parells
-    shared_ptr<QGLShaderProgram> program;
+    vector<shared_ptr<GLShader>> shaders;
+    int currentShader;
 
     void initShadersGPU();
+    void updateShader();
 
 };
-

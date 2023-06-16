@@ -1,0 +1,58 @@
+{
+"scene": "Data10",
+"typeScene": "REALDATA",
+"base" : {
+   "type": "FITTEDPLANE",
+   "normal": [0.0, 1.0, 0.0],
+   "point": [0.0, 0.5, 0.0],
+   "pmin": [-10.0, -10.0],
+   "pmax": [10.0, 10.0],
+   "material": {
+       "type": "materialtextura",
+       "textureFile":"://resources/textures/mapBCN.png",
+       "ka": [0.2, 0.2, 1],
+       "kd": [1,0.6,0.5],
+       "ks": [1, 0.7, 0.7],
+       "shininess": 10.0,
+       "kt": [0.0, 0.0, 0.0],
+       "nut": 1
+    }
+},
+"Real": {
+  "minPoint": [2.0259, 41.3013],
+  "maxPoint": [2.2955,  41.4903]
+},
+"Virtual": {
+  "minPoint": [-10,  -0.5, -10],
+  "maxPoint": [ 10,  0.5,  10]
+},
+"attributes": [
+{
+"name": "temperatura",
+"gyzmo": "sphere",
+"minValue": 0,
+"maxValue": 40,
+"colorMap": "COLOR_MAP_TYPE_PLASMA",
+"material": {
+    "type": "lambertian",
+    "ka": [0.2, 1.0, 0.2],
+    "kd": [0.0,1.0,0.05],
+    "ks": [0.7, 0.7, 0.7],
+    "shininess": 10.0,
+    "opacity": 1.0
+ },
+"data": [
+ [ 2.1, 41.31, 1],
+ [ 2.2, 41.32, 24],
+ [ 2.25, 41.35, 23.4],
+ [ 2.07, 41.45, 25],
+ [ 2.15, 41.4, 24],
+ [ 2.20, 41.35, 31],
+ [ 2.29, 41.37, 25],
+ [ 2.08, 41.43, 26],
+ [ 2.17, 41.42, 27],
+ [ 2.12, 41.47, 40]
+]
+}
+]
+}

@@ -3,6 +3,7 @@
 GPUSetUp::GPUSetUp()
 {
   camera = make_shared<GPUCamera>(500, 500);
+  this->setGlobalLight(vec3(0.3, 0.3, 0.3));
 }
 
 
@@ -50,6 +51,11 @@ void GPUSetUp::setLightActual(shared_ptr<GPULight> l){
     lights[lights.size()-1]=l;
 }
 
+
+void GPUSetUp::setLightIndex(shared_ptr<GPULight> l, int idx){
+    lights[idx]=l;
+}
+
 /**
  * @brief GPUSetUp::addLight
  * @param shared_ptr<Light> l
@@ -58,14 +64,16 @@ void GPUSetUp::addLight(shared_ptr<GPULight> l) {
     lights.push_back(l);
 }
 
-
-
 /**
  * @brief Scene::setAmbientToGPU
  * @param program
  */
 void GPUSetUp::setAmbientGlobalToGPU(shared_ptr<QGLShaderProgram> program){
     // Pràctica 2: TO DO: A implementar a la fase 1
+    GLuint idAmbientGlobal;
+    idAmbientGlobal = program->uniformLocation("ambientGlobal");
+    glUniform3fv(idAmbientGlobal, 1, globalLight);
+    //des d'on crido al toGPU? Comú a tots els objectes ->initializeGL
 
 }
 
@@ -75,6 +83,15 @@ void GPUSetUp::setAmbientGlobalToGPU(shared_ptr<QGLShaderProgram> program){
  */
 void GPUSetUp::lightsToGPU(shared_ptr<QGLShaderProgram> program){
     // Practica 2: TO DO: A implementar a la fase 1
+    // Declare a vector of gl_IdLight structures
+    int numLights = static_cast<int>(lights.size());
+
+    // Get the uniform locations for each of the properties for all 5 lights
+    for (int i = 0; i < numLights; i++) {
+        lights[i]->setIndex(i);
+        lights[i]->toGPU(program);
+
+    }
 
 }
 
@@ -150,5 +167,4 @@ void GPUSetUp::print(int indentation) const
     }
     QTextStream(stdout) << indent << "globalLight:\t" << globalLight[0] << ", "<< globalLight[1] << ", "<< globalLight[2] << "\n";
 }
-
 

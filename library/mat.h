@@ -15,8 +15,6 @@ const float DegreesToRadians = 0.01745329251;
 // Classe que conté utilitats de matrius i operacions entre matrius i vectors
 namespace Common {
 
-
-
 //----------------------------------------------------------------------------
 //
 //  mat2 - 2D square matrix
@@ -32,27 +30,23 @@ class mat2 {
     //
 
     mat2( const GLfloat d = GLfloat(1.0) )  // Create a diagional matrix
-    { _m[0].x = d;  _m[0].x = d;   }
+    { _m[0].x = d;  _m[1].y = d;   }
 
     mat2( const vec2& a, const vec2& b )
     { _m[0] = a;  _m[1] = b;  }
 
     mat2( GLfloat m00, GLfloat m10, GLfloat m01, GLfloat m11 )
-    { _m[0] = vec2( m00, m01 ); _m[1] = vec2( m10, m11 ); }
+    { _m[0] = vec2( m00, m10 ); _m[1] = vec2( m01, m11 ); }
+        // old version
+    // { _m[0] = vec2( m00, m01 ); _m[1] = vec2( m10, m11 ); }
 
     mat2( const mat2& m ) {
     if ( *this != m ) {
         _m[0] = m._m[0];
         _m[1] = m._m[1];
     }
-
     }
 
-    mat2& operator=(const mat2& m) {
-        _m[0] = m._m[0];
-        _m[1] = m._m[1];
-        return *this;
-    }
     //
     //  --- Indexing Operator ---
     //
@@ -133,7 +127,7 @@ class mat2 {
         }
     }
 
-    return *this = a;
+        return 	*this = a;
     }
 
     mat2& operator /= ( const GLfloat s ) {
@@ -219,9 +213,12 @@ class mat3 {
       GLfloat m01, GLfloat m11, GLfloat m21,
       GLfloat m02, GLfloat m12, GLfloat m22 )
     {
-        _m[0] = vec3( m00, m01, m02 );
-        _m[1] = vec3( m10, m11, m12 );
-        _m[2] = vec3( m20, m21, m22 );
+        _m[0] = vec3( m00, m10, m20 );
+        _m[1] = vec3( m01, m11, m21 );
+        _m[2] = vec3( m02, m12, m22 );
+        // _m[0] = vec3( m00, m01, m02 );
+        // _m[1] = vec3( m10, m11, m12 );
+        // _m[2] = vec3( m20, m21, m22 );
     }
 
     mat3( const mat3& m )
@@ -232,12 +229,7 @@ class mat3 {
         _m[2] = m._m[2];
         }
     }
-    mat3& operator=(const mat3& m) {
-        _m[0] = m._m[0];
-        _m[1] = m._m[1];
-        _m[2] = m._m[2];
-        return *this;
-    }
+
     //
     //  --- Indexing Operator ---
     //
@@ -412,10 +404,14 @@ class mat4 {
       GLfloat m02, GLfloat m12, GLfloat m22, GLfloat m32,
       GLfloat m03, GLfloat m13, GLfloat m23, GLfloat m33 )
     {
-        _m[0] = vec4( m00, m01, m02, m03 );
-        _m[1] = vec4( m10, m11, m12, m13 );
-        _m[2] = vec4( m20, m21, m22, m23 );
-        _m[3] = vec4( m30, m31, m32, m33 );
+        _m[0] = vec4( m00, m10, m20, m30 );
+        _m[1] = vec4( m01, m11, m21, m31 );
+        _m[2] = vec4( m02, m12, m22, m32 );
+        _m[3] = vec4( m03, m13, m23, m33 );
+        // _m[0] = vec4( m00, m01, m02, m03 );
+        // _m[1] = vec4( m10, m11, m12, m13 );
+        // _m[2] = vec4( m20, m21, m22, m23 );
+        // _m[3] = vec4( m30, m31, m32, m33 );
     }
 
     mat4( const mat4& m )
@@ -426,14 +422,6 @@ class mat4 {
         _m[2] = m._m[2];
         _m[3] = m._m[3];
         }
-    }
-
-    mat4& operator=(const mat4& m) {
-        _m[0] = m._m[0];
-        _m[1] = m._m[1];
-        _m[2] = m._m[2];
-        _m[3] = m._m[3];
-        return *this;
     }
 
     //
@@ -661,15 +649,6 @@ mat4 RotateZ( const GLfloat theta )
 //
 
 inline
-mat3 Translate( const GLfloat x, const GLfloat y)
-{
-    mat3 c;
-    c[0][3] = x;
-    c[1][3] = y;
-    return c;
-}
-
-inline
 mat4 Translate( const GLfloat x, const GLfloat y, const GLfloat z )
 {
     mat4 c;
@@ -695,14 +674,6 @@ mat4 Translate( const vec4& v )
 //
 //  Scale matrix generators
 //
-inline
-mat3 Scale( const GLfloat x, const GLfloat y)
-{
-    mat3 c;
-    c[0][0] = x;
-    c[1][1] = y;
-    return c;
-}
 
 inline
 mat4 Scale( const GLfloat x, const GLfloat y, const GLfloat z )
@@ -767,6 +738,7 @@ mat4 Frustum( const GLfloat left, const GLfloat right,
     c[2][2] = -(zFar + zNear)/(zFar - zNear);
     c[2][3] = -2.0*zFar*zNear/(zFar - zNear);
     c[3][2] = -1.0;
+    c[3][3] = 0.0;
     return c;
 }
 
@@ -783,6 +755,7 @@ mat4 Perspective( const GLfloat fovy, const GLfloat aspect,
     c[2][2] = -(zFar + zNear)/(zFar - zNear);
     c[2][3] = -2.0*zFar*zNear/(zFar - zNear);
     c[3][2] = -1.0;
+    c[3][3] = 0.0;
     return c;
 }
 
@@ -800,6 +773,32 @@ mat4 LookAt( const vec4& eye, const vec4& at, const vec4& up )
     vec4 t = vec4(0.0, 0.0, 0.0, 1.0);
     mat4 c = mat4(u, v, n, t);
     return c * Translate( -eye );
+}
+
+//----------------------------------------------------------------------------
+//
+// Generates a Normal Matrix
+//
+inline
+mat3 Normal( const mat4& c)
+{
+   mat3 d;
+   GLfloat det;
+
+   det = c[0][0]*c[1][1]*c[2][2]+c[0][1]*c[1][2]*c[2][1]+c[0][2]*c[1][0]*c[2][1]
+        -c[2][0]*c[1][1]*c[0][2]-c[1][0]*c[0][1]*c[2][2]-c[0][0]*c[1][2]*c[2][1];
+
+   d[0][0] = (c[1][1]*c[2][2]-c[1][2]*c[2][1])/det;
+   d[0][1] = -(c[1][0]*c[2][2]-c[1][2]*c[2][0])/det;
+   d[0][2] =  (c[1][0]*c[2][1]-c[1][1]*c[2][0])/det;
+   d[1][0] = -(c[0][1]*c[2][2]-c[0][2]*c[2][1])/det;
+   d[1][1] = (c[0][0]*c[2][2]-c[0][2]*c[2][0])/det;
+   d[1][2] = -(c[0][0]*c[2][1]-c[0][1]*c[2][0])/det;
+   d[2][0] =  (c[0][1]*c[1][2]-c[0][2]*c[1][1])/det;
+   d[2][1] = -(c[0][0]*c[1][2]-c[0][2]*c[1][0])/det;
+   d[2][2] = (c[0][0]*c[1][1]-c[1][0]*c[0][1])/det;
+
+  return d;
 }
 
 //----------------------------------------------------------------------------

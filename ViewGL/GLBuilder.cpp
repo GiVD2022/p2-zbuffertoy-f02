@@ -6,6 +6,7 @@ void GLBuilder::newObjFromFile()
     if (!fileName.isNull()) {
             // OJO! El primer paràmetre de la constructora de l'Object és el número de punts del model.
             // Si l'objecte té més punts en el .bj, cal canviar aquest valor
+        qDebug() << fileName ;
             shared_ptr<GPUMesh> obj = make_shared<GPUMesh>(100000, fileName);
             auto scene = Controller::getInstance()->getScene();
             scene->addObject(obj);

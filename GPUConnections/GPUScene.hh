@@ -8,6 +8,7 @@ using namespace Common;
 #include "GPUConnections/GPUConnectable.hh"
 #include "GPUConnections/GPUMesh.hh"
 #include "Model/Modelling/Scene.hh"
+#include "GPUConnections/GPUFittedPlane.hh"
 
 
 using namespace std;
@@ -25,13 +26,17 @@ public:
     Capsa3D capsaMinima;
 
     // Vector d'objectes continguts a l'escena
-    std::vector<shared_ptr<GPUMesh>> objects;
+    std::vector<shared_ptr<GPUObject>> objects;
+    std::vector<shared_ptr<GPUObject>> objectsIn;
+    std::vector<shared_ptr<GPUObject>> objectsOut;
+    std::vector<shared_ptr<GPUObject>> objectsIntersect;
 
     GPUScene();
 
 
     // TO DO: Pràctica 2: Fase 1 Incloure el Fitted Plane que es pugui passar a la GPU
-    //shared_ptr<GPUFittedPlane> basePlane;
+    shared_ptr<GPUFittedPlane> basePlane;
+    void setBaseObject(shared_ptr<GPUObject> base);
 
     // TODO: Pràctica 2: Fase 1
     // Constructora a utilitzar quan s'inicialitza una escena amb un pla base o
@@ -49,12 +54,24 @@ public:
     // Pràctica 2 opcional: Posible objecte que no sigui un fitted plane: una esfera
     // void setBaseSphere(shared_ptr<Sphere> sphere);
 
-    void   addObject(shared_ptr<GPUMesh> obj);
+    void addObject(shared_ptr<GPUObject> obj);
 
     void toGPU(shared_ptr<QGLShaderProgram> p) override;
+    void toGPUIn(shared_ptr<QGLShaderProgram> p);
+    void toGPUOut(shared_ptr<QGLShaderProgram> p);
+    void toGPUIntersect(shared_ptr<QGLShaderProgram> p);
+
+    void calculaInOutIntersect();
     void draw() override;
 
     void calculCapsaMinCont3DEscena();
+    void removeFittedPlanes();
+    void removeObject(shared_ptr<GPUObject> obj);
+    void removeBaseObject(shared_ptr<GPUObject> base);
+
+private:
+    void calculaRadi();
+    float radi;
 
 };
 

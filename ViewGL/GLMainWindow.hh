@@ -64,35 +64,116 @@ private slots:
 
     void on_lookUpZSpin_valueChanged(double arg1);
 
-    void on_lightPosXSpin_valueChanged(double arg1);
-
-    void on_lightPosYSpin_valueChanged(double arg1);
-
-    void on_lightPosZSpin_valueChanged(double arg1);
-
     void on_action_exit_triggered();
 
     void on_persNearSlider_valueChanged(int value);
 
     void on_persFarSlider_valueChanged(int value);
 
-    void on_lightId1Spin_valueChanged(double arg1);
 
-    void on_lightId2Spin_valueChanged(double arg1);
 
-    void on_lightId3Spin_valueChanged(double arg1);
 
-    void on_lightIa1Spin_valueChanged(double arg1);
+    // POINT LIGHT UI
+    void on_pointLightPosXSpin_valueChanged(double arg1);
 
-    void on_lightIa2Spin_valueChanged(double arg1);
+    void on_pointLightPosYSpin_valueChanged(double arg1);
 
-    void on_lightIa3Spin_valueChanged(double arg1);
+    void on_pointLightPosZSpin_valueChanged(double arg1);
 
-    void on_lightIs1Spin_valueChanged(double arg1);
+    void on_pointLightId1Spin_valueChanged(double arg1);
 
-    void on_lightIs2Spin_valueChanged(double arg1);
+    void on_pointLightId2Spin_valueChanged(double arg1);
 
-    void on_lightIs3Spin_valueChanged(double arg1);
+    void on_pointLightId3Spin_valueChanged(double arg1);
+
+    void on_pointLightIa1Spin_valueChanged(double arg1);
+
+    void on_pointLightIa2Spin_valueChanged(double arg1);
+
+    void on_pointLightIa3Spin_valueChanged(double arg1);
+
+    void on_pointLightIs1Spin_valueChanged(double arg1);
+
+    void on_pointLightIs2Spin_valueChanged(double arg1);
+
+    void on_pointLightIs3Spin_valueChanged(double arg1);
+
+    void on_pointLightCoefA_valueChanged(double arg1);
+
+    void on_pointLightCoefB_valueChanged(double arg1);
+
+    void on_pointLightCoefC_valueChanged(double arg1);
+
+    void setPointLight();
+
+
+    // SPOT LIGHT UI
+    void on_spotLightPosXSpin_valueChanged(double arg1);
+
+    void on_spotLightPosYSpin_valueChanged(double arg1);
+
+    void on_spotLightPosZSpin_valueChanged(double arg1);
+
+    void on_spotLightId1Spin_valueChanged(double arg1);
+
+    void on_spotLightId2Spin_valueChanged(double arg1);
+
+    void on_spotLightId3Spin_valueChanged(double arg1);
+
+    void on_spotLightIa1Spin_valueChanged(double arg1);
+
+    void on_spotLightIa2Spin_valueChanged(double arg1);
+
+    void on_spotLightIa3Spin_valueChanged(double arg1);
+
+    void on_spotLightIs1Spin_valueChanged(double arg1);
+
+    void on_spotLightIs2Spin_valueChanged(double arg1);
+
+    void on_spotLightIs3Spin_valueChanged(double arg1);
+
+    void on_spotLightSpotDir1_valueChanged(double arg1);
+
+    void on_spotLightSpotDir2_valueChanged(double arg1);
+
+    void on_spotLightSpotDir3_valueChanged(double arg1);
+
+    void on_spotLightCosCutoff_valueChanged(double arg1);
+
+    void on_spotLightExponent_valueChanged(double arg1);
+
+    void setSpotLight();
+
+    // DIRECTIONAL LIGHT UI
+
+    void on_dirLightDirXSpin_valueChanged(double arg1);
+
+    void on_dirLightDirYSpin_valueChanged(double arg1);
+
+    void on_dirLightDirZSpin_valueChanged(double arg1);
+
+    void on_dirLightId1Spin_valueChanged(double arg1);
+
+    void on_dirLightId2Spin_valueChanged(double arg1);
+
+    void on_dirLightId3Spin_valueChanged(double arg1);
+
+    void on_dirLightIa1Spin_valueChanged(double arg1);
+
+    void on_dirLightIa2Spin_valueChanged(double arg1);
+
+    void on_dirLightIa3Spin_valueChanged(double arg1);
+
+    void on_dirLightIs1Spin_valueChanged(double arg1);
+
+    void on_dirLightIs2Spin_valueChanged(double arg1);
+
+    void on_dirLightIs3Spin_valueChanged(double arg1);
+
+    void on_dirLightIntensity_valueChanged(double arg1);
+
+    void setDirLight();
+
 
     void setObsCamera(shared_ptr<GPUCamera> cam);
     void setFrustumCamera(shared_ptr<GPUCamera> cam);

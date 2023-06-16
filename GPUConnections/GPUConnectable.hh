@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <stdlib.h>
 #include <QGLShaderProgram>
 

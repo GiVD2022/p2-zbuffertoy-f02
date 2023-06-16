@@ -1,16 +1,18 @@
 #pragma once
 
-#include <library/Common.h>
+#include "library/Common.h"
 using namespace Common;
 
 #include <QOpenGLTexture>
 
-#include "GPUConnections/GPUConnectable.hh"
+#include "GPUObject.hh"
 #include "Model/Modelling/Objects/Mesh.hh"
+#include "GPUConnections/GPUMaterial.hh"
+#include "GPUMaterialFactory.hh"
 
-static int NUMPOINTS = 10000;
+static int NUMPOINTS = 100000;
 
-class GPUMesh : public Mesh, public GPUConnectable, public QObject
+class GPUMesh : public Mesh, public GPUObject
 {
 public:
 	GPUMesh();
@@ -21,9 +23,13 @@ public:
 
     virtual void toGPU(shared_ptr<QGLShaderProgram> p) override;
     virtual void draw() override;
-    Capsa3D calculCapsa3D();
+    Capsa3D calculCapsa3D() override;
+    bool hit(Ray& r, float tmin, float tmax, HitInfo& info) const override;
+    void aplicaTG(shared_ptr<TG>) override;
 
     void read(const QJsonObject &json) override;
+
+    void compute_indirect_mapping();
 private:
     // Estructures per passar a la GPU
     GLuint buffer;
@@ -33,17 +39,17 @@ private:
     int   numPoints;
     vec4 *points;
     vec4 *normals;
+    vec2 *textures;
 
-    // Els colors s'usen en la primera execució però després són prescindibles
-    vec4 *colors;
 
     int Index; // index de control del numero de vèrtexs a passar a la GPU
 
     shared_ptr<QOpenGLTexture> texture;
+    GPUMaterialFactory::MATERIAL_TYPES type;
 
     void make();
 
     void setTexture(shared_ptr<QOpenGLTexture> t);
     void initTexture();
-};
 
+};

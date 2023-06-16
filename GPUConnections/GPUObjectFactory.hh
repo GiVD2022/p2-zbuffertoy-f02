@@ -2,6 +2,7 @@
 
 #include "Model/Modelling/Objects/ObjectFactory.hh"
 #include "GPUConnections/GPUMesh.hh"
+#include "GPUConnections/GPUFittedPlane.hh"
 
 class GPUObjectFactory: public Singleton<GPUObjectFactory>
 {
@@ -13,9 +14,9 @@ private:
     virtual ~GPUObjectFactory() {}
 public:
 
-    virtual shared_ptr<Object> createObject(ObjectFactory::OBJECT_TYPES t);
+    virtual shared_ptr<GPUObject> createObject(ObjectFactory::OBJECT_TYPES t);
 
     // Crea un objecte gizmo per una data concreta
-    virtual shared_ptr<Object> createObject(  QString s, ObjectFactory::OBJECT_TYPES t);
+    virtual shared_ptr<GPUObject> createObject(  QString s, ObjectFactory::OBJECT_TYPES t);
 
 };

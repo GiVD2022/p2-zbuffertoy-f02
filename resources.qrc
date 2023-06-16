@@ -8,5 +8,36 @@
         <file>resources/assetsGUI/Background.png</file>
         <file>resources/assetsGUI/Ia.png</file>
         <file>resources/assetsGUI/3412784.png</file>
+        <file>resources/models/sphere0.obj</file>
+        <file>resources/GPUshaders/vshader_color.glsl</file>
+        <file>resources/GPUshaders/fshader_color.glsl</file>
+        <file>resources/GPUshaders/fshader_gouraud.glsl</file>
+        <file>resources/GPUshaders/vshader_gouraud_blinn_phong.glsl</file>
+        <file>resources/GPUshaders/vshader_gouraud_phong.glsl</file>
+        <file>resources/GPUshaders/fshader_depth.glsl</file>
+        <file>resources/GPUshaders/vshader_depth.glsl</file>
+        <file>resources/GPUshaders/fshader_normal.glsl</file>
+        <file>resources/GPUshaders/vshader_normal.glsl</file>
+        <file>resources/GPUshaders/fshader_phong_phong.glsl</file>
+        <file>resources/GPUshaders/vshader_phong_phong.glsl</file>
+        <file>resources/GPUshaders/vshader_phong_blinnphong.glsl</file>
+        <file>resources/GPUshaders/fshader_phong_blinnphong.glsl</file>
+        <file>resources/textures/2k_jupiter.jpg</file>
+        <file>resources/textures/bricks.png</file>
+        <file>resources/textures/capsule0.jpg</file>
+        <file>resources/models/capsule.obj</file>
+        <file>resources/models/suzanne.obj</file>
+        <file>resources/models/f16.obj</file>
+        <file>resources/GPUshaders/vshader_storm_intersect.glsl</file>
+        <file>resources/GPUshaders/fshader_storm_intersect.glsl</file>
+        <file>resources/GPUshaders/fshader_nightvision.glsl</file>
+        <file>resources/GPUshaders/vshader_nightvision.glsl</file>
+        <file>resources/GPUshaders/fshader_toon.glsl</file>
+        <file>resources/GPUshaders/vshader_toon.glsl</file>
+        <file>resources/GPUshaders/vshader_blue_gouraud.glsl</file>
+        <file>resources/textures/mapBCN.png</file>
+        <file>resources/textures/mapDelta.png</file>
+        <file>resources/textures/mapZoom.png</file>
+        <file>resources/textures/europa.png</file>
     </qresource>
 </RCC>

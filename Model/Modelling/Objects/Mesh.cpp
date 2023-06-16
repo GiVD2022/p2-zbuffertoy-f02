@@ -7,6 +7,7 @@ Mesh::Mesh(const QString &fileName): Object()
 {
     nom = fileName;
     load(fileName);
+    //material = new GPUMaterial
 }
 
 
@@ -17,7 +18,6 @@ Mesh::~Mesh() {
     if (cares.size() > 0) cares.clear();
     if (vertexs.size() > 0) vertexs.clear();
 }
-
 
 void Mesh::makeTriangles() {
     // Practica 1: TO DO Fase 1: A implementar
@@ -33,7 +33,20 @@ bool Mesh::hit(Ray &raig, float tmin, float tmax, HitInfo& info) const {
 
 
 void Mesh::aplicaTG(shared_ptr<TG> t) {
-    // Practica 1: TO DO: Fase 1
+    // Codi de la p1:
+    if (auto translateTG = dynamic_pointer_cast<TranslateTG>(t)) {
+        for (int i = 0; i < vertexs.size(); i++){ //v1 es un vec3 i un 1.0f, com es veu al load
+            vertexs[i] = translateTG->getTG() * vertexs[i];
+
+        }
+    } else if (auto scaleTG = dynamic_pointer_cast<ScaleTG>(t)) {
+        vec3 scale = scaleTG->scaling;
+        for (int i = 0; i < vertexs.size(); i++){ //v1 es un vec3 i un 1.0f, com es veu al load
+            // suposem la mesh centrada en l'origen
+            vec3 v1 = scale * (vec3(vertexs[i].x, vertexs[i].y, vertexs[i].z));
+            vertexs[i] = vec4(v1, 1.f);
+        }
+    }
 }
 
 void Mesh::load (QString fileName) {
@@ -98,6 +111,7 @@ void Mesh::load (QString fileName) {
 
                         cares.push_back(*face);
                     }
+
                 }
             }
             file.close();
@@ -109,13 +123,13 @@ void Mesh::load (QString fileName) {
 
 void Mesh::read (const QJsonObject &json)
 {
+    QTextStream(stdout) << "llegint a mesh";
     Object::read(json);
     if (json.contains("objFileName") && json["objFileName"].isString()) {
         nom = json["objFileName"].toString();
         load(nom);
     }
 }
-
 
 //! [1]
 void Mesh::write(QJsonObject &json) const
